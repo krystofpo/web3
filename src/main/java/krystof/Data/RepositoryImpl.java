@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 public class RepositoryImpl implements Repository {
     @Override
     public Note findOne(long id) {
-        return new Note("Mock");
+        return new Note("Mock", "Mocklabel");
     }
 }
