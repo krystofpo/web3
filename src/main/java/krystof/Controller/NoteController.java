@@ -1,8 +1,8 @@
 package krystof.Controller;
 
-import krystof.Data.Repository;
 import krystof.business.Note;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import krystof.business.NoteHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value="/")
 public class NoteController {
 
-    private Repository repository;
 
-    public NoteController(Repository repository) {
-        this.repository = repository;
+    private NoteHandler handler;
+
+    @Autowired
+    public NoteController(NoteHandler handler) {
+        this.handler = handler;
     }
 
     @RequestMapping(value="/note/{Id}", method = RequestMethod.GET)
     public @ResponseBody Note showNote(@PathVariable("Id") long id) {
-        return repository.findOne(id);
+        return handler.findOne(id);
     }
 
 
