@@ -1,12 +1,26 @@
 package krystof.business;
 
-/**
- * Created by polansky on 8.12.2017.
- */
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Note {
+
+
+
     private String note;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String label;
+
+    //kvuli JPA defaultni konsturkto
+    protected Note() {
+    }
 
     public Note(String note, String label) {
         this.note = note;
@@ -21,10 +35,13 @@ public class Note {
         this.note = note;
     }
 
+
+
     public Long getId() {
         return id;
     }
 
+    //asi kvuli JPA? nevim ozkouset i bez toho
     public void setId(Long id) {
         this.id = id;
     }

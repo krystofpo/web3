@@ -1,10 +1,12 @@
 package krystof.Data;
 
 import krystof.business.Note;
+import org.springframework.data.repository.CrudRepository;
 
-/**
- * Created by polansky on 8.12.2017.
- */
-public interface Repository {
-    Note findOne(long id);
+import java.util.List;
+
+
+public interface Repository extends CrudRepository<Note, Long>{
+
+    List<Note> findByLabel(String label);
 }
