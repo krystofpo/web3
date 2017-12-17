@@ -374,6 +374,8 @@ pro9blem je ze neznam jdbc url kam se mam pripojit
 consoel se pripoji kamkoliv i kdyz jdbc url je sptana
 
 jaka je srpvna?
+
+localhost:8080/h2/console
 JDBC URL: jdbc:h2:mem:testdb
 User Name: sa
 Pasword: <leave this empty>
@@ -462,3 +464,12 @@ pozn 2, labelA, labelC
 
 a najdu poznamky, ktere obsahuji labelA, vrati to pozn 1 a 2
 
+test noterepositroty
+problem kdyz mi vrati repository Notes, tak je nemuzu porovnat s poznamkama co jsem tam
+ulozil prootye note ma equals jenom pmoco atributu note a ne set of labels,
+takze kdyz se vrati bez labelu, test projde. musim but zmenit equals
+nebo v tesut naspat noovu metodu na porovnani
+equals builders co to je?
+varianta v tesu metodu
+
+nefunujge metod adelte all nevim proc nul pinter pritom je v mym repositorz

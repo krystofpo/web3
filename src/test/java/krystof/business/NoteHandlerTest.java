@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -28,7 +31,7 @@ public class NoteHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        when(mockRepository.findOne(anyLong())).thenReturn(new Note("mock2note", "mock2Label"));
+        when(mockRepository.findOne(anyLong())).thenReturn(new Note("mock2note", new HashSet<>(Arrays.asList(new Label("mock2Label")))));
     }
 
     @Test

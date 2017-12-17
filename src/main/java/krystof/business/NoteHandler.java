@@ -16,7 +16,8 @@ public class NoteHandler {
         System.out.println(repository.toString());
 //        return repository.findOne(id);
         repository.deleteAll();
-        repository.save(new Note("notePokus","pokus"));
-        return repository.findByLabel("pokus").get(0);
+//        repository.save(new Note("notePokus","pokus"));
+//        return repository.findByLabel("pokus").get(0);
+        return repository.findOne(id);
     }
 }

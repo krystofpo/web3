@@ -1,5 +1,6 @@
 package krystof.Controller;
 
+import krystof.business.Label;
 import krystof.business.Note;
 import krystof.business.NoteHandler;
 import org.junit.Before;
@@ -12,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Matchers.any;
@@ -38,7 +42,7 @@ public class NoteControllerTest {
 
     @Before
     public void setUp() throws Exception {
-when(handler.findOne(anyLong())).thenReturn(new Note("testMock", "testMock"));
+when(handler.findOne(anyLong())).thenReturn(new Note("testMock", new HashSet<Label>(Arrays.asList(new Label("necolabelMock")))));
 
     }
 

@@ -20,6 +20,10 @@ public class Label {
     protected Label() {
     }
 
+    public Label(String label) {
+        this.label = label;
+    }
+
     public Long getLabelId() {
         return labelId;
     }
