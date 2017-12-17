@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class RepositoryTest {
 
     @Autowired
-   private Repository repository;
+   private NoteRepository repository;
 
 
     @Test

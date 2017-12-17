@@ -1,6 +1,6 @@
 package krystof.business;
 
-import krystof.Data.Repository;
+import krystof.Data.NoteRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -25,7 +24,7 @@ public class NoteHandlerTest {
 
 
 @MockBean
-    private Repository mockRepository;
+    private NoteRepository mockRepository;
 
     @Before
     public void setUp() throws Exception {

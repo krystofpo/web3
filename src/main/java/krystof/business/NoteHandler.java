@@ -1,8 +1,7 @@
 package krystof.business;
 
-import krystof.Data.Repository;
+import krystof.Data.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,9 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteHandler {
     @Autowired
-    private Repository repository;
+    private NoteRepository repository;
 
     public Note findOne(long id) {
-        return repository.findOne(id);
+        System.out.println(repository.toString());
+//        return repository.findOne(id);
+        repository.deleteAll();
+        repository.save(new Note("notePokus","pokus"));
+        return repository.findByLabel("pokus").get(0);
     }
 }
