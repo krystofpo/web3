@@ -473,3 +473,23 @@ equals builders co to je?
 varianta v tesu metodu
 
 nefunujge metod adelte all nevim proc nul pinter pritom je v mym repositorz
+
+dal jsem do testu autowired nad repository a jede to. dalsi chyba
+
+hiernate vyhodit zenemuze uloyit do repo entitu a neco, anlejsem reseni
+musim pridat cascade do manay to many, viz projekt callicoder
+
+pustiljsem test a pise to ze se [pokousim uyit dtached entitz.
+v navodu je definovana taky repositorz na druhou entitu. pridam.
+je divne, ze repostroz mjai s antoaci rpeository, ale me to nfuguje i bey anotace
+ale musim umplementovat metodzy. ykusim to bey tooh. melo bz to oddedit.
+
+udela tjsem repositorz. ta asama chyba. ted udelam to co maji v ukazce, ze musim v java instanci nasdtavit
+obousmernou referenci.
+
+uz to bezi, ale spadloto na note ktera byla vylovena z databze fialed to lazily iniialize a collectinof role no sessip.
+zkusim tad dat fetch lazy
+viz navod na callicoder
+dvne dopnil jsem oboje na lazy podle navodu anefunguje to, na webu radi u jednoho dat eager.
+protze v novdou callicode nemaji kod ktery nahrava z db, takze to neni funkci, on jne uklada.
+dal jsem aega nad ownera a parada jede to.

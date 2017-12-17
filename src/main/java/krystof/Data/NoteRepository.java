@@ -13,10 +13,10 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
 
     //List<Note> findByLabel(String label);
 
-Note findOne(Long id);
-
-
-    void deleteAll();
-
-     Note save(Note note);
+// Note findOne(Long id);
+//
+//
+//    void deleteAll();
+//
+//     Note save(Note note);
 }

@@ -5,6 +5,7 @@ import krystof.business.Note;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +18,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class NoteRepositoryTest {
 
+    @Autowired
     private NoteRepository repository;
+
+
 
     @Before
     public void setUp() throws Exception {
@@ -42,21 +46,26 @@ vyvolat z repository, otestovat
         String labelAString = "labelA";
         Label labelA1 = new Label(labelAString);
 //        Label labelA2 = new Label("labelA");
-        Label labelC = new Label("labelC");
+//        Label labelC = new Label("labelC");
         Label labelB = new Label("labelB");
 
         Note note1 = new Note(
                 "note1", new HashSet<Label>(Arrays.asList(
                         labelA1, labelB)));
-        Note note2 = new Note(
-                "note2", new HashSet<Label>(Arrays.asList(
-                        labelA1, labelC)));
+
+        labelA1.setNotes(new HashSet<Note>());
+        labelB.setNotes(new HashSet<Note>());
+        labelA1.getNotes().add(note1);
+        labelB.getNotes().add(note1);
+//        Note note2 = new Note(
+//                "note2", new HashSet<Label>(Arrays.asList(
+//                        labelA1, labelC)));
 
         repository.deleteAll();
-
+//
 
         repository.save(note1);
-        repository.save(note2);
+//        repository.save(note2);
 
 
         Note actualNote = repository.findOne(1L);

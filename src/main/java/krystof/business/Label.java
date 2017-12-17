@@ -14,7 +14,13 @@ public class Label {
 
     private String label;
 
-    @ManyToMany(mappedBy = "labels")
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "labels")
     private Set<Note> notes;
 
     protected Label() {
@@ -60,5 +66,13 @@ public class Label {
     public int hashCode() {
 
         return Objects.hash(getLabel());
+    }
+
+    @Override
+    public String toString() {
+        return "Label{" +
+                "labelId=" + labelId +
+                ", label='" + label + '\'' +
+                '}';
     }
 }
