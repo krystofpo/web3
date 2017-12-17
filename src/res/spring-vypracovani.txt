@@ -5,10 +5,10 @@ Moej poznamky
 Login – mam udelat i frontend? Nejaka prihlasovaci strnka?
 Stranka vytovirt nebo hledani
 Na strance hlednai, vysledky, zobrizt odkazy na edit.
-Note – more than one label, jak bude entita mit vic nez jedno jmeno?
+Note – more than one labels, jak bude entita mit vic nez jedno jmeno?
 Dva zaznamy s ruznymi id, dve riuzna jmena a dva stjene popisy?
 
-Nebo  v db label co ma cizi klic a ten ukazuje na 2 labely? 
+Nebo  v db labels co ma cizi klic a ten ukazuje na 2 labely?
 
 Jak mam vytvorit databzi?
 Kde na jamym serveru? 
@@ -327,7 +327,7 @@ https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#h
 osetreni chyb s db?
 Vytvoreni tbaulkeka a cosntrainsitu?
 https://docs.spring.io/spring-data/jpa/docs/2.0.2.RELEASE/reference/html/
-ted se mi uklada entita sama do h2, stci dt save, zadna incializace db se nemusi delat dela to samo spring data jpa. Ted chci aby mohlo byt vic labelu na poznamku, cili asi list labelu, ale aby v db byla zvlast tabulka label, natavit foreign key. A one to many? ORM?
+ted se mi uklada entita sama do h2, stci dt save, zadna incializace db se nemusi delat dela to samo spring data jpa. Ted chci aby mohlo byt vic labelu na poznamku, cili asi list labelu, ale aby v db byla zvlast tabulka labels, natavit foreign key. A one to many? ORM?
 Budu k tomu cist refrenci spirng jpa data
 Repository to je rozisreno na crud rpeositor to je rozisreno na jpa repostiory
 
@@ -426,3 +426,39 @@ aby to bylo obousmerne, musi jedna strana byt
 owner, tzn ze entita ma anotaci join table
 a
 durha ma anotaci mapped by.
+
+
+
+
+
+dobre zdroje:
+
+http://www.springboottutorial.com/introduction-to-jpa-with-spring-boot-data-jpa
+
+
+dobre:
+https://www.callicoder.com/hibernate-spring-boot-jpa-many-to-many-mapping-example/
+
+https://docs.oracle.com/javaee/5/api/javax/persistence/ManyToMany.html
+
+tohle je dobre
+https://en.wikibooks.org/wiki/Java_Persistence/ManyToMany
+
+https://docs.oracle.com/javaee/6/api/javax/persistence/ManyToMany.html
+
+http://www.objectdb.com/api/java/jpa
+
+http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html
+
+i s testem, jak se to pouziva:
+https://hellokoding.com/jpa-one-to-many-relationship-mapping-example-with-spring-boot-maven-and-mysql/
+
+
+many to many relations hip
+anebo one to many jedna poznamka muze mit vice labelu
+
+napr pozn 1, labelA labelB
+pozn 2, labelA, labelC
+
+a najdu poznamky, ktere obsahuji labelA, vrati to pozn 1 a 2
+

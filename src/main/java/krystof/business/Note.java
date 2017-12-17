@@ -1,30 +1,33 @@
 package krystof.business;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Note {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="note_id")
+    private Long noteId;
 
     private String note;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String label;
+    @ManyToMany
+    @JoinTable(name="Note_Label",
+            joinColumns = @JoinColumn(name = "NoteId", referencedColumnName = "note_id"),
+            inverseJoinColumns = @JoinColumn(name = "LabelId", referencedColumnName = "label_id"))
+    private Set<Label> labels;
 
     //kvuli JPA defaultni konsturkto
     protected Note() {
     }
 
-    public Note(String note, String label) {
+    public Note(String note, Set<Label> labels) {
         this.note = note;
-        this.label = label;
+        this.labels = labels;
     }
 
     public String getNote() {
@@ -37,28 +40,28 @@ public class Note {
 
 
 
-    public Long getId() {
-        return id;
+    public Long getNoteId() {
+        return noteId;
     }
 
     //asi kvuli JPA? nevim ozkouset i bez toho
-    public void setId(Long id) {
-        this.id = id;
+    public void setNoteId(Long noteId) {
+        this.noteId = noteId;
     }
 
-    public String getLabel() {
-        return label;
+    public Set<Label> getLabels() {
+        return labels;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setLabels(Set<Label> labels) {
+        this.labels = labels;
     }
 
     @Override
     public String toString() {
         return "Note{" +
                 "note='" + note + '\'' +
-                ", label='" + label + '\'' +
+                ", labels='" + labels + '\'' +
                 '}';
     }
 
@@ -66,18 +69,13 @@ public class Note {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Note note = (Note) o;
-
-        if (!getNote().equals(note.getNote())) return false;
-        if (!getId().equals(note.getId())) return false;
-        return getLabel().equals(note.getLabel());
+        Note note1 = (Note) o;
+        return Objects.equals(getNote(), note1.getNote());
     }
 
     @Override
     public int hashCode() {
-        int result = getNote().hashCode();
-        result = 31 * result + getLabel().hashCode();
-        return result;
+
+        return Objects.hash(getNote());
     }
 }
