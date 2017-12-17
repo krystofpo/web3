@@ -15,7 +15,7 @@ public class Label {
     private String label;
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -73,6 +73,20 @@ public class Label {
         return "Label{" +
                 "labelId=" + labelId +
                 ", label='" + label + '\'' +
+                ", notes=" + getNoteNames() +
                 '}';
+    }
+
+    private String getNoteNames() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("");
+
+        if (notes != null) {
+            notes.stream()
+                    .forEach(note -> builder.append(note.getNote() + ";"));
+        }
+
+        return builder.toString();
     }
 }
