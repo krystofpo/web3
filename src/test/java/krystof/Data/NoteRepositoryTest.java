@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,7 +22,11 @@ public class NoteRepositoryTest {
     @Autowired
     private NoteRepository repository;
 
+    @Value("${nejakavar}")
+    private String neco;
 
+    @Value("${spring.h2.console.enabled}")
+    private boolean necob;
 
     @Before
     public void setUp() throws Exception {
@@ -72,7 +77,15 @@ vyvolat z repository, otestovat
 //        List<Note> actualNotes = repository.findByLabel(labelAString);
 //        assertTrue(actualNotes.size() == 2);
 //        assertTrue(actualNotes.containsAll(Arrays.asList(note1, note2)));
+
         System.out.println(actualNote);
+
+        System.out.println(neco);
+        System.out.println(necob);
+
+        Scanner scanner = new Scanner(System.in);
+//...
+        String name = scanner.nextLine();
 
         //todo ze jsou labely stjene pomoci arenotesequal
 

@@ -375,10 +375,20 @@ consoel se pripoji kamkoliv i kdyz jdbc url je sptana
 
 jaka je srpvna?
 
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 localhost:8080/h2/console
 JDBC URL: jdbc:h2:mem:testdb
 User Name: sa
 Pasword: <leave this empty>
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 uz to funguje
 
@@ -493,3 +503,25 @@ viz navod na callicoder
 dvne dopnil jsem oboje na lazy podle navodu anefunguje to, na webu radi u jednoho dat eager.
 protze v novdou callicode nemaji kod ktery nahrava z db, takze to neni funkci, on jne uklada.
 dal jsem aega nad ownera a parada jede to.
+
+zkusim jenom one to many.
+
+melo b y jit vypsat vsehcny labely. a kdyz ma label stejny label, tak by se nemel do db ulozit znovu.
+
+anebno to bude many to many unidirecitonal. label nebude mit referenci na note.
+
+kdyz pousitm test a dam debug, tak mi nejde pripojit od cnosele. dal jsem do testu
+readline, aby program enskoncil a trval. ale pripojeni nejde.
+nenti to tim, ye kdzy pousitm aplikaci tak se dejou jiny veci nez kdyz se posuti test?
+mohlo by to byt tim ze se nepusti application. properties?
+udelam test do app. prot dam nejakou pormennou a v testu ji vyvolam, jestloi bude
+pristupna.
+
+kdyztak to save dam az dovntir aplikace ane do testu a odo cnsoelse priji behem apliakce.
+
+nasle njsem navod ktery po uyiva comnad line runner, to se pusti po statu spirng bootu
+snad to nenarusi chod psring boot? bude fungovat palikace dal i kdyz dobehne
+metoda run v commnad line runer? pobeyi dal mvc mapiovani a databaze h2 v consoli?
+
+vyborne do app class jsem pridal ze impelmentuje ocmand line runner a tam dla prikayz
+a i kdzy prikayz dobehnou, tak consoel funguje dal. jeste mvc oykousim
