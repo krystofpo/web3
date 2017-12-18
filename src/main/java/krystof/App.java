@@ -28,32 +28,26 @@ public class App implements CommandLineRunner{
 
     @Override
     public void run(String...args) throws Exception {
-        System.out.println("bezim");
-        System.out.println(neco);
-        System.out.println(necob);
-
-        String labelAString = "labelA";
-        Label labelA1 = new Label(labelAString);
-//        Label labelA2 = new Label("labelA");
-//        Label labelC = new Label("labelC");
-        Label labelB = new Label("labelB");
-
-        Note note1 = new Note(
-                "note1", new HashSet<Label>(Arrays.asList(
-                labelA1, labelB)));
-
-        labelA1.setNotes(new HashSet<Note>());
-        labelB.setNotes(new HashSet<Note>());
-        labelA1.getNotes().add(note1);
-        labelB.getNotes().add(note1);
-//        Note note2 = new Note(
-//                "note2", new HashSet<Label>(Arrays.asList(
-//                        labelA1, labelC)));
-
-        repository.deleteAll();
+//        String labelAString = "labelA";
+//        Label labelA = new Label(labelAString);
 //
-
-        repository.save(note1);
+//        Label labelB = new Label("labelB");
+//
+//        Note note1 = new Note(
+//                "note1", new HashSet<Label>(Arrays.asList(
+//                labelA, labelB)));
+//
+//        repository.deleteAll();
+////
+//
+//        repository.save(note1);
+////        repository.save(note2);
+//
+//
+//        Note actualNote = repository.findOne(1L);
+////        List<Note> actualNotes = repository.oneNoteWithTwoLabels(labelAString);
+//
+//        System.out.println(actualNote);
 
     }
 

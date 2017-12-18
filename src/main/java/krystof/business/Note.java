@@ -20,9 +20,14 @@ public class Note {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE})
-    @JoinTable(name = "Note_Label",
-            joinColumns = @JoinColumn(name = "NoteId", referencedColumnName = "note_id"),
-            inverseJoinColumns = @JoinColumn(name = "LabelId", referencedColumnName = "label_id"))
+    @JoinTable(
+            name = "Note_Label",
+            joinColumns = @JoinColumn(
+                    name = "NoteId",
+                    referencedColumnName = "note_id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "LabelId",
+                    referencedColumnName = "label_id"))
     private Set<Label> labels;
 
     //kvuli JPA defaultni konsturkto
@@ -32,6 +37,10 @@ public class Note {
     public Note(String note, Set<Label> labels) {
         this.note = note;
         this.labels = labels;
+    }
+
+    public Note(String note) {
+        this(note, null);
     }
 
     public String getNote() {

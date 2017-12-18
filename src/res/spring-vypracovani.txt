@@ -525,3 +525,22 @@ metoda run v commnad line runer? pobeyi dal mvc mapiovani a databaze h2 v consol
 
 vyborne do app class jsem pridal ze impelmentuje ocmand line runner a tam dla prikayz
 a i kdzy prikayz dobehnou, tak consoel funguje dal. jeste mvc oykousim
+
+
+------ted to zmenim na many to many unidirecional. odstrnaim refeenci z labelu a
+taky upravim jpa anotaci a zkusim dat pryc fetch lazy a cacadovani.
+udelam to TDD. napred test a pak upravovat az to pujde.
+
+
+orpahn removla kdyz zbude label bez note, ili zadna note nebude referncova tlabael,
+tak by label taky mel bzt vzmyana.
+kdzy znova bude pridana naote a bude mit smazany label tak se label znova vztvori to nen iprobelm
+
+jak funguje cascade?
+fetch lazy?
+
+nefunguje test a kdzy to samy pusitm v apliakci tak je db obsahuje jednu note a actual note je ok
+ale v testu to nefungovlao, actual note byla praydna
+
+je to v tom ze kdyz se posuti test tak se pusti o command line runner a ten operuje
+s db a asi se to spousit nejak zaroven

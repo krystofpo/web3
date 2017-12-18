@@ -14,15 +14,6 @@ public class Label {
 
     private String label;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "labels")
-    private Set<Note> notes;
-
     protected Label() {
     }
 
@@ -46,14 +37,6 @@ public class Label {
         this.label = label;
     }
 
-    public Set<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Set<Note> notes) {
-        this.notes = notes;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,21 +55,7 @@ public class Label {
     public String toString() {
         return "Label{" +
                 "labelId=" + labelId +
-                ", label='" + label + '\'' +
-                ", notes=" + getNoteNames() +
-                '}';
+                ", label='" + label + '\'';
     }
 
-    private String getNoteNames() {
-
-        StringBuilder builder = new StringBuilder();
-        builder.append("");
-
-        if (notes != null) {
-            notes.stream()
-                    .forEach(note -> builder.append(note.getNote() + ";"));
-        }
-
-        return builder.toString();
-    }
 }

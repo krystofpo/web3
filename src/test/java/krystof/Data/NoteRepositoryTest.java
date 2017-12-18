@@ -33,7 +33,7 @@ public class NoteRepositoryTest {
     }
 
     @Test
-    public void findByLabel() {
+    public void oneNoteWithTwoLabels() {
 
         /*
         napred delete
@@ -49,22 +49,13 @@ vyvolat z repository, otestovat
 
 
         String labelAString = "labelA";
-        Label labelA1 = new Label(labelAString);
-//        Label labelA2 = new Label("labelA");
-//        Label labelC = new Label("labelC");
+        Label labelA = new Label(labelAString);
+
         Label labelB = new Label("labelB");
 
         Note note1 = new Note(
                 "note1", new HashSet<Label>(Arrays.asList(
-                        labelA1, labelB)));
-
-        labelA1.setNotes(new HashSet<Note>());
-        labelB.setNotes(new HashSet<Note>());
-        labelA1.getNotes().add(note1);
-        labelB.getNotes().add(note1);
-//        Note note2 = new Note(
-//                "note2", new HashSet<Label>(Arrays.asList(
-//                        labelA1, labelC)));
+                        labelA, labelB)));
 
         repository.deleteAll();
 //
@@ -74,18 +65,29 @@ vyvolat z repository, otestovat
 
 
         Note actualNote = repository.findOne(1L);
-//        List<Note> actualNotes = repository.findByLabel(labelAString);
+//        List<Note> actualNotes = repository.oneNoteWithTwoLabels(labelAString);
 //        assertTrue(actualNotes.size() == 2);
 //        assertTrue(actualNotes.containsAll(Arrays.asList(note1, note2)));
 
         System.out.println(actualNote);
 
-        System.out.println(neco);
-        System.out.println(necob);
+//pokus
+        //TODO
+//
+//        Label lA1=new Label("pokusA");
+//        Label lA2=new Label("pokusA");
+//        assertTrue(lA1.equals(lA2));
+//
+//
+//        String a1 = "pokusA";
+//        String a2 = "pokusA";
+//        Label lA3=new Label(a1);
+//        Label lA4=new Label(a2);
+//        assertTrue(lA3.equals(lA4));
+//
+//        assertTrue(lA3.equals(lA1));
 
-        Scanner scanner = new Scanner(System.in);
-//...
-        String name = scanner.nextLine();
+        assertTrue(areNotesEqual(note1, actualNote));
 
         //todo ze jsou labely stjene pomoci arenotesequal
 
