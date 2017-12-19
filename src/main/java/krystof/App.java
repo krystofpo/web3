@@ -17,14 +17,9 @@ import java.util.HashSet;
 @SpringBootApplication
 
 public class App implements CommandLineRunner{
+
     @Autowired
     private NoteRepository repository;
-
-    @Value("${nejakavar}")
-    private String neco;
-
-    @Value("${spring.h2.console.enabled}")
-    private boolean necob;
 
     @Override
     public void run(String...args) throws Exception {
@@ -55,13 +50,3 @@ public class App implements CommandLineRunner{
         SpringApplication.run(App.class, args);
     }
 }
-
-//@Component
-//public class CommandLineAppStartupRunner implements CommandLineRunner {
-//    private static final Logger logger = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
-//
-//    @Override
-//    public void run(String...args) throws Exception {
-//        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
-//    }
-//}

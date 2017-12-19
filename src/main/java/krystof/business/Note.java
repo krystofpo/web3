@@ -81,13 +81,17 @@ public class Note {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Note note1 = (Note) o;
-        return Objects.equals(getNote(), note1.getNote());
+
+        if (getNote() != null ? !getNote().equals(note1.getNote()) : note1.getNote() != null) return false;
+        return getLabels() != null ? getLabels().equals(note1.getLabels()) : note1.getLabels() == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getNote());
+        int result = getNote() != null ? getNote().hashCode() : 0;
+        result = 31 * result + (getLabels() != null ? getLabels().hashCode() : 0);
+        return result;
     }
 }

@@ -544,3 +544,11 @@ ale v testu to nefungovlao, actual note byla praydna
 
 je to v tom ze kdyz se posuti test tak se pusti o command line runner a ten operuje
 s db a asi se to spousit nejak zaroven
+zakoentoval jsm vsehcno ov command liner uineer runeer a tes tporsel
+
+persistovani Setu? rozbije se equals contract?
+
+co kdzy se v jave prida do setu uz existujici prvek?
+
+hash coe e a equal
+https://stackoverflow.com/questions/27581/what-issues-should-be-considered-when-overriding-equals-and-hashcode-in-java?noredirect=1&lq=1
