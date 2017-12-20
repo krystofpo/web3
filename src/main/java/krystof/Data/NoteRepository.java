@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface NoteRepository extends CrudRepository<Note, Long> {
 
+    List<Note> findByLabels(String label);
+
     //List<Note> findByLabel(String label);
 
 // Note findOne(Long id);

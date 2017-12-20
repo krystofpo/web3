@@ -113,7 +113,7 @@ vyvolat z repository, otestovat
 
 
 //        Note actualNote = repository.findOne(1L);
-        List<Note> actualNotes = repository.findByLabel(labelAString);
+        List<Note> actualNotes = repository.findByLabels(labelAString);
         assertTrue(actualNotes.size() == 2);
         assertTrue(actualNotes.containsAll(Arrays.asList(note1, note2)));
 

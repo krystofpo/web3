@@ -552,3 +552,16 @@ co kdzy se v jave prida do setu uz existujici prvek?
 
 hash coe e a equal
 https://stackoverflow.com/questions/27581/what-issues-should-be-considered-when-overriding-equals-and-hashcode-in-java?noredirect=1&lq=1
+
+apsal jsem novy test ktery pozuyiva find by labels, to je maetod adeuifnovana v noteprosiotrz
+a to dedi z crudu. ale hlasi to czhbu, kupodivu ne chybu ze to neyzna metodu, ale ze gradle
+neumi nacist nejakej soubor yz nejaky chache na disku.
+
+opravim metodu finlabels tak bzy fugovla ajak ma.
+
+viz refenec eke sprind g data jpa
+
+spring data jpa /afind hashset, find many to many nebo se podivat na priklady
+
+https://stackoverflow.com/questions/29431785/spring-data-jpa-query-value-in-a-set
+jak udelat query na SET hashseht, to co mama ja
