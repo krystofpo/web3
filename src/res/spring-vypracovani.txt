@@ -446,10 +446,12 @@ durha ma anotaci mapped by.
 dobre zdroje:
 
 http://www.springboottutorial.com/introduction-to-jpa-with-spring-boot-data-jpa
+nemaji test ani jak se pouziva get by labels
 
 
 dobre:
 https://www.callicoder.com/hibernate-spring-boot-jpa-many-to-many-mapping-example/
+nemaji test ani jak se pouziva get by labels
 
 https://docs.oracle.com/javaee/5/api/javax/persistence/ManyToMany.html
 
@@ -464,7 +466,7 @@ http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html
 
 i s testem, jak se to pouziva:
 https://hellokoding.com/jpa-one-to-many-relationship-mapping-example-with-spring-boot-maven-and-mysql/
-
+nemaji test ani jak se pouziva get by labels
 
 many to many relations hip
 anebo one to many jedna poznamka muze mit vice labelu
