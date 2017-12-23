@@ -40,9 +40,11 @@ public class Label {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Label)) return false;
+
         Label label1 = (Label) o;
-        return Objects.equals(getLabel(), label1.getLabel());
+
+        return getLabel().equals(label1.getLabel());
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Label {
     public String toString() {
         return "Label{" +
                 "labelId=" + labelId +
-                ", label='" + label + '\'';
+                ", label='" + label + '\'' +
+                '}';
     }
-
 }

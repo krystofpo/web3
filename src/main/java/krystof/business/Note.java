@@ -17,9 +17,7 @@ public class Note {
 
     @ManyToMany(
             fetch = FetchType.EAGER,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE})
+            cascade = CascadeType.ALL)
     @JoinTable(
             name = "Note_Label",
             joinColumns = @JoinColumn(
@@ -30,7 +28,7 @@ public class Note {
                     referencedColumnName = "label_id"))
     private Set<Label> labels;
 
-    //kvuli JPA defaultni konsturkto
+
     protected Note() {
     }
 
@@ -56,7 +54,6 @@ public class Note {
         return noteId;
     }
 
-    //asi kvuli JPA? nevim ozkouset i bez toho
     public void setNoteId(Long noteId) {
         this.noteId = noteId;
     }
@@ -80,11 +77,11 @@ public class Note {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Note)) return false;
 
         Note note1 = (Note) o;
 
-        if (getNote() != null ? !getNote().equals(note1.getNote()) : note1.getNote() != null) return false;
+        if (!getNote().equals(note1.getNote())) return false;
         return getLabels() != null ? getLabels().equals(note1.getLabels()) : note1.getLabels() == null;
     }
 

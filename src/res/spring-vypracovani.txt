@@ -563,7 +563,76 @@ opravim metodu finlabels tak bzy fugovla ajak ma.
 
 viz refenec eke sprind g data jpa
 
-spring data jpa /afind hashset, find many to many nebo se podivat na priklady
+
+fopdoporcuucjou querydsl, ale to ma debilni instalaci viz
+http://bsideup.blogspot.cz/2015/04/querydsl-with-gradle-and-idea.html
+https://stackoverflow.com/questions/42198282/querydslpredicate-with-spring-boot-starter-jpa
+
+tak zkuism bud
 
 https://stackoverflow.com/questions/29431785/spring-data-jpa-query-value-in-a-set
-jak udelat query na SET hashseht, to co mama ja
+1. jak udelat query na SET hashseht, to co mama ja
+
+2. nebo jpa query language
+https://docs.oracle.com/javaee/6/tutorial/doc/bnbtl.html
+
+3. nebo se podva do sprig in action backend
+
+nebo spring data jpa reference query -ne
+
+udelat pres jpql nebo predictes? ne to v referenci nerikaji udelat hashset
+
+
+
+-dodelat
+aby progrm prisutpval do db pres notehnadler, cili bude mit metody na nahchazeni labelu i note
+interface na notehandler notehandler pak ude volat z note repo a label repo metody
+
+u
+
+
+kdyz se do jpa uklada entita, ktera uz am je, tak udela merge, ale jpa musi nejak
+poznat, ze uty tam entita je. nekolik strategii jaks e pozna ejstli uz entit aexistuje
+4.2.1. Saving entities
+v
+https://docs.spring.io/spring-data/jpa/docs/2.0.2.RELEASE/reference/html/#repositories.query-methods.query-creation
+The examples use simple <named-query /> element and @NamedQuery annotation. The queries for these configuration elements have to be defined in JPA query language
+co to  je jpa query language?
+
+ok uz mam test ten ale vraci jen jednu note a ne tu druhou, nevim proc labelA se vyhodnocuje
+jako jiny od labelA,
+
+
+najit aby jpa kdyz mu zadam labelA tak nasel oba dva. jak vhodnocuje ze jsou si labely rovny?
+a kdyz uklada novy label proc nemuze dat odkaz na eistujici?
+
+nkde jsem cetl ze v entite kdzy se pise equals tak by se melo zaskrtnout use subclasses.
+protoze jpa ebo hibernate pri praci s enitta pouziva nejake proxy objekty a ty nemaji tu samou
+tridu jako entit a aprooto equals entity vrati false
+
+zkusim predela tequals a uvudim jeslti to pmuyze
+
+@natural id ale jen hibernat e ane jpa
+
+a co @column (unique) aby to nevztvorilo label 2x?
+anebo @Id(genration stratgy identity) co t oje?
+
+nejak to ouvisis s cascade merge, jeslti uz tam je v databazi tak udelej merge
+https://stackoverflow.com/questions/38544196/jpa-unique-entries
+
+
+https://howtoprogramwithjava.com/hibernate-manytomany-unidirectional-bidirectional/
+ma many to many unidirieiotnal, vysvatuje kdo je parent a kdo cild
+a ma o cascade a uklada to ty samy entity dvakrat jako ja
+tam maji cascade all zkusim,
+
+ve svym testu mam label1 a label2, obe maji stejny label "labelA", maji stejny equals a hascode,
+
+zkusim test jestli equals je true a hascode je stejny, to je test.
+kdyz to ibenrate ukalda do db, proc jim priradi jine id  aulozi je dvakrat?
+jak zjisti ze jsou unikatni?
+co kdyz v ramci jine transakce budu ukladat zas novou note  a bude mit stejny label
+ktery tam uz existuje?
+
+http://enterprisecraftsmanship.com/2014/12/27/dont-use-ids-domain-entities/
+dobry poznamky

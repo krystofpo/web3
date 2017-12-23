@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -23,26 +24,7 @@ public class App implements CommandLineRunner{
 
     @Override
     public void run(String...args) throws Exception {
-//        String labelAString = "labelA";
-//        Label labelA = new Label(labelAString);
-//
-//        Label labelB = new Label("labelB");
-//
-//        Note note1 = new Note(
-//                "note1", new HashSet<Label>(Arrays.asList(
-//                labelA, labelB)));
-//
-//        repository.deleteAll();
-////
-//
-//        repository.save(note1);
-////        repository.save(note2);
-//
-//
-//        Note actualNote = repository.findOne(1L);
-////        List<Note> actualNotes = repository.oneNoteWithTwoLabels(labelAString);
-//
-//        System.out.println(actualNote);
+
 
     }
 
