@@ -151,7 +151,6 @@ public class NoteHandlerTest {
 
     @Test
     public void findNoteByLabel() throws Exception {
-        String labelAString = "labelA";
 
         Label labelA = new Label("labelA");
         Label labelB = new Label("labelB");
@@ -198,7 +197,99 @@ public class NoteHandlerTest {
 
     }
 
-    //todo find note by labels vararg
+    @Test
+    public void saveLabelAndNotewithExistingLabel() throws Exception {
+
+        Label labelA = new Label("labelA");
+        Label labelB = new Label("labelB");
+
+        Note note1 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA, labelB)));
+
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        noteHandler.save(labelA);
+        noteHandler.save(note1);
+
+
+        List<Note> actualNotes = noteHandler.findByLabel(labelA);
+
+        System.out.println(actualNotes);
+
+
+        assertTrue(actualNotes.size() == 1);
+        assertTrue(actualNotes.containsAll(Arrays.asList(note1)));
+
+        List<Label> allLabels = noteHandler.findAllLabels();
+
+        System.out.println(allLabels);
+
+
+        assertTrue(allLabels.size() == 2);
+        assertTrue(allLabels.containsAll(Arrays.asList(labelA, labelB)));
+
+
+    }
+
+
+
+
+    //todo find note by labels list
+
+    @Test
+    public void findNoteByLabelsMultiple() throws Exception {
+        Label labelA = new Label("labelA");
+        Label labelB = new Label("labelB");
+        Label labelC = new Label("labelC");
+        Label labelD = new Label("labelD");
+        Label labelE = new Label("labelE");
+
+        Note note1 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA, labelB)));
+
+        Note note2 = new Note(
+                "note2", new HashSet<Label>(Arrays.asList(
+                labelA, labelB, labelC)));
+
+        Note note3 = new Note(
+                "note3", new HashSet<Label>(Arrays.asList(
+                labelD, labelC)));
+
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        noteHandler.save(note1);
+        noteHandler.save(note2);
+        noteHandler.save(note3);
+
+
+        List<Note> actualNotes1 = noteHandler.findByLabels(Arrays.asList(labelC));
+
+        System.out.println(actualNotes1);
+
+
+        assertTrue(actualNotes1.size() == 2);
+        assertTrue(actualNotes1.containsAll(Arrays.asList(note2, note3)));
+
+       assertTrue(noteHandler.findByLabels(Arrays.asList(labelE)).size == 0);
+       assertTrue(noteHandler.findByLabels(null).size == 0);
+
+        List<Note> actualNotes2 = noteHandler.findByLabels(Arrays.asList(labelB, labelA));
+
+        System.out.println(actualNotes2);
+
+
+        assertTrue(actualNotes2.size() == 2);
+        assertTrue(actualNotes1.containsAll(Arrays.asList(note2, note1)));
+
+
+    }
+
 
     //todo  how is  exception of saving exisitng note going to be handled
     //and shown on a webpage? transaction will rollback? add @transcaiotnal? where?

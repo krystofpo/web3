@@ -699,3 +699,74 @@ nebo
 C/ nova prepise starou?
 
 A/ to jsem rozhodl
+
+
+
+---
+
+jak muze web strnka poslat jako parametr list labelu? thymeleaf umi vztvorit
+query s parametrama? nebo to bude json?
+
+to jde, stranka umi udelat v query list a controller to umi odchyit jako list stringu a ulozot
+do promenee
+viz
+
+https://reversecoding.net/spring-mvc-requestparam-binding-request-parameters/
+bod c 6 list
+
+
+---
+
+jak udelat v repository metodu ktera najde notes s promenlivym poctem
+
+jpql? asi ne
+http://www.objectdb.com/java/jpa/query/jpql/collection#Criteria_Query_Collection_Expressions_
+asi jen ze entita ma property typu string a query na property in collection.
+
+slo by udelat metodu ktera vytvori sql string pomoci pridavani and nebo join
+a pak se spusti ale to je neohrabany
+
+NEBO
+
+nejak pomoci predicatu?
+
+nebo
+
+querydsl
+https://stackoverflow.com/questions/32326922/querydsl-convert-list-of-booleanexpression-to-predicate
+postupne pridavat AND
+
+
+nebo
+https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
+pomoci any a pak equals
+
+spojit to s boolean builder a udelat programticky retez AND
+podivat se i sem
+https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
+https://stackoverflow.com/questions/23077155/left-join-with-spring-data-jpa-and-querydsl/23092294#23092294
+
+
+
+hledat na stack overflow querydsl collection many to many
+
+navod na query
+http://www.baeldung.com/querydsl-with-jpa-tutorial
+
+pak se pivam an sql vytvorene hibrnatem ktere bude posilat, zjistim z nich jestli
+je to nejak optimalizovany, pres tu tabulku post_labls atd nebo pomoci joinu?
+je to manualne pres najit vsechny notes ktery maj label A a prunik s labelB
+anebo jeden pruchod tabulkou notes_labels a rovnou nalezeni jen tech zannamu  ktery splnujou
+podmnku label a i B?
+
+-----
+
+jak na querydsl
+napred najdu navod jak na spring data jpa a gradle  a anotac jak pridat do projektu
+pak jak se tvori query, kam se pisou, jak se sposutej,
+jak se do repositroz pridava podpra querydsl
+pro jaky providery querydsl funguje?
+
+depedecies:
+1.zkousim
+https://discuss.gradle.org/t/querydsl-with-build-gradle-integration/24595/2

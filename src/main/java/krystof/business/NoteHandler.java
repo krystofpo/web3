@@ -137,4 +137,12 @@ public class NoteHandler { //todo refactor change name to reposservice
     public List<Note> findByLabel(Label labelA) {
         return noteRepository.findByLabel(labelA);
     }
+
+    public Label save(Label label) {
+        return findOrSaveLabel(label);
+    }
+
+    public List<Note> findByLabels(List<Label> labels) {
+        return null;
+    }
 }
