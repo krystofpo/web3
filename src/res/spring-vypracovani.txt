@@ -674,3 +674,28 @@ ktera se zavola kdyz se bude volat note save nebo note save vzdycky vyvola nejak
 
  pridat na sloupecek unique, constirant pro db.
 
+------
+o projektu business logika a pravidla
+
+ukladani notes a k nim prirazaenych labels 0 az N.
+hledani vsech labels, heldani vsech notes.
+hledani podle parametru:
+-note ma popis
+-note popis obsahuje
+label ma popis =
+   opis obsahuje
+hledani notes, ktery maji urcity label, ci labely vararg - AND musi mit vsechny labely
+podivat se jaky sql se genruje, prochazeji se vsehncy notes a hleda se jestli ma label
+nebo je to chytry a anjde to id labelu a pak se diva do tabulky notes_labels?
+
+v db existuje jen jenden label s urcitym label
+v db existuje jen jedna note s ucitou note, bez ohledu na labely
+kdyz v db oexisutj note s labely 1,2 a uklada se note se stejnym popisem a jinymi labely 2,3
+tak se
+A/ vyhodi vyjimka a nic se neulozi?
+nebo
+B/ se nova neulozi a vrati se stara?
+nebo
+C/ nova prepise starou?
+
+A/ to jsem rozhodl

@@ -5,7 +5,10 @@ import krystof.Data.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
 
@@ -44,6 +47,16 @@ public class NoteHandler { //todo refactor change name to reposservice
     //saves a new Note or finds existing one.
     //method accepts a Note with saved or unsaved Labels
     public Note save(Note note) {
+        if (sameNoteIsSavedAlready(note)) {
+            throw new NoteHandlerException(
+                    "Error: Attempt to save a note which " +
+                            "already exists. Use update instead.");
+        } else {
+            return saveNewNote(note);
+        }
+    }
+
+    private Note saveNewNote(Note note) {
         Set<Label> labels = note.getLabels();
         if (!isEmpty(labels)) {
             setSavedLabelsToNote(note);
@@ -51,6 +64,9 @@ public class NoteHandler { //todo refactor change name to reposservice
         return saveNoteWithSavedLabels(note);
     }
 
+    private boolean sameNoteIsSavedAlready(Note note) {
+        return !isEmpty(noteRepository.findByNote(note.getNote()));
+    }
 
 
     //todo
@@ -116,5 +132,9 @@ public class NoteHandler { //todo refactor change name to reposservice
         } else {
             return labels;
         }
+    }
+
+    public List<Note> findByLabel(Label labelA) {
+        return noteRepository.findByLabel(labelA);
     }
 }
