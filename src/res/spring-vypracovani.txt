@@ -661,3 +661,16 @@ ktera se zavola kdyz se bude volat note save nebo note save vzdycky vyvola nejak
 
  https://stackoverflow.com/questions/45554882/spring-data-jpa-how-to-fetch-parents-by-child-id
  blizko nebo to je to ono
+
+
+ --
+
+ kdyz jsem mel man yo many cascade all a poustil jsem tes notehandler save
+ a ukaldal jsem note ktery uzmelo zpracovaney labely s id, tak hbernate
+ vyhodil vjzimku, ze nemuze perisostvt detached entity. proc?
+ mel bycch vrait nejaky cascadoani? merge a  persisit?
+
+ mam dat nad neco @transcantional?
+
+ pridat na sloupecek unique, constirant pro db.
+

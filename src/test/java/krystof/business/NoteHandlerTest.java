@@ -101,6 +101,111 @@ public class NoteHandlerTest {
 
     }
 
+    @Test
+    public void saveExistingNoteWithSameLabels() throws Exception {
+
+        String labelAString = "labelA";
+
+        Label labelA = new Label("labelA");
+        Label labelA1 = new Label("labelA");
+        Label labelB = new Label("labelB");
+        Label labelC = new Label("labelC");
+
+        Note note1 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA, labelB)));
+
+        Note note1copy = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA1, labelB)));
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        assertTrue(noteHandler.findAllNotes().size() ==0);
+        assertTrue(noteHandler.findAllLabels().size() ==0);
+
+
+        noteHandler.save(note1);
+        noteHandler.save(note1copy);
+
+
+        List<Note> actualNotes = noteHandler.findAllNotes();
+
+        System.out.println(actualNotes);
+
+
+        assertTrue(actualNotes.size() == 1);
+        assertTrue(actualNotes.containsAll(Arrays.asList(note1)));
+
+        List<Label> allLabels = noteHandler.findAllLabels();
+
+        System.out.println(allLabels);
+
+
+        assertTrue(allLabels.size() == 2);
+        assertTrue(allLabels.containsAll(Arrays.asList(labelA1, labelB)));
+
+
+    }
+
+
+    @Test
+    public void saveExistingNoteWithDifferentLabels() throws Exception {
+
+        String labelAString = "labelA";
+
+        Label labelA = new Label("labelA");
+        Label labelA1 = new Label("labelA");
+        Label labelB = new Label("labelB");
+        Label labelC = new Label("labelC");
+
+        Note note1 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA, labelB)));
+
+        Note note1copy1 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                labelA1, labelB, labelC)));
+
+        Note note1copy2 = new Note(
+                "note1", new HashSet<Label>(Arrays.asList(
+                        labelA)));
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        assertTrue(noteHandler.findAllNotes().size() ==0);
+        assertTrue(noteHandler.findAllLabels().size() ==0);
+
+
+        noteHandler.save(note1);
+        noteHandler.save(note1copy1);
+        noteHandler.save(note1copy2);
+
+
+        List<Note> actualNotes = noteHandler.findAllNotes();
+
+        System.out.println(actualNotes);
+
+
+        assertTrue(actualNotes.size() == 1);
+        assertTrue(actualNotes.containsAll(Arrays.asList(note1)));
+
+        List<Label> allLabels = noteHandler.findAllLabels();
+
+        System.out.println(allLabels);
+
+
+        assertTrue(allLabels.size() == 3);
+        assertTrue(allLabels.containsAll(Arrays.asList(labelA1, labelB, labelC)));
+
+        //todo hange save note so that first it checks if note exists and if not
+        //then prepare labels and saves them
+        //if it exists do not save labels
+
+    }
+
     //todo new note exisitng labels
     //todo exisitng note same labels
     //todo exisitng note different labels

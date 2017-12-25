@@ -35,7 +35,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     public Note findOne(long id) {
         System.out.println(noteRepository.toString());
 //        return noteRepository.findOne(id);
-        noteRepository.deleteAll();
+        //noteRepository.deleteAll();
 //        noteRepository.save(new Note("notePokus","pokus"));
 //        return noteRepository.findByLabel("pokus").get(0);
         return noteRepository.findOne(id);
@@ -50,6 +50,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
         return saveNoteWithSavedLabels(note);
     }
+
 
 
     //todo
