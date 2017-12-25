@@ -2,6 +2,7 @@ package krystof.business;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,8 +17,7 @@ public class Note {
     private String note;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "Note_Label",
             joinColumns = @JoinColumn(
@@ -26,7 +26,7 @@ public class Note {
             inverseJoinColumns = @JoinColumn(
                     name = "LabelId",
                     referencedColumnName = "label_id"))
-    private Set<Label> labels;
+    private Set<Label> labels = new HashSet<>();
 
 
     protected Note() {
@@ -34,9 +34,9 @@ public class Note {
 
     public Note(String note, Set<Label> labels) {
         this.note = note;
-        this.labels = labels;
+        this.labels = labels;//ullcheck
     }
-
+//todo aby do labelu nepriradilo nunull
     public Note(String note) {
         this(note, null);
     }
@@ -64,7 +64,7 @@ public class Note {
 
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
-    }
+    } //todo nullcheck
 
     @Override
     public String toString() {

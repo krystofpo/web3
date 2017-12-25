@@ -15,4 +15,9 @@ import java.util.Optional;
 public interface NoteRepository extends CrudRepository<Note, Long> {
     @Query("SELECT a from Note a where ?1 member of a.labels")
     List<Note> findByLabel(Label label);
+
+    List<Note> findByNote(String note);
+
+    List<Note> findAll();
+
 }

@@ -636,3 +636,28 @@ ktery tam uz existuje?
 
 http://enterprisecraftsmanship.com/2014/12/27/dont-use-ids-domain-entities/
 dobry poznamky
+
+----------
+posty ktery maj pdobonje problem jako ja many o many nefunguje
+https://stackoverflow.com/questions/16460815/jpa-entityexistsexception/16463061#16463061
+
+ma to vcetne thymeleaf a seurity, ale nema tam mana tto many unidierecitonal
+
+https://springframework.guru/category/spring/spring-data/
+
+
+------
+dm si debug a uvidim kdyz dam note save co se deje, jestli se vola label save
+a hlavne na jakym objektu se to vola? lze udela t vlasnti implementaci labela save
+ktera se zavola kdyz se bude volat note save nebo note save vzdycky vyvola nejakou interni metodu
+ kterou nebudu moct zmenit?
+
+ a dalsi probeml je proc finby label nefunguje, proc neajde i tu druhou, i kdyby am byly
+ duplikaty, tak to nefunguje.
+
+
+ child je note a parent je label. vkladam parent do child.
+ takze chci najit child by parent
+
+ https://stackoverflow.com/questions/45554882/spring-data-jpa-how-to-fetch-parents-by-child-id
+ blizko nebo to je to ono
