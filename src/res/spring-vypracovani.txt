@@ -768,5 +768,73 @@ jak se do repositroz pridava podpra querydsl
 pro jaky providery querydsl funguje?
 
 depedecies:
-1.zkousim
+
+http://www.mindissoftware.com/querydsl-note/
+
 https://discuss.gradle.org/t/querydsl-with-build-gradle-integration/24595/2
+
+
+https://discuss.gradle.org/t/integrating-spring-boot-querydsl-into-gradle-build/15421/2
+http://bsideup.blogspot.cz/2015/04/querydsl-with-gradle-and-idea.html
+https://stackoverflow.com/questions/35786422/how-to-use-querydsl-sql-spring-under-gradle
+
+kdyz jsem dal build task tak mi to hlasilo chybu ze to nemuze najit nejakou c/users/polnksy/gradle/blabla cache.properties
+nasel jsem tu chzbu na gradlu, upgradova jsem gradle
+
+pmoci gradlew wrapper a ptom jsem spusit gradlew a zkusim
+znovu build
+buidl failed, test failed, jedne test byl prazdny, tak jsem ho smazal.
+znova buidl
+a ano build se udelal, usper, ted zkusim dat bootrun dobry bezi
+
+
+nalseudju
+http://bsideup.blogspot.cz/2015/04/querydsl-with-gradle-and-idea.html
+zatim jsem upravil build.gradle, upragodav jsem gradle, povolil v idee aotace  a funguje buidl a bootrun
+a pise mi to neco o anotacich pri buildu.
+do build slozky mi to pridalo tridy glabel a qnote.
+
+
+
+
+kam pisu query? co udelam s reposiroty?
+pdoivam se do porjektu ktery je soucasti navodu
+
+jpa query se vztvatri pomoci entity mangera, ten se deklaruje jako atrbuti tridy
+a da se nad nej anotace @perist context.
+podivam se jak se o pouzia ve sprign bootu, mozna to je jinak
+
+https://stackoverflow.com/questions/46034154/use-entitymanager-in-springboot
+zkusim pridat jen pers context
+
+vbtvorim jpa query a pak instanci qnote, nejde mi QNote.note, jenom note1.
+zkusim
+
+vytvoreni query ctu zde:
+
+http://www.baeldung.com/querydsl-with-jpa-tutorial
+
+udelal jsem v not ehandleru query a ono to funguje parada
+test pada na tom, ze potom hledam note podle labelu, ktery v db neexistuje.
+jak to vyresit? je blbost ukladat ten label abych s nim mohl dal pracovat a hledat podle nej
+ale to sem uze stat i pri hledani find label by label ne?
+org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance before flushing
+
+mozna transaction nebo flush? session?
+--------------
+
+
+
+navod na vytvareni query
+https://dzone.com/articles/spring-data-series-part-3-typesafe-query
+
+muj pripad https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
+a builder
+
+
+
+muj prpad
+https://stackoverflow.com/search?q=querydsl+many+to+many
+https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
+
+

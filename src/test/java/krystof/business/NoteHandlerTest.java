@@ -276,8 +276,8 @@ public class NoteHandlerTest {
         assertTrue(actualNotes1.size() == 2);
         assertTrue(actualNotes1.containsAll(Arrays.asList(note2, note3)));
 
-       assertTrue(noteHandler.findByLabels(Arrays.asList(labelE)).size == 0);
-       assertTrue(noteHandler.findByLabels(null).size == 0);
+       assertTrue(noteHandler.findByLabels(Arrays.asList(labelE)).size() == 0);
+       assertTrue(noteHandler.findByLabels(null).size() == 0);
 
         List<Note> actualNotes2 = noteHandler.findByLabels(Arrays.asList(labelB, labelA));
 

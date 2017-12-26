@@ -1,10 +1,13 @@
 package krystof.business;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import krystof.Data.LabelRepository;
 import krystof.Data.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +26,10 @@ public class NoteHandler { //todo refactor change name to reposservice
 
     @Autowired
     private LabelRepository labelRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     public NoteHandler() {
     }
@@ -143,6 +150,19 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public List<Note> findByLabels(List<Label> labels) {
-        return null;
+
+        switch (labels.size()) {
+            case 0:
+                return new ArrayList<>();
+            case 1:
+                JPAQuery query = new JPAQuery(entityManager);
+                QNote qNote = QNote.note1;
+                List<Note> notes = query.from(qNote)
+                        .where(qNote.labels.contains(labels.get(0)))
+                        .list(qNote);
+                return notes;
+                default:
+                    return new ArrayList<>();
+        }
     }
 }
