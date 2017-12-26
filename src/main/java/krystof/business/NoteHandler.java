@@ -150,19 +150,38 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public List<Note> findByLabels(List<Label> labels) {
+        if (isEmpty(labels)) {
+            return new ArrayList<>();
+        }
 
-        switch (labels.size()) {
-            case 0:
-                return new ArrayList<>();
-            case 1:
-                JPAQuery query = new JPAQuery(entityManager);
-                QNote qNote = QNote.note1;
-                List<Note> notes = query.from(qNote)
-                        .where(qNote.labels.contains(labels.get(0)))
-                        .list(qNote);
-                return notes;
+        ListWithFlag listWithFlag = findSavedLabelsOrFlagNonSavedLabel(labels);
+        if (listWithFlag.containsNonSavedLabel()) {
+            return new ArrayList<>();
+        }
+
+
+            switch (listWithFlag.getSavedLabels().size()) {
+
+                case 1:
+                    JPAQuery query = new JPAQuery(entityManager);
+                    krystof.business.QNote qNote = krystof.business.QNote.note1;
+                    List<Note> notes = query.from(qNote)
+                            .where(qNote.labels.contains(listWithFlag.getSavedLabels().get(0)))
+                            .list(qNote);
+                    return notes;
                 default:
                     return new ArrayList<>();
+            }
         }
+
+   ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {
+        //iteovat lbels a pokud neni v db, ulozit do istwith flag true a return
+        //pokud tam je pridat do listu
+        //na konci vratit list flag
+
+
+    }
+}
+
     }
 }

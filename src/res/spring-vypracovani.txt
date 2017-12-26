@@ -821,8 +821,18 @@ ale to sem uze stat i pri hledani find label by label ne?
 org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance before flushing
 
 mozna transaction nebo flush? session?
+
+//todo
+nebo upraiv metodu hledani note podle labelu
+projdu vsechny lbely a pokud mezi nima bude nejkay ktery neexistuje v db, tak vraitm praydny list
+note a pokud tam bude, tak ziskam z db tu entitu a ulozim do listu.
 --------------
 
+napsal jsem metodu ktera vraci prepravku a z ni lze urcit jeslti
+label je nebo neni v db.
+abyh metodu otestoval pridam spock a udelam stub z repositotry.
+
+jak se pridam spock do spring boot porject?
 
 
 navod na vytvareni query
