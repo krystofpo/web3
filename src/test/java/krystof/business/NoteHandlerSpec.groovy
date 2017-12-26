@@ -21,37 +21,7 @@ class NoteHandlerSpec extends Specification {
 
     def setup() {
         noteHandler.setLabelRepository(labelRepository)
-
     }
-
-    def "FindByLabels - null"() {
-        expect:
-        noteHandler.findByLabels(null) == []
-
-//poslu handleru praydny list ocekavam praydny list
-//poslu handleru null ocekavam praydny list
-        //polsu handlerovi list s jednim saved lableem
-        //ocekavam ze vrati objekt v kterym bude contians false
-        // a bude mit list s tim samym prvkem
-
-        //poslu mu list s ejdnim neulozenym a pocekavam
-        //ze vrati objetk s contians true
-
-        //dva prvky, prvni ulozenej a druhej neulozenj
-        //ocekavam ze vrati cotnains true
-
-        //dva rpvky oba ulozeny
-        //ocekavam ze vrati obejt coantians false a
-        //budou v nem ulozeny prvky.
-
-    }
-
-
-    def "FindByLabels-empty"() {
-        expect:
-        noteHandler.findByLabels([]) == []
-    }
-
 
 
 

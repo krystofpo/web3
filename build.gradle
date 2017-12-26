@@ -41,6 +41,8 @@ dependencies {
     compile "com.mysema.querydsl:querydsl-jpa:3.6.3"
     compile "com.mysema.querydsl:querydsl-apt:3.6.3:jpa"
     compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+
 
 
     testCompile("org.springframework.boot:spring-boot-starter-test")

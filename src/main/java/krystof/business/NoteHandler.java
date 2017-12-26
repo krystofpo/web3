@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Created by polansky on 12.12.2017.
@@ -150,6 +151,9 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public Label save(Label label) {
+        if (label == null || isBlank(label.getLabel())) {
+            return null;
+        }
         return findOrSaveLabel(label);
     }
 
@@ -164,26 +168,52 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
         List<Label> savedLabels = listWithFlag.getSavedLabels();
 
-            switch (savedLabels.size()) {
+        switch (savedLabels.size()) {
 
-                case 1:
-                    JPAQuery query = new JPAQuery(entityManager);
-                    krystof.business.QNote qNote = krystof.business.QNote.note1;
-                    List<Note> notes = query.from(qNote)
-                            .where(qNote.labels.contains(savedLabels.get(0)))
-                            .list(qNote);
-                    return notes;
-                default:
-                    return new ArrayList<>();
-            }
+            case 1:
+                JPAQuery query = new JPAQuery(entityManager);
+                krystof.business.QNote qNote = krystof.business.QNote.note1;
+                List<Note> notes = query.from(qNote)
+                        .where(qNote.labels.contains(savedLabels.get(0)))
+                        .list(qNote);
+                return notes;
+            default:
+                return new ArrayList<>();
+        }
+    }
+
+    ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {
+        if (isEmpty(labels)) {
+            return null;
         }
 
-   ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {
-        //iteovat lbels a pokud neni v db, ulozit do istwith flag true a return
-        //pokud tam je pridat do listu
-        //na konci vratit list flag
+        ListWithFlag listWithFlag = new ListWithFlag();
 
-return null;
+        for (Label unsavedLabel : labels) {
+
+            Label savedLabel = findOne(unsavedLabel.getLabel());
+            if (savedLabel == null) {
+                listWithFlag.setSavedLabels(new ArrayList<>());
+                listWithFlag.setContainsNonSavedLabel(true);
+                return listWithFlag;
+            }
+            listWithFlag.getSavedLabels().add(savedLabel);
+
+        }
+
+        return listWithFlag;
+    }
+
+    public Label findOne(String label) {
+        if (isBlank(label)) {
+            return null;
+        }
+
+        List<Label> labels = labelRepository.findByLabel(label);
+        if (isEmpty(labels)) {
+            return null;
+        }
+        return labels.get(0);
     }
 }
 

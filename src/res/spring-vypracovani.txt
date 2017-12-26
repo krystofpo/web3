@@ -830,6 +830,15 @@ note a pokud tam bude, tak ziskam z db tu entitu a ulozim do listu.
 //todo
 anebo do jpaquery dam do contains ne label, ale exprsiion<label> to mi totiz nabizi metoda jako vsutpni
 parametr.
+
+//todo
+jestli notehandler.findbyLabels ma brat seynam Labelu nebo Stringu?
+stranka udela co? v parametru query?
+kdyz na strance bude vypis labelu, tak uzivatel zaskrtne labely ktere chce
+a ono to nejak samo udela list Labelu? pomoci postu a nastrak to do controlleru jako list labelu?
+
+
+
 --------------
 
 napsal jsem metodu ktera vraci prepravku a z ni lze urcit jeslti
@@ -837,6 +846,15 @@ label je nebo neni v db.
 abyh metodu otestoval pridam spock a udelam stub z repositotry.
 
 jak se pridam spock do spring boot porject?
+
+
+udelal jsem cast metody findbylabels ktera vraci notes. jednu pomocnou meotdu kterou tato eoda
+vola jsem uz otestoval a ok.
+
+ted tesutju tuhle. udelal jsem test ve spocku s where. v setup spoka je repo delete all.
+pri druhym testu se vyhodila yjimak ze to nemuze smayat, to vypada ze se vola znova setup
+jinej delete tam neni. takze spock najit aby se zavolal setup jen jednou pred vsema testama
+a vic ne.
 
 
 navod na vytvareni query
