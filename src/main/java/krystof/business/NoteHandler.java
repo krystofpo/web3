@@ -42,6 +42,10 @@ public class NoteHandler { //todo refactor change name to reposservice
         return labelRepository;
     }
 
+    public void setLabelRepository(LabelRepository labelRepository) {
+        this.labelRepository = labelRepository;
+    }
+
     public Note findOne(long id) {
         System.out.println(noteRepository.toString());
 //        return noteRepository.findOne(id);
@@ -158,15 +162,15 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (listWithFlag.containsNonSavedLabel()) {
             return new ArrayList<>();
         }
+        List<Label> savedLabels = listWithFlag.getSavedLabels();
 
-
-            switch (listWithFlag.getSavedLabels().size()) {
+            switch (savedLabels.size()) {
 
                 case 1:
                     JPAQuery query = new JPAQuery(entityManager);
                     krystof.business.QNote qNote = krystof.business.QNote.note1;
                     List<Note> notes = query.from(qNote)
-                            .where(qNote.labels.contains(listWithFlag.getSavedLabels().get(0)))
+                            .where(qNote.labels.contains(savedLabels.get(0)))
                             .list(qNote);
                     return notes;
                 default:
@@ -179,9 +183,8 @@ public class NoteHandler { //todo refactor change name to reposservice
         //pokud tam je pridat do listu
         //na konci vratit list flag
 
-
+return null;
     }
 }
 
-    }
-}
+

@@ -826,6 +826,10 @@ mozna transaction nebo flush? session?
 nebo upraiv metodu hledani note podle labelu
 projdu vsechny lbely a pokud mezi nima bude nejkay ktery neexistuje v db, tak vraitm praydny list
 note a pokud tam bude, tak ziskam z db tu entitu a ulozim do listu.
+
+//todo
+anebo do jpaquery dam do contains ne label, ale exprsiion<label> to mi totiz nabizi metoda jako vsutpni
+parametr.
 --------------
 
 napsal jsem metodu ktera vraci prepravku a z ni lze urcit jeslti

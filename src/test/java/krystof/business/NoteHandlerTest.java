@@ -1,5 +1,6 @@
 package krystof.business;
 
+import krystof.Data.LabelRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -287,6 +288,18 @@ public class NoteHandlerTest {
         assertTrue(actualNotes2.size() == 2);
         assertTrue(actualNotes1.containsAll(Arrays.asList(note2, note1)));
 
+
+    }
+
+    @Test
+    public void pokus() throws Exception {
+
+        LabelRepository labelRepository = noteHandler.getLabelRepository();
+
+        List<Label> labels = labelRepository.findByLabel("nonexitent");
+
+        assertTrue(labels != null);
+        assertTrue(labels.size()==0);
 
     }
 
