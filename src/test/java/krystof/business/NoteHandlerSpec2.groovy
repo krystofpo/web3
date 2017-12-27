@@ -10,28 +10,52 @@ import spock.lang.Unroll
 class NoteHandlerSpec2 extends Specification {
 
 
-@Autowired
-    private NoteHandler noteHandler=new NoteHandler()
+    @Autowired
+    private NoteHandler noteHandler = new NoteHandler()
+//
+//    @Shared
+//    def giveMeEmptyList = "giveMeEmptyList"
+//    @Shared
+//    def giveMeNull = "giveMeNull"
+//    @Shared
+//    def giveMeSaved = "giveMeSaved"
+//    @Shared
+//    def giveMeSaved2 = "giveMeSaved2"
+//    @Shared
+//    def note1 = new Note(note: 'note1', labels: [new Label(giveMeSaved)])
+//    @Shared
+//    def note2 = new Note(note: 'note2', labels: [new Label(giveMeSaved), new Label(giveMeSaved2)])
+//@Shared
+//    def note3 = new Note(note: 'note3', labels: [new Label('someOther'), new Label(giveMeSaved2)])
+
 
     @Shared
-    def giveMeEmptyList = "giveMeEmptyList"
+    Label labelA = new Label("labelA");
     @Shared
-    def giveMeNull = "giveMeNull"
+    Label labelB = new Label("labelB");
     @Shared
-    def giveMeSaved = "giveMeSaved"
+    Label labelC = new Label("labelC");
     @Shared
-    def giveMeSaved2 = "giveMeSaved2"
+    Label labelD = new Label("labelD");
     @Shared
-    def note1 = new Note(note: 'note1', labels: [new Label(giveMeSaved)])
-    @Shared
-    def note2 = new Note(note: 'note2', labels: [new Label(giveMeSaved), new Label(giveMeSaved2)])
-@Shared
-    def note3 = new Note(note: 'note3', labels: [new Label('someOther'), new Label(giveMeSaved2)])
+    Label labelE = new Label("labelE");
 
+    @Shared
+    Note note1 = new Note(
+            "note1", new HashSet<Label>(Arrays.asList(
+            labelA, labelB)));
 
+    @Shared
+    Note note2 = new Note(
+            "note2", new HashSet<Label>(Arrays.asList(
+            labelA, labelB, labelC)));
+
+    @Shared
+    Note note3 = new Note(
+            "note3", new HashSet<Label>(Arrays.asList(
+            labelD, labelC)));
 
     void setup() {
-
 
         noteHandler.deleteAllNotes()
         noteHandler.deleteAllLabels()
@@ -40,19 +64,21 @@ class NoteHandlerSpec2 extends Specification {
         noteHandler.save(note3)
     }
 
-@Unroll
-    def "FindByLabels-all #inputList"() {
+    @Unroll
+    def "FindByLabels #inputList"() {
         expect:
         noteHandler.findByLabels(inputList) == expectedList
 
         where:
-        inputList                                               |expectedList
-        null                                                    |[]
-        []                                                      |[]
-        [new Label(giveMeNull)]                                 |[]
-        [new Label(giveMeEmptyList)]                            |[]
-        [new Label(giveMeSaved)]                                |[note1, note2]
-        [new Label(giveMeSaved), new Label(giveMeSaved2)]       |[note2]
-
+        inputList        | expectedList
+        null             | []
+        []               | []
+        [labelE]         | []
+        [labelC]         | [note2, note3]
+        [labelA, labelB] | [note1, note2]
+        [labelA, labelD] | []
+        [labelA, labelE] | []
     }
+
+
 }
