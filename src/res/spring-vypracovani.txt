@@ -880,3 +880,47 @@ https://stackoverflow.com/search?q=querydsl+many+to+many
 to neni ono https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
 
 
+nasel jsem boolen builder a upravil query dsl query pro jpa querz v metode findlabels.
+uz to funugje, parada, prochazi se list, udela se query postupne a jde to.
+
+
+//TODO ===========================
+repository pridat querydsl repository a notehnadler ji preda predicate.
+2//todo odstanit z repository find by labels ktera nefuguje,
+//todo dat hibernate debug a divat se jaky query spostui jeslti jsou optimalizavany.
+//todo metody z testu pridat do command line runner a podivat se do db onsoli a spusitt tam hibenrate sql
+//todo dat testy notehandelru do dvou spock testu
+//todo prejmenovat notehandler na DAO
+//notehandler do data balicku
+//dao pres inerface
+//pridat delete label
+//pridat delete note
+//pridat update label a note
+contrianty na entite napr unique pro note a label
+//udelat fornten
+//vypsani vsech note pageable
+//vypsasni vsech labelu pageable
+pridani labelu
+pridani note
+hledani lblu
+hledani notep odle labelu
+jina databaze
+rucni nastaveni databaze, nastaveni pocaetniho stavu db
+pres liquibase
+
+security
+jenkins, profily deplozyovani
+
+
+1.
+repository pridat querydsl repository a notehnadler ji preda predicate.
+docela komplexni ale moc tezkej priklad je tadyy
+https://www.javatips.net/api/spring-data-jpa-master/src/main/java/org/springframework/data/jpa/repository/support/QuerydslJpaRepository.java
+bez priklau:
+http://www.mindissoftware.com/querydsl-note/
+ trva moc dlouho njit prioklad, preskakuji
+
+2//todo odstanit z repository find by labels ktera nefuguje,
+
+3.vsechny metody vraci prazdny list a ne null. pokud raci label ci note, vrati null
+

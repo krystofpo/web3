@@ -50,10 +50,10 @@ public class NoteHandler { //todo refactor change name to reposservice
 
     public Note findOne(long id) {
         System.out.println(noteRepository.toString());
-//        return noteRepository.findOne(id);
+//        return noteRepository.findByOneLabel(id);
         //noteRepository.deleteAll();
 //        noteRepository.save(new Note("notePokus","pokus"));
-//        return noteRepository.findByLabel("pokus").get(0);
+//        return noteRepository.findByOneLabel("pokus").get(0);
         return noteRepository.findOne(id);
     }
 
@@ -147,8 +147,16 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
     }
 
-    public List<Note> findByLabel(Label labelA) {
-        return noteRepository.findByLabel(labelA);
+    public List<Note> findByOneLabel(Label label) {
+
+        if (label ==null || isBlank(label.getLabel())) {
+            return new ArrayList<>();
+        }
+        List<Note> notes = noteRepository.findByLabel(label);
+        if (isEmpty(notes)) {
+            return new ArrayList<>();
+        }
+        return notes;
     }
 
     public Label save(Label label) {
@@ -158,7 +166,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         return findOrSaveLabel(label);
     }
 
-    public List<Note> findByLabels(List<Label> labels) {
+    public List<Note> findByManyLabels(List<Label> labels) {
         if (isEmpty(labels)) {
             return new ArrayList<>();
         }
@@ -171,21 +179,6 @@ public class NoteHandler { //todo refactor change name to reposservice
 
 
 
-//
-//        public List<Customer> getCustomer(String... names) {
-//            QCustomer customer = QCustomer.customer;
-//            JPAQuery<Customer> query = queryFactory.selectFrom(customer);
-//            BooleanBuilder builder = new BooleanBuilder();
-//            for (String name : names) {
-//                builder.or(customer.name.eq(name));
-//            }
-//            query.where(builder);
-//            return query.fetch();
-//        }
-
-
-
-//TODO moje
         JPAQuery query = new JPAQuery(entityManager);
         krystof.business.QNote note = krystof.business.QNote.note1;
 
@@ -199,27 +192,13 @@ public class NoteHandler { //todo refactor change name to reposservice
         List<Note> notes = query.from(note)
                 .where(builder)
                 .list(note);
+        if (notes == null) {
+            return new ArrayList<>();
+        }
+            return notes;
+        }
 
-        return notes;
 
-
-
-
-
-//
-//        switch (savedLabels.size()) {
-//
-//            case 1:
-//                JPAQuery query = new JPAQuery(entityManager);
-//                krystof.business.QNote qNote = krystof.business.QNote.note1;
-//                List<Note> notes = query.from(qNote)
-//                        .where(qNote.labels.contains(savedLabels.get(0)))
-//                        .list(qNote);
-//                return notes;
-//            default:
-//                return new ArrayList<>();
-//        }
-    }
 
     ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {
         if (isEmpty(labels)) {
@@ -230,7 +209,13 @@ public class NoteHandler { //todo refactor change name to reposservice
 
         for (Label unsavedLabel : labels) {
 
-            Label savedLabel = findOne(unsavedLabel.getLabel());
+            if (unsavedLabel == null) {
+                listWithFlag.setSavedLabels(new ArrayList<>());
+                listWithFlag.setContainsNonSavedLabel(true);
+                return listWithFlag;
+            }
+
+            Label savedLabel = findByLabel(unsavedLabel.getLabel());
             if (savedLabel == null) {
                 listWithFlag.setSavedLabels(new ArrayList<>());
                 listWithFlag.setContainsNonSavedLabel(true);
@@ -243,7 +228,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         return listWithFlag;
     }
 
-    public Label findOne(String label) {
+    public Label findByLabel(String label) {
         if (isBlank(label)) {
             return null;
         }
@@ -253,6 +238,17 @@ public class NoteHandler { //todo refactor change name to reposservice
             return null;
         }
         return labels.get(0);
+    }
+
+    public Note findByNote(String note) {
+        if (isBlank(note)) {
+            return null;
+        }
+        List<Note> notes = noteRepository.findByNote(note);
+        if (isEmpty(notes)) {
+            return null;
+        }
+        return notes.get(0);
     }
 }
 

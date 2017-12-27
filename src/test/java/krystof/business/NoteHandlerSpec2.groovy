@@ -65,20 +65,35 @@ class NoteHandlerSpec2 extends Specification {
     }
 
     @Unroll
-    def "FindByLabels #inputList"() {
+    def "FindByManyLabels #inputList"() {
         expect:
-        noteHandler.findByLabels(inputList) == expectedList
+        noteHandler.findByManyLabels(inputList) == expectedList
 
         where:
-        inputList        | expectedList
-        null             | []
-        []               | []
-        [labelE]         | []
-        [labelC]         | [note2, note3]
-        [labelA, labelB] | [note1, note2]
-        [labelA, labelD] | []
-        [labelA, labelE] | []
+        inputList                               | expectedList
+        null                                    | []
+        []                                      | []
+        [labelE]                                | []
+        [labelC]                                | [note2, note3]
+        [labelA, labelB]                        | [note1, note2]
+        [labelA, null, labelB]                  | []
+        [labelA, new Label(null), labelB]  | []
+        [labelA, new Label(''), labelB]    | []
+        [labelA, new Label('  '), labelB]  | []
+        [labelA, labelD]                        | []
+        [labelA, labelE]                        | []
     }
 
+    def "findByNote"() {
+        expect:
+        noteHandler.findByNote(noteDescription) == note
 
+        where:
+        noteDescription | note
+        null            | null
+        ''              | null
+        '       '       | null
+        'note'          | null
+        'note1'         | note1
+    }
 }

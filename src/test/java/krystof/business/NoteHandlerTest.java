@@ -29,14 +29,14 @@ public class NoteHandlerTest {
 
 //    @Before
 //    public void setUp() throws Exception {
-//        when(mockRepository.findOne(anyLong())).thenReturn(new Note("mock2note", new HashSet<>(Arrays.asList(new Label("mock2Label")))));
+//        when(mockRepository.findByOneLabel(anyLong())).thenReturn(new Note("mock2note", new HashSet<>(Arrays.asList(new Label("mock2Label")))));
 //    }
 
 //    @Test
-//    public void findOne() throws Exception {
+//    public void findByOneLabel() throws Exception {
 //
-//        noteHandler.findOne(124L);
-//                verify(mockRepository, times(1)).findOne(eq(124L));
+//        noteHandler.findByOneLabel(124L);
+//                verify(mockRepository, times(1)).findByOneLabel(eq(124L));
 //    }
 
 
@@ -179,7 +179,7 @@ public class NoteHandlerTest {
         noteHandler.save(note3);
 
 
-        List<Note> actualNotes = noteHandler.findByLabel(labelA);
+        List<Note> actualNotes = noteHandler.findByOneLabel(labelA);
 
         System.out.println(actualNotes);
 
@@ -216,7 +216,7 @@ public class NoteHandlerTest {
         noteHandler.save(note1);
 
 
-        List<Note> actualNotes = noteHandler.findByLabel(labelA);
+        List<Note> actualNotes = noteHandler.findByOneLabel(labelA);
 
         System.out.println(actualNotes);
 
@@ -269,7 +269,7 @@ public class NoteHandlerTest {
 //        noteHandler.save(note3);
 //
 //
-//        List<Note> actualNotes1 = noteHandler.findByLabels(Arrays.asList(labelC));
+//        List<Note> actualNotes1 = noteHandler.findByManyLabels(Arrays.asList(labelC));
 //
 //        System.out.println(actualNotes1);
 //
@@ -306,8 +306,8 @@ public class NoteHandlerTest {
 //        noteHandler.save(note2);
 //        noteHandler.save(note3);
 //
-//       assertTrue(noteHandler.findByLabels(Arrays.asList(labelE)).size() == 0);
-//       assertTrue(noteHandler.findByLabels(null).size() == 0);
+//       assertTrue(noteHandler.findByManyLabels(Arrays.asList(labelE)).size() == 0);
+//       assertTrue(noteHandler.findByManyLabels(null).size() == 0);
 //
 //
 //
