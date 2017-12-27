@@ -1,5 +1,6 @@
 package krystof.business;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
 import krystof.Data.LabelRepository;
 import krystof.Data.NoteRepository;
@@ -168,18 +169,56 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
         List<Label> savedLabels = listWithFlag.getSavedLabels();
 
-        switch (savedLabels.size()) {
 
-            case 1:
-                JPAQuery query = new JPAQuery(entityManager);
-                krystof.business.QNote qNote = krystof.business.QNote.note1;
-                List<Note> notes = query.from(qNote)
-                        .where(qNote.labels.contains(savedLabels.get(0)))
-                        .list(qNote);
-                return notes;
-            default:
-                return new ArrayList<>();
+
+//
+//        public List<Customer> getCustomer(String... names) {
+//            QCustomer customer = QCustomer.customer;
+//            JPAQuery<Customer> query = queryFactory.selectFrom(customer);
+//            BooleanBuilder builder = new BooleanBuilder();
+//            for (String name : names) {
+//                builder.or(customer.name.eq(name));
+//            }
+//            query.where(builder);
+//            return query.fetch();
+//        }
+
+
+
+//TODO moje
+        JPAQuery query = new JPAQuery(entityManager);
+        krystof.business.QNote note = krystof.business.QNote.note1;
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        for (Label savedLabel : savedLabels) {
+            builder.and(note.labels.contains(savedLabel));
+
         }
+
+        List<Note> notes = query.from(note)
+                .where(builder)
+                .list(note);
+
+        return notes;
+
+
+
+
+
+//
+//        switch (savedLabels.size()) {
+//
+//            case 1:
+//                JPAQuery query = new JPAQuery(entityManager);
+//                krystof.business.QNote qNote = krystof.business.QNote.note1;
+//                List<Note> notes = query.from(qNote)
+//                        .where(qNote.labels.contains(savedLabels.get(0)))
+//                        .list(qNote);
+//                return notes;
+//            default:
+//                return new ArrayList<>();
+//        }
     }
 
     ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {

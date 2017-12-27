@@ -733,18 +733,25 @@ nejak pomoci predicatu?
 nebo
 
 querydsl
+
+
+to je ono boolean builder
+
+********
 https://stackoverflow.com/questions/32326922/querydsl-convert-list-of-booleanexpression-to-predicate
+*********
+
 postupne pridavat AND
 
 
 nebo
-https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
+ne https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
 pomoci any a pak equals
 
 spojit to s boolean builder a udelat programticky retez AND
 podivat se i sem
-https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
-https://stackoverflow.com/questions/23077155/left-join-with-spring-data-jpa-and-querydsl/23092294#23092294
+toneni ono https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
+to neni ono https://stackoverflow.com/questions/23077155/left-join-with-spring-data-jpa-and-querydsl/23092294#23092294
 
 
 
@@ -860,13 +867,16 @@ a vic ne.
 navod na vytvareni query
 https://dzone.com/articles/spring-data-series-part-3-typesafe-query
 
-muj pripad https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
-a builder
+to neni ono
+https://stackoverflow.com/questions/10857377/using-querydsl-how-can-i-check-against-a-specific-object-from-a-set-of-objects-t
+
+
+musim najit boolean builder
 
 
 
-muj prpad
+
 https://stackoverflow.com/search?q=querydsl+many+to+many
-https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
+to neni ono https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
 
 
