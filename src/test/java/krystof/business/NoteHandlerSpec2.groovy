@@ -67,7 +67,7 @@ class NoteHandlerSpec2 extends Specification {
     @Unroll
     def "FindByManyLabels #inputList"() {
         expect:
-        noteHandler.findByManyLabels(inputList) == expectedList
+        noteHandler.findNoteByManyLabels(inputList) == expectedList
 
         where:
         inputList                               | expectedList
@@ -86,7 +86,7 @@ class NoteHandlerSpec2 extends Specification {
 
     def "findByNote"() {
         expect:
-        noteHandler.findByNote(noteDescription) == note
+        noteHandler.findNoteByNote(noteDescription) == note
 
         where:
         noteDescription | note

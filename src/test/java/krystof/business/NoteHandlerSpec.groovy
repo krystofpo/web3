@@ -36,11 +36,11 @@ class NoteHandlerSpec extends Specification {
 
 
         when:
-        def flagList=noteHandler.findSavedLabelsOrFlagNonSavedLabel(labelList)
+        def flagList=noteHandler.checkIfContainsNonExistingLabel(labelList)
 
         then:
-        flagList.containsNonSavedLabel() == contains
-        flagList.savedLabels == list
+        flagList.containsNonExistingLabel() == contains
+        flagList.existingLabels == list
 
         where:
 

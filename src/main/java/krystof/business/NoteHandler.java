@@ -49,17 +49,16 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public Note findOne(long id) {
-        System.out.println(noteRepository.toString());
-//        return noteRepository.findByOneLabel(id);
-        //noteRepository.deleteAll();
-//        noteRepository.save(new Note("notePokus","pokus"));
-//        return noteRepository.findByOneLabel("pokus").get(0);
         return noteRepository.findOne(id);
     }
 
     //saves a new Note or finds existing one.
     //method accepts a Note with saved or unsaved Labels
     public Note save(Note note) {
+        if (note == null || isBlank(note.getNote())) {
+            return null;
+        }
+
         if (sameNoteIsSavedAlready(note)) {
             throw new NoteHandlerException(
                     "Error: Attempt to save a note which " +
@@ -74,26 +73,13 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (!isEmpty(labels)) {
             setSavedLabelsToNote(note);
         }
-        return saveNoteWithSavedLabels(note);
+        return noteRepository.save(note);
     }
 
     private boolean sameNoteIsSavedAlready(Note note) {
         return !isEmpty(noteRepository.findByNote(note.getNote()));
     }
 
-
-    //todo
-    //does not consider difference between labels in existing note and new note
-    //if differeces in labels exist, update should be called
-    //is note is found, the new note saved new labels, that are not linked to any note
-    private Note saveNoteWithSavedLabels(Note note) {
-        List<Note> savedNotes = noteRepository.findByNote(note.getNote());
-        if (isEmpty(savedNotes)) {
-            return noteRepository.save(note);
-        } else {
-            return savedNotes.get(0);
-        }
-    }
 
     private void setSavedLabelsToNote(Note note) {
         Set<Label> savedLabels = createSetOfSavedLabels(note.getLabels());
@@ -147,9 +133,9 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
     }
 
-    public List<Note> findByOneLabel(Label label) {
+    public List<Note> findNoteByOneLabel(Label label) {
 
-        if (label ==null || isBlank(label.getLabel())) {
+        if (label == null || isBlank(label.getLabel())) {
             return new ArrayList<>();
         }
         List<Note> notes = noteRepository.findByLabel(label);
@@ -166,69 +152,108 @@ public class NoteHandler { //todo refactor change name to reposservice
         return findOrSaveLabel(label);
     }
 
-    public List<Note> findByManyLabels(List<Label> labels) {
+    //todo has to be tested
+    // todo correct returns, change some to null, clean code, readiility, logic
+    public List<Note> findNoteByManyLabels(List<Label> labels) {
         if (isEmpty(labels)) {
             return new ArrayList<>();
         }
 
-        ListWithFlag listWithFlag = findSavedLabelsOrFlagNonSavedLabel(labels);
-        if (listWithFlag.containsNonSavedLabel()) {
+        //cannot search for a note containing a non existing label
+        ListWithFlag checkedList = checkIfContainsNonExistingLabel(labels);
+        if (checkedList.containsNonExistingLabel()) {
             return new ArrayList<>();
         }
-        List<Label> savedLabels = listWithFlag.getSavedLabels();
+
+        return findNoteBySavedLabels(checkedList);
+    }
+
+    private List<Note> findNoteBySavedLabels(ListWithFlag checkedList) {
 
 
+        List<Label> existingLabels = checkedList.getExistingLabels();
 
-        JPAQuery query = new JPAQuery(entityManager);
+
+        BooleanBuilder predicate = buildPredicate(existingLabels);
+
+        return findNoteByPredicate(predicate);
+    }
+
+    private BooleanBuilder buildPredicate(List<Label> existingLabels) {
         krystof.business.QNote note = krystof.business.QNote.note1;
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        for (Label savedLabel : savedLabels) {
+        for (Label savedLabel : existingLabels) {
             builder.and(note.labels.contains(savedLabel));
 
         }
+        return builder;
+    }
 
+    private List<Note> findNoteByPredicate(BooleanBuilder builder) {
+        krystof.business.QNote note = krystof.business.QNote.note1;
+        ;
+        JPAQuery query = new JPAQuery(entityManager);
         List<Note> notes = query.from(note)
                 .where(builder)
                 .list(note);
         if (notes == null) {
             return new ArrayList<>();
         }
-            return notes;
-        }
+        return notes;
+    }
 
 
-
-    ListWithFlag findSavedLabelsOrFlagNonSavedLabel(List<Label> labels) {
-        if (isEmpty(labels)) {
+    ListWithFlag checkIfContainsNonExistingLabel(List<Label> uncheckedLabels) {
+        if (isEmpty(uncheckedLabels)) {
             return null;
         }
 
         ListWithFlag listWithFlag = new ListWithFlag();
 
-        for (Label unsavedLabel : labels) {
+        for (Label uncheckedLabel : uncheckedLabels) {
 
-            if (unsavedLabel == null) {
-                listWithFlag.setSavedLabels(new ArrayList<>());
-                listWithFlag.setContainsNonSavedLabel(true);
+
+            LabelWithFlag checkedLabel = checkIfLabelExists(uncheckedLabel);
+            if (checkedLabel.isNonExisting()) {
+                listWithFlag.setExistingLabels(new ArrayList<>());
+                listWithFlag.setContainsNonExistingLabel(true);
                 return listWithFlag;
             }
 
-            Label savedLabel = findByLabel(unsavedLabel.getLabel());
-            if (savedLabel == null) {
-                listWithFlag.setSavedLabels(new ArrayList<>());
-                listWithFlag.setContainsNonSavedLabel(true);
-                return listWithFlag;
-            }
-            listWithFlag.getSavedLabels().add(savedLabel);
+
+            listWithFlag.getExistingLabels().add(checkedLabel.getExistingLabel());
 
         }
+
 
         return listWithFlag;
     }
 
-    public Label findByLabel(String label) {
+    private LabelWithFlag checkIfLabelExists(Label uncheckedLabel) {
+
+        LabelWithFlag checkedLabel = new LabelWithFlag();
+
+
+        if (uncheckedLabel == null) {
+            checkedLabel.setExistingLabel(null);
+            checkedLabel.setNonExisting(true);
+            return checkedLabel;
+        }
+
+        Label existingLabel = findLabelByLabel(uncheckedLabel.getLabel());
+
+        if (existingLabel == null) {
+            checkedLabel.setNonExisting(true);
+        }
+        checkedLabel.setExistingLabel(existingLabel);
+        return checkedLabel;
+
+
+    }
+
+    public Label findLabelByLabel(String label) {
         if (isBlank(label)) {
             return null;
         }
@@ -240,7 +265,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         return labels.get(0);
     }
 
-    public Note findByNote(String note) {
+    public Note findNoteByNote(String note) {
         if (isBlank(note)) {
             return null;
         }

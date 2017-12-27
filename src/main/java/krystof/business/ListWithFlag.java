@@ -7,26 +7,26 @@ import java.util.List;
  * Created by polansky on 26.12.2017.
  */
 public class ListWithFlag {
-    private boolean containsNonSavedLabel=false;
-    private List<Label> savedLabels = new ArrayList<>();
+    private boolean containsNonExistingLabel =false;
+    private List<Label> existingLabels = new ArrayList<>();
 
     public ListWithFlag() {
     }
 
 
-    public void setContainsNonSavedLabel(boolean containsNonSavedLabel) {
-        this.containsNonSavedLabel = containsNonSavedLabel;
+    public void setContainsNonExistingLabel(boolean containsNonExistingLabel) {
+        this.containsNonExistingLabel = containsNonExistingLabel;
     }
 
-    public List<Label> getSavedLabels() {
-        return savedLabels;
+    public List<Label> getExistingLabels() {
+        return existingLabels;
     }
 
-    public void setSavedLabels(List<Label> savedLabels) {
-        this.savedLabels = savedLabels;
+    public void setExistingLabels(List<Label> existingLabels) {
+        this.existingLabels = existingLabels;
     }
 
-    public boolean containsNonSavedLabel() {
-        return containsNonSavedLabel;
+    public boolean containsNonExistingLabel() {
+        return containsNonExistingLabel;
     }
 }
