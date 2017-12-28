@@ -13,7 +13,7 @@ public class Label {
 
     private String label;
 
-    protected Label() {
+    public Label() {
     }
 
     public Label(Long labelId, String label) {
