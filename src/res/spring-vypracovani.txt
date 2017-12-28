@@ -1012,3 +1012,11 @@ pak n save a note
 bbly zadny porkm cel tjsem uvod do thyemlea,do spirng tzhmeleaf udela jsem jsem kopii
 ze spirng strnaek forualr s thymeleaf a ten neunguje. nevim poc.
 to bude na dlouho
+
+hlasi mi to chybu
+
+hledam reseni
+zamenuje to pole pro uzivatele za long
+
+
+https://stackoverflow.com/questions/30423478/thymeleaf-binding-collections
