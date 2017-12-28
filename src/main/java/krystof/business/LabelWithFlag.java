@@ -11,6 +11,11 @@ public class LabelWithFlag {
         this.existingLabel = existingLabel;
     }
 
+    public LabelWithFlag(boolean nonExisting, Label existingLabel) {
+        this.nonExisting = nonExisting;
+        this.existingLabel = existingLabel;
+    }
+
     public LabelWithFlag() {
 
     }
@@ -29,5 +34,23 @@ public class LabelWithFlag {
 
     public void setExistingLabel(Label existingLabel) {
         this.existingLabel = existingLabel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LabelWithFlag)) return false;
+
+        LabelWithFlag that = (LabelWithFlag) o;
+
+        if (isNonExisting() != that.isNonExisting()) return false;
+        return getExistingLabel() != null ? getExistingLabel().equals(that.getExistingLabel()) : that.getExistingLabel() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (isNonExisting() ? 1 : 0);
+        result = 31 * result + (getExistingLabel() != null ? getExistingLabel().hashCode() : 0);
+        return result;
     }
 }

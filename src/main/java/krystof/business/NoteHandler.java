@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -134,15 +131,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public List<Note> findNoteByOneLabel(Label label) {
-
-        if (label == null || isBlank(label.getLabel())) {
-            return new ArrayList<>();
-        }
-        List<Note> notes = noteRepository.findByLabel(label);
-        if (isEmpty(notes)) {
-            return new ArrayList<>();
-        }
-        return notes;
+        return findNoteByManyLabels(Arrays.asList(label));
     }
 
     public Label save(Label label) {
@@ -191,12 +180,13 @@ public class NoteHandler { //todo refactor change name to reposservice
         return builder;
     }
 
-    private List<Note> findNoteByPredicate(BooleanBuilder builder) {
+    private List<Note> findNoteByPredicate(BooleanBuilder predicate) {
         krystof.business.QNote note = krystof.business.QNote.note1;
-        ;
+
         JPAQuery query = new JPAQuery(entityManager);
+
         List<Note> notes = query.from(note)
-                .where(builder)
+                .where(predicate)
                 .list(note);
         if (notes == null) {
             return new ArrayList<>();
@@ -231,7 +221,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         return listWithFlag;
     }
 
-    private LabelWithFlag checkIfLabelExists(Label uncheckedLabel) {
+    LabelWithFlag checkIfLabelExists(Label uncheckedLabel) {
 
         LabelWithFlag checkedLabel = new LabelWithFlag();
 

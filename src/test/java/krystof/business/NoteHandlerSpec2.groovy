@@ -68,22 +68,25 @@ class NoteHandlerSpec2 extends Specification {
     def "FindByManyLabels #inputList"() {
         expect:
         noteHandler.findNoteByManyLabels(inputList) == expectedList
+        noteHandler.findAllLabels().size()==4
+        noteHandler.findAllNotes().size()==3
 
         where:
         inputList                               | expectedList
         null                                    | []
         []                                      | []
-        [labelE]                                | []
-        [labelC]                                | [note2, note3]
-        [labelA, labelB]                        | [note1, note2]
-        [labelA, null, labelB]                  | []
-        [labelA, new Label(null), labelB]  | []
-        [labelA, new Label(''), labelB]    | []
-        [labelA, new Label('  '), labelB]  | []
-        [labelA, labelD]                        | []
-        [labelA, labelE]                        | []
+        [labelE]                                | [] //non existing label
+        [labelC]                                | [note2, note3] //existing label
+        [labelA, labelB]                        | [note1, note2] //exisitng labels
+        [labelA, null, labelB]                  | [] //invalid label with existing labels
+        [labelA, new Label(null), labelB]  | [] //invalid label with existing labels
+        [labelA, new Label(''), labelB]    | [] //invalid label with existing labels
+        [labelA, new Label('  '), labelB]  | [] //invalid label with existing labels
+        [labelA, labelD]                        | [] //existing labels but no note contains both
+        [labelA, labelE]                        | [] //existing and non existing label
     }
 
+    @Unroll
     def "findByNote"() {
         expect:
         noteHandler.findNoteByNote(noteDescription) == note
@@ -96,4 +99,77 @@ class NoteHandlerSpec2 extends Specification {
         'note'          | null
         'note1'         | note1
     }
+
+    @Unroll
+    def "checkIfLabelExists"() {
+
+        expect:
+        noteHandler.checkIfLabelExists(label) == result
+
+        where:
+        label               |result
+        //existing label:
+        labelA              |new LabelWithFlag(false, labelA)
+        //non existing valid label:
+        labelE              |new LabelWithFlag(true, null)
+        //invalid:
+        new Label(null) |new LabelWithFlag(true, null)
+        //invalid:
+        new Label('')   |new LabelWithFlag(true, null)
+        //invalid:
+        new Label(' ')  |new LabelWithFlag(true, null)
+//invalid
+        null                 |new LabelWithFlag(true, null)
+    }
+
+//    def "findLabelByLabel"() {
+//        expect:
+//        noteHandler.findLabelByLabel(label) == result
+//
+//        where:
+//        label           |result
+//        null            |null
+//        new Label(null)     |null
+//        new Label('')       |null
+//        new Label(' ')      |null
+//        //non exisitng:
+//        labelE                  |null
+//        //exisitng:
+//        labelA                  |labelA
+//    }
+@Unroll
+        def "findLabelByLabel"() {
+        expect:
+        noteHandler.findLabelByLabel(label) == result
+
+        where:
+        label           |result
+        null            |null
+        ''              |null
+        '   '           |null
+        //non exisitng:
+        'labelE'        |null
+        //exisitng:
+        'labelA'        |labelA
+    }
+@Unroll
+    def "findNoteByOneLabel"() {
+        expect:
+        noteHandler.findNoteByOneLabel(label) == result
+        noteHandler.findAllLabels().size()==4
+        noteHandler.findAllNotes().size()==3
+
+        where:
+        label               |result
+        null                |[]
+        new Label(null) |[]
+        new Label('')   |[]
+        new Label(' ')  |[]
+        //non existing:
+        new Label("labelE") |[]
+        //existing but created without Id
+        new Label('labelA') |[note1, note2]
+    }
+
+
 }

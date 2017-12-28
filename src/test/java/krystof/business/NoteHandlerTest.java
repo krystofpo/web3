@@ -150,56 +150,9 @@ public class NoteHandlerTest {
         }
     }
 
-    @Test
-    public void findNoteByLabel() throws Exception {
-
-        Label labelA = new Label("labelA");
-        Label labelB = new Label("labelB");
-        Label labelC = new Label("labelC");
-        Label labelD = new Label("labelD");
-
-        Note note1 = new Note(
-                "note1", new HashSet<Label>(Arrays.asList(
-                labelA, labelB)));
-
-        Note note2 = new Note(
-                "note2", new HashSet<Label>(Arrays.asList(
-                labelA, labelC)));
-
-        Note note3 = new Note(
-                "note3", new HashSet<Label>(Arrays.asList(
-                labelD, labelC)));
-
-
-        noteHandler.deleteAllNotes();
-        noteHandler.deleteAllLabels();
-
-        noteHandler.save(note1);
-        noteHandler.save(note2);
-        noteHandler.save(note3);
-
-
-        List<Note> actualNotes = noteHandler.findNoteByOneLabel(labelA);
-
-        System.out.println(actualNotes);
-
-
-        assertTrue(actualNotes.size() == 2);
-        assertTrue(actualNotes.containsAll(Arrays.asList(note1, note2)));
-
-        List<Label> allLabels = noteHandler.findAllLabels();
-
-        System.out.println(allLabels);
-
-
-        assertTrue(allLabels.size() == 4);
-        assertTrue(allLabels.containsAll(Arrays.asList(labelA, labelB, labelC, labelD)));
-
-
-    }
 
     @Test
-    public void saveLabelAndNotewithExistingLabel() throws Exception {
+    public void saveLabelAndNotewithExistingLabelAndNewLabel() throws Exception {
 
         Label labelA = new Label("labelA");
         Label labelB = new Label("labelB");

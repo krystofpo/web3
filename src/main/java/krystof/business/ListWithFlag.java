@@ -29,4 +29,22 @@ public class ListWithFlag {
     public boolean containsNonExistingLabel() {
         return containsNonExistingLabel;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ListWithFlag)) return false;
+
+        ListWithFlag that = (ListWithFlag) o;
+
+        if (containsNonExistingLabel != that.containsNonExistingLabel) return false;
+        return getExistingLabels() != null ? getExistingLabels().equals(that.getExistingLabels()) : that.getExistingLabels() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (containsNonExistingLabel ? 1 : 0);
+        result = 31 * result + (getExistingLabels() != null ? getExistingLabels().hashCode() : 0);
+        return result;
+    }
 }

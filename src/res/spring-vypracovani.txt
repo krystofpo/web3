@@ -925,4 +925,7 @@ http://www.mindissoftware.com/querydsl-note/
 3.vsechny metody vraci prazdny list a ne null. pokud raci label ci note, vrati null
 
 4. valdiace vstupnch dat, napr ulozit label s prazdnym stringem null neo whitrspae spis vyhodit vyjimku a vratit na web nez vratit null
-stejne tak u mazani neexistujich veci? vhodit vjimku
+stejne tak u mazani neexistujich veci? vhodit vjimku a jak ji zobrazit uzivateli
+opravit save label kdyz uz existuje
+
+5,. otesotva tvschny metody notehandleru
