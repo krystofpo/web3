@@ -3,7 +3,6 @@ package krystof.business;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -36,6 +35,13 @@ public class Note {
         this.note = note;
         this.labels = labels;//ullcheck
     }
+
+    public Note(Long noteId, String note, Set<Label> labels) {
+        this.noteId = noteId;
+        this.note = note;
+        this.labels = labels;//ullcheck
+    }
+
 //todo aby do labelu nepriradilo nunull
     public Note(String note) {
         this(note, null);

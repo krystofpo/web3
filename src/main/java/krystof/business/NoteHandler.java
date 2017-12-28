@@ -265,6 +265,22 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
         return notes.get(0);
     }
+
+    public Note updateNote(Note note) {
+
+        if (note == null) {
+            throw new NoteHandlerException("Error: cannot update null note");
+        }
+
+        if (note.getNoteId() == null) {
+            throw new NoteHandlerException("Error: cannot update unsaved note");
+        }
+
+        if (!noteRepository.exists(note.getNoteId())) {
+            throw new NoteHandlerException("Error: note with ID:" + note.getNoteId() + "does not exist.");
+        }
+        return noteRepository.save(note);
+    }
 }
 
 

@@ -885,18 +885,18 @@ uz to funugje, parada, prochazi se list, udela se query postupne a jde to.
 
 
 //TODO ===========================
-repository pridat querydsl repository a notehnadler ji preda predicate.
-2//todo odstanit z repository find by labels ktera nefuguje,
-//todo dat hibernate debug a divat se jaky query spostui jeslti jsou optimalizavany.
-//todo metody z testu pridat do command line runner a podivat se do db onsoli a spusitt tam hibenrate sql
-//todo dat testy notehandelru do dvou spock testu
-//todo prejmenovat notehandler na DAO
-//notehandler do data balicku
-//dao pres inerface
-//pridat delete label
-//pridat delete note
-//pridat update label a note
-contrianty na entite napr unique pro note a label
+repository pridat querydsl repository a notehnadler ji preda predicate. NE
+2//todo odstanit z repository find by labels ktera nefuguje, OK
+3//todo dat hibernate debug a divat se jaky query spostui jeslti jsou optimalizavany.
+4//todo metody z testu pridat do command line runner a podivat se do db onsoli a spusitt tam hibenrate sql
+5//todo dat testy notehandelru do dvou spock testu
+6//todo prejmenovat notehandler na DAO
+7//notehandler do data balicku
+8//dao pres inerface
+9//pridat delete label
+10//pridat delete note
+11//pridat update label a note
+12contrianty na entite napr unique pro note a label
 //udelat fornten
 //vypsani vsech note pageable
 //vypsasni vsech labelu pageable
@@ -920,12 +920,50 @@ bez priklau:
 http://www.mindissoftware.com/querydsl-note/
  trva moc dlouho njit prioklad, preskakuji
 
-2//todo odstanit z repository find by labels ktera nefuguje,
+2//todo odstanit z repository find by labels ktera nefuguje, OK
 
-3.vsechny metody vraci prazdny list a ne null. pokud raci label ci note, vrati null
+3.vsechny metody vraci prazdny list a ne null. pokud raci label ci note, vrati null OK
 
 4. valdiace vstupnch dat, napr ulozit label s prazdnym stringem null neo whitrspae spis vyhodit vyjimku a vratit na web nez vratit null
 stejne tak u mazani neexistujich veci? vhodit vjimku a jak ji zobrazit uzivateli
 opravit save label kdyz uz existuje
 
 5,. otesotva tvschny metody notehandleru
+
+
+11//pridat update label a note
+je14:27
+update note
+
+pres ntor hndler
+pvni ykozntroulej jeslti eixtuje podle id,  boolean exists
+na webu si note nekdo tevtre tim ze vyvola z db a bude mi tnejaky id
+bude prsisovana, udela zmeny, zmeny ulozi.
+psila tedy persistovanou entitu s id, ale jiny popis a jiny set.
+pak zavolam metodu update na repository, ta by mela zmenit i zaznam v join table.
+jak to zkontorulju?
+podvi se do tabulky cosoli
+
+crud repositrz pry kdzy se da sav tak se udela update pokud to existuje
+
+a tady je prikad jak preest thymeleaf form na entitu
+https://stackoverflow.com/questions/24420572/update-or-saveorupdate-in-crudrespository-is-there-any-options-available
+
+
+9//pridat delete label
+10//pridat delete note
+napred musim udelat update note
+
+delete label je tezsi.
+delelte label podle id musi to uzivatel najit na strnace, pak je jistota ze existuje
+napred check podle id ze label existuje.
+najdu jestli nejaka note ma referenci na note.
+ziskam tedy lost note, pokud je prazydny ak vymaz label
+
+pokud ne, tak pro vsechny note proved metodu remove label.
+metod removde label bere jak apramter note a label
+udela remove ze setu a pak udela update note, pomoci metody udate note.
+
+delete note
+kontrola jeslti existuje podle id a pak je rpeositoru delete a ykontorlovat
+tabulku join

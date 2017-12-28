@@ -65,25 +65,25 @@ class NoteHandlerSpec2 extends Specification {
     }
 
     @Unroll
-    def "FindByManyLabels #inputList"() {
+    def "FindNoteByManyLabels #inputList"() {
         expect:
         noteHandler.findNoteByManyLabels(inputList) == expectedList
-        noteHandler.findAllLabels().size()==4
-        noteHandler.findAllNotes().size()==3
+        noteHandler.findAllLabels().size() == 4
+        noteHandler.findAllNotes().size() == 3
 
         where:
-        inputList                               | expectedList
-        null                                    | []
-        []                                      | []
-        [labelE]                                | [] //non existing label
-        [labelC]                                | [note2, note3] //existing label
-        [labelA, labelB]                        | [note1, note2] //exisitng labels
-        [labelA, null, labelB]                  | [] //invalid label with existing labels
-        [labelA, new Label(null), labelB]  | [] //invalid label with existing labels
-        [labelA, new Label(''), labelB]    | [] //invalid label with existing labels
-        [labelA, new Label('  '), labelB]  | [] //invalid label with existing labels
-        [labelA, labelD]                        | [] //existing labels but no note contains both
-        [labelA, labelE]                        | [] //existing and non existing label
+        inputList                         | expectedList
+        null                              | []
+        []                                | []
+        [labelE]                          | [] //non existing label
+        [labelC]                          | [note2, note3] //existing label
+        [labelA, labelB]                  | [note1, note2] //exisitng labels
+        [labelA, null, labelB]            | [] //invalid label with existing labels
+        [labelA, new Label(null), labelB] | [] //invalid label with existing labels
+        [labelA, new Label(''), labelB]   | [] //invalid label with existing labels
+        [labelA, new Label('  '), labelB] | [] //invalid label with existing labels
+        [labelA, labelD]                  | [] //existing labels but no note contains both
+        [labelA, labelE]                  | [] //existing and non existing label
     }
 
     @Unroll
@@ -107,19 +107,19 @@ class NoteHandlerSpec2 extends Specification {
         noteHandler.checkIfLabelExists(label) == result
 
         where:
-        label               |result
+        label           | result
         //existing label:
-        labelA              |new LabelWithFlag(false, labelA)
+        labelA          | new LabelWithFlag(false, labelA)
         //non existing valid label:
-        labelE              |new LabelWithFlag(true, null)
+        labelE          | new LabelWithFlag(true, null)
         //invalid:
-        new Label(null) |new LabelWithFlag(true, null)
+        new Label(null) | new LabelWithFlag(true, null)
         //invalid:
-        new Label('')   |new LabelWithFlag(true, null)
+        new Label('')   | new LabelWithFlag(true, null)
         //invalid:
-        new Label(' ')  |new LabelWithFlag(true, null)
+        new Label(' ')  | new LabelWithFlag(true, null)
 //invalid
-        null                 |new LabelWithFlag(true, null)
+        null            | new LabelWithFlag(true, null)
     }
 
 //    def "findLabelByLabel"() {
@@ -137,39 +137,77 @@ class NoteHandlerSpec2 extends Specification {
 //        //exisitng:
 //        labelA                  |labelA
 //    }
-@Unroll
-        def "findLabelByLabel"() {
+    @Unroll
+    def "findLabelByLabel"() {
         expect:
         noteHandler.findLabelByLabel(label) == result
 
         where:
-        label           |result
-        null            |null
-        ''              |null
-        '   '           |null
+        label    | result
+        null     | null
+        ''       | null
+        '   '    | null
         //non exisitng:
-        'labelE'        |null
+        'labelE' | null
         //exisitng:
-        'labelA'        |labelA
+        'labelA' | labelA
     }
-@Unroll
+
+    @Unroll
     def "findNoteByOneLabel"() {
         expect:
         noteHandler.findNoteByOneLabel(label) == result
-        noteHandler.findAllLabels().size()==4
-        noteHandler.findAllNotes().size()==3
+        noteHandler.findAllLabels().size() == 4
+        noteHandler.findAllNotes().size() == 3
 
         where:
-        label               |result
-        null                |[]
-        new Label(null) |[]
-        new Label('')   |[]
-        new Label(' ')  |[]
+        label               | result
+        null                | []
+        new Label(null)     | []
+        new Label('')       | []
+        new Label(' ')      | []
         //non existing:
-        new Label("labelE") |[]
+        new Label("labelE") | []
         //existing but created without Id
-        new Label('labelA') |[note1, note2]
+        new Label('labelA') | [note1, note2]
     }
 
+    @Unroll
+    def "updateNote"() {
 
+        given:
+        Note realnote1 = noteHandler.findNoteByNote(note.getNote())
+        realnote1.setNote(realnote1.getNote() + 'updated')
+        Label lc = noteHandler.findLabelByLabel('labelC')
+        realnote1.getLabels().clear()
+        realnote1.getLabels().add(lc)
+
+        expect:
+        noteHandler.updateNote(realnote1) == result
+        noteHandler.findAllNotes() == allNotes
+
+        where:
+        note                        | result                                             | allNotes
+        //corect entity, removed label A, labelB, added C, changed note description
+        new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelC].toSet()) | [new Note(1L, "note1updated", [labelC].toSet()), note2, note3]
+    }
+
+    @Unroll
+    def "updateNote-throwing"() {
+        when:
+        noteHandler.updateNote(note)
+
+        then:
+        thrown(NoteHandlerException)
+
+
+        where:
+        note << [null,
+                 //entity exists but is not persisted=no id
+                 new Note('note1'),
+                 //entity has id but id does not exist
+                 new Note(1000L, "note8", null)]
+
+
+    }
 }
