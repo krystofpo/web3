@@ -210,4 +210,121 @@ class NoteHandlerSpec2 extends Specification {
 
 
     }
+
+
+    def "updateLabel"() {
+
+        given:
+        Label realLabelA = noteHandler.findLabelByLabel('labelA')
+        realLabelA.setLabel(realLabelA.getLabel() + 'updated')
+
+        expect:
+        noteHandler.updateLabel(realLabelA) == realLabelA
+        noteHandler.findAllLabels().containsAll([realLabelA, labelB, labelC, labelD])
+
+    }
+
+    @Unroll
+    def "updateLabel-throwing"() {
+        when:
+        noteHandler.updateLabel(label)
+
+        then:
+        thrown(NoteHandlerException)
+
+
+        where:
+        label << [null,
+                  //entity exists but is not persisted=no id
+                  new Label('labelA'),
+                  //entity has id but id does not exist
+                  new Label(1000L, "note8")]
+
+
+    }
+
+    @Unroll
+    def "deleteLabel-throwing"() {
+
+        when:
+        noteHandler.deleteLabel(label)
+
+        then:
+        thrown(NoteHandlerException)
+
+        where:
+        label << [null,
+                  //unsaved label = no id
+                  new Label('labelA'),
+                  //non existin label
+                  new Label(1000L, 'labelA')
+        ]
+    }
+
+    @Unroll
+    def "deleteLabel"() {
+        given:
+        noteHandler.save(labelE)
+
+        when:
+        Label realLabel = noteHandler.findLabelByLabel(label.getLabel())
+        noteHandler.deleteLabel(realLabel)
+        def actualLabels = noteHandler.findAllLabels()
+        def actualNotes = noteHandler.findAllNotes()
+
+        then:
+        actualLabels.containsAll(expectedLabels)
+        actualLabels.size() == eSizeOfLabels
+        actualNotes.containsAll(expectedNotes)
+        actualNotes.size() == eSizeOfNotes
+
+        where:
+        label  | expectedLabels                   | eSizeOfLabels | expectedNotes                                                                                                                   | eSizeOfNotes
+        //saved label not attached to any note, notes are unchangd
+        labelE | [labelA, labelB, labelC, labelD] | 4             | [note1, note2, note3]                                                                                                           | 3
+        //saved label part of some notes, label is removed from corresponding notes
+        labelA | [labelE, labelB, labelC, labelD] | 4             | [new Note('note1', [labelB].toSet()), new Note('note2', [labelB, labelC].toSet()), new Note('note3', [labelD, labelC].toSet())] | 3
+    }
+
+    @Unroll
+    def "deleteNote-throwing"() {
+
+        when:
+        noteHandler.deleteNote(note)
+
+        then:
+        thrown(NoteHandlerException)
+
+        where:
+        note << [null,
+                 //unsaved note = no id
+                 new Note('note1'),
+                 //non existin note
+                 new Note(1000L, 'note1', null)
+        ]
+    }
+
+    @Unroll
+    def "deleteNote"() {
+
+
+        when:
+        Note realNote = noteHandler.findNoteByNote(note.getNote())
+        noteHandler.deleteNote(realNote)
+        def actualLabels = noteHandler.findAllLabels()
+        def actualNotes = noteHandler.findAllNotes()
+
+        then:
+        actualLabels.containsAll(expectedLabels)
+        actualLabels.size() == eSizeOfLabels
+        actualNotes.containsAll(expectedNotes)
+        actualNotes.size() == eSizeOfNotes
+
+        where:
+        note                  | expectedLabels                   | eSizeOfLabels | expectedNotes  | eSizeOfNotes
+        //labels are unchanged
+        new Note('note1') | [labelA, labelB, labelC, labelD] | 4             | [note2, note3] | 2
+        //labels are unchanged
+        new Note('note3') | [labelA, labelB, labelC, labelD] | 4             | [note1, note2] | 2
+    }
 }

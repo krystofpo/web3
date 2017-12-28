@@ -2,7 +2,6 @@ package krystof.business;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Label {
@@ -17,9 +16,18 @@ public class Label {
     protected Label() {
     }
 
-    public Label(String label) {
+    public Label(Long labelId, String label) {
+
+        this.labelId = labelId;
         this.label = label;
     }
+
+    public Label(String label) {
+
+        this.labelId = null;
+        this.label = label;
+    }
+
 
     public Long getLabelId() {
         return labelId;

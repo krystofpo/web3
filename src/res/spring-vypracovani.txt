@@ -950,6 +950,13 @@ a tady je prikad jak preest thymeleaf form na entitu
 https://stackoverflow.com/questions/24420572/update-or-saveorupdate-in-crudrespository-is-there-any-options-available
 
 
+je 17:23, ale asi hodinu byla puaya na obed,
+bylo patlani s testem, musel jsem predelavat
+
+je 17:57 zacatek update label
+musel jsem predelavat test a menit label
+18:19 hotov update label vcetne testu
+
 9//pridat delete label
 10//pridat delete note
 napred musim udelat update note
@@ -967,3 +974,14 @@ udela remove ze setu a pak udela update note, pomoci metody udate note.
 delete note
 kontrola jeslti existuje podle id a pak je rpeositoru delete a ykontorlovat
 tabulku join
+
+zacatek delete label. 18:20
+psani testu
+
+pauza 15 meinut
+19:21 hpotov delelte label
+
+19:22 zacatek psani delelt enote
+
+19:39 konec, delete note hotoov i s testy.
+

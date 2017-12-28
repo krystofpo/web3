@@ -281,6 +281,79 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
         return noteRepository.save(note);
     }
+
+    public Label updateLabel(Label label) {
+        if (label == null) {
+            throw new NoteHandlerException("Error: cannot update null label");
+        }
+
+        if (label.getLabelId() == null) {
+            throw new NoteHandlerException("Error: cannot update unsaved label");
+        }
+
+        if (!labelRepository.exists(label.getLabelId())) {
+            throw new NoteHandlerException("Error: label with ID:" + label.getLabelId() + "does not exist.");
+        }
+        return labelRepository.save(label);
+    }
+
+    public void deleteLabel(Label label) {
+        throwIfLabelIsInvalid(label);
+
+        List<Note> notesContainingLabel = findNoteByOneLabel(label);
+
+        if (isEmpty(notesContainingLabel)) {
+            deleteFreeLabel(label);
+        } else {
+
+            notesContainingLabel.forEach(note -> removeLabelAndUpdate(note, label));
+            deleteFreeLabel(label);
+        }
+
+    }
+
+    private void removeLabelAndUpdate(Note note, Label label) {
+        note.getLabels().remove(label);
+        updateNote(note);
+    }
+
+    private void deleteFreeLabel(Label label) {
+        labelRepository.delete(label.getLabelId());
+    }
+
+    private void throwIfLabelIsInvalid(Label label) {
+        if (label == null) {
+            throw new NoteHandlerException("Error: cannot delete null label");
+        }
+
+        if (label.getLabelId() == null) {
+            throw new NoteHandlerException("Error: cannot delete unsaved label");
+        }
+
+        if (!labelRepository.exists(label.getLabelId())) {
+            throw new NoteHandlerException("Error: label with ID:" + label.getLabelId() + "does not exist.");
+        }
+    }
+
+    public void deleteNote(Note note) {
+        throwIfNoteIsInvalid(note);
+
+        noteRepository.delete(note.getNoteId());
+    }
+
+    private void throwIfNoteIsInvalid(Note note) {
+        if (note == null) {
+            throw new NoteHandlerException("Error: cannot delete null note");
+        }
+
+        if (note.getNoteId() == null) {
+            throw new NoteHandlerException("Error: cannot delete unsaved note");
+        }
+
+        if (!noteRepository.exists(note.getNoteId())) {
+            throw new NoteHandlerException("Error: note with ID:" + note.getNoteId() + "does not exist.");
+        }
+    }
 }
 
 
