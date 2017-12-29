@@ -23,11 +23,11 @@ public class LabelController {
     @RequestMapping(value = "/savelabel", method = RequestMethod.GET)
     public String showSaveLabelForm(Model model) {
         model.addAttribute("labelentity", new Label());
-        return "labelform";
+        return "savelabel";
     }
 
     @RequestMapping(value = "/savelabel", method = RequestMethod.POST)
-    public String submitLabel(@ModelAttribute Label labelentity) {
+    public String submitLabel(@ModelAttribute(name = "labelentity") Label labelentity) {
 
         //todo save it, ale jak to predat view jako novy objekt? lepsi
         //by bzlo psmeroa tna label a id a dat to tomu id jako parametr

@@ -1020,3 +1020,15 @@ zamenuje to pole pro uzivatele za long
 
 
 https://stackoverflow.com/questions/30423478/thymeleaf-binding-collections
+
+https://stackoverflow.com/questions/35856812/accessing-model-attributes-in-thymleaf-and-spring-boot
+
+to tse taky tyka myho zadani
+
+https://spring.io/guides/gs/testing-web/
+testovani contorlleru bey celzyho springu, jen web layer
+navic muzu mockovat a mock contorleru podsoupnout
+
+delam strukturu strnake,  a tkay layout
+https://html5-editor.net/
+ude;a html kod samo
