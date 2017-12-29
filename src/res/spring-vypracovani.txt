@@ -1032,3 +1032,72 @@ navic muzu mockovat a mock contorleru podsoupnout
 delam strukturu strnake,  a tkay layout
 https://html5-editor.net/
 ude;a html kod samo
+
+https://reversecoding.net/spring-mvc-requestparam-binding-request-parameters/
+dobry o bindovani requwes tparametru na parametry metodz
+
+https://stackoverflow.com/questions/17964841/how-to-get-param-in-method-post-spring-mvc
+pro post se pouyiova
+@RequestMapping(value = "/", method = RequestMethod.POST)
+public ViewForResponseClass update(@RequestBody AClass anObject) {
+A body like JSON or another data representation would depending on your implementation (I mean, consume and produce MediaType).
+
+Typically, multipart/form-data is used to upload files.
+jak spravne poslat form?
+
+tohle je nadejny
+http://www.logicbig.com/tutorials/spring-framework/spring-web-mvc/spring-message-body/
+jak se navaze obsah POST na argument, jak se dela content type
+
+
+
+
+yde jsou priklady
+http://javasampleapproach.com/spring-framework/spring-mvc/spring-web-mvc-form-submission-spring-boot
+
+
+ykusim proste porid regquest body a typ dat jako Label, dam do testu mocmvc print aby to ukazalo jaky encoding
+anebo v porhliyezi se podivam na request ktery posila stnaka s ofmrualrem
+
+takye kdzy se posle form tak contet tzpe je Content-Type:application/x-www-form-urlencoded
+a presto spring mvc z toho umi udelat entitu label a ja chci tu entitu dosta
+jako paramaetr do metody, zkusim dat request body a parametr a pak bey request bodz jen jak paramter
+bez request body, jen jsem nechal v prametru contolleru Label label a ma tam ta data z formualre
+label uloziym, zisam novou entitu uloyenou a tu predam modelu
+
+mam v label uz tu nentiua ted ji chci predat na zobrazeni. delam v parmatru model model a pridavam attobutbe
+name  a label a zas chba.
+
+ctu o model a model map. odkud se berou?
+
+tka chyba vznika tam,ze kdyz sep osila post z formulare, tak spirn neumi prevest data na pbjekt tzpu
+label ale proc? kdyz tam encham anotai modela trribute tak to funguje.
+co dela anotace model attribute?
+potom do prommne leabel se opravdu namapujou data z fomrulares
+ale zase kdzy se podivm na documetac k modelatibute tka tam pisou, ze se to nepouyiva k mapovani fomrulare
+na POJO, ale  k pridani pojo do modelu. divne
+
+jeste zksuim pridat do controleru consumes form atd
+
+
+napisu na SO dalsi otayku ale napred projdu vsechn
+zkousel jsem podle odpovedi s contentem
+ale to nefunguje
+
+jakto ze jim fungovala?
+
+funguje to s mdela ttbirbute ale ja nechi jeste pridavat label do attrubtu a navic podle documetace
+to se chova jinak.
+
+http://www.baeldung.com/spring-mvc-form-tutorial
+tady neco pisou o @modelattribute ale stejne to nehapu, kdzy neni parametr metody oznacen modelatrubte
+tak se argument nebere z modelu. ale kdyz jsem to dal pryc tak stejne spring bral data
+z formulare a chtel je dat do labelu
+
+https://dzone.com/articles/using-spring-mvc%E2%80%99s
+tady taky mluvi o tom ze se v pozadi berou data z modelu, ale jakyho kdzy model neexistue?
+
+http://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation
+tady vzsvetlujou jka se z modelu ale jakyho modelu kdzy neexistuje? anebo
+je tim modelem mysleno data z requestu?
+}
