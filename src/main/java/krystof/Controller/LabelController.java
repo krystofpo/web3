@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,8 +28,14 @@ public class LabelController {
     }
 
     @RequestMapping(value = "/savelabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String submitLabel(Label label) {
-        System.out.println(label);
+    public String submitLabel(@ModelAttribute(name="labelentity") Label label, Model model) {
+        System.out.println(model);
+        System.out.println("ulozim");
+        Label label2 = handler.save(label);
+        System.out.println("pubovdni label po ulozeni" + label);
+        model.addAttribute("savedLabel", label);
+        System.out.println(model);
+        //        System.out.println(label);
 //        Label savedLabel = handler.save(label);
 //        System.out.println("saved" + savedLabel);
 //        System.out.println(model);

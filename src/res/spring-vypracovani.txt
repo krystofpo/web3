@@ -1100,4 +1100,12 @@ tady taky mluvi o tom ze se v pozadi berou data z modelu, ale jakyho kdzy model 
 http://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation
 tady vzsvetlujou jka se z modelu ale jakyho modelu kdzy neexistuje? anebo
 je tim modelem mysleno data z requestu?
+
+
+nemusism se v tom soturat staci kdyz vim jk to pouyit/
+do parametur dam model attribute nejak to nazvu a Label label
+to udela ze to ezme data z fomrulare a uloyi je to mdelu a do parametru
+vyhledem k tomu, ze metoda save zmeni label, ten samej, nevztori novou isntanci
+ale meni existujiic, tak v modelu se taky objet ymeni, reference je stejna, takze
+neni trba updatovat model. 
 }
