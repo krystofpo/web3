@@ -75,8 +75,9 @@ public class Note {
     @Override
     public String toString() {
         return "Note{" +
-                "note='" + note + '\'' +
-                ", labels='" + labels + '\'' +
+                "noteId=" + noteId +
+                ", note='" + note + '\'' +
+                ", labels=" + labels +
                 '}';
     }
 

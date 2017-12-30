@@ -1107,5 +1107,124 @@ do parametur dam model attribute nejak to nazvu a Label label
 to udela ze to ezme data z fomrulare a uloyi je to mdelu a do parametru
 vyhledem k tomu, ze metoda save zmeni label, ten samej, nevztori novou isntanci
 ale meni existujiic, tak v modelu se taky objet ymeni, reference je stejna, takze
-neni trba updatovat model. 
+neni trba updatovat model.
+
+
+
+//todo validovani vutpnich dat priklad je v e psirng in action kaoitla thzmleaf
+//pridat exceptiony a udela terro page na exceptionz,
+
+
+//todo pidat do kaydz stnrkz navra tna menu
+//redirect po uloyeni aby se nepostovlao dvkrat atd
+
+udlel jsem sav enote ale dla jsem do meotdzy jako parametr dvakrat model atrbute a tne druhy to inguruje jak to muzu napravit?
+jak zaroven poslat dve entity?
+
+podivst se sem
+https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/mvc.html#mvc-ann-form-urlencoded-data
+
+https://stackoverflow.com/questions/34782025/http-post-request-with-content-type-application-x-www-form-urlencoded-not-workin/38252762#38252762
+nema tam @model att a presto to funguje? jakto?
+
+udela manualne bindovani pres responsebodz a dat do mapy dat jako note, popis, label popis,.
+ale jak se udela z toho list nebo set? prootye to bude label= a ynova label= a to v mape bejt nemuze
+
+napr tady
+https://stackoverflow.com/a/4339291/7747753
+
+jak se dela rucne meneni dat na objetk
+https://stackoverflow.com/a/31083802/7747753
+https://stackoverflow.com/a/31083802/7747753
+
+mozna zde:
+http://matthewsalvatore.blogspot.cz/2013/08/spring-framework-working-with-x-www.html
+
+
+tady je test mock mvc n aposilani POST  a parametru
+http://www.logicbig.com/tutorials/spring-framework/spring-web-mvc/spring-message-body/
+
+listy
+https://stackoverflow.com/questions/34789357/how-to-pass-liststring-in-post-method-using-spring-mvc
+
+jak z myho formulare ktery ma polozky label yiskam bud obejtk note se setem labelu
+nejak auotmaikz
+ebo alepsion jak yiskam automatick zojek tnote a automaitkcz list stringu nebo list labaleu?
+hledat spring mvc form POST list
+a taky se podivat do navodu k thyeleafu tam je nejaky ukazkovy poejtk a jedna entita ma myslim v osbe set nebo list
+tkaye kdzy e ukada do rmlulare, musi to nejk pracovat
+
+
+th each kdzy se prochayi list a dava do thymeleaf
+http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html
+
+
+tshal jsem projekt thzymeeaf ktery posila formular postema  a ma tam array  a sam to preklada
+nechapu v porjektu thymelepra se nejak samo udela z formulare post entita vcetne vnorenych arraye Feature. nevim kde to je nastavene
+nevim ja udelat debug maven projektu s tomcatem v gradlu udelam debug
+
+
+nasel navod zde
+tkzy maj entitu ktera obshauje lsit jinych entit
+a doastava halnvi entitu v parameru
+http://viralpatel.net/blogs/spring-mvc-multi-row-submit-java-list/
+
+napdal ome ze moyna je konflikt s label jako nazev objektu a label jako nazev attributu labelu, prjemenuju?
+podivam e na fomrular jaeslti tam ma objet spoeciifikovany ajak se jmenuju name input tagu
+
+yde jses videl ze v htm kodu musi byt labels[0].label  a label[1].label, tak to je  projektu thymelleaf, input type text
+a name = rows[0].desc a rows[0].date atd a pak strnak posle PSOT a bude tam sprvne parametry a spirng z toho udela spravne
+entitu ale podle W3C se v name nesmi vyskytovat znaky [].
+
+ykusim to udelat taky s
+labels0.label
+
+a taky labels.label
+a pod tim labels.label
+jestli z otoh udela psirng list labelu, v query to funguje ze tomu samymu key priradis nekolik hodnot a on z yoho udlea losi tspring
+
+
+v thzmeleaf maji v htm kodu taky name=features a dalsi input name=features a spring z toho udela array Features a Features je enum, ma to jenom name atribut.
+
+mam tam labels[0].label zda se ze to funguje alae hlsi to chzbu prootoye je to set a ne labels
+tak bud najdu navod kde se pouziva set
+
+anebo napisu handlerhhttp mapper kterej udela z listu set, anebo d oentity
+pridam propery labeslist a ta bude brat list a jakmile se vyvola, tak prijme list , z listu udela set to ulozi do do labels
+a pak ulozti set do listu aby to bylo sznhroniyovany. ale nevim jak bude fungovat add a remove z listu a setu.
+
+taky muzu hledat na googlu <form method=post
+request mapping post nebo postmapping
+@modelattribute
+a Set<
+
+je 15:48 a yjisil jsem ze spring neumi udelat binding na z formu na set to je blby
+
+budu set udelat rokaaround.
+kzdzy zmenim set na list tak porusim many to many, budou tam mo byt duplikaty a to jejblbe.
+
+cioi ptebuju logiu setu, ale interface labelu.
+zkusim najit exisutji adapter ktery vzpada yvenci jako list ale je to set
+a kdy ne tak udelam vlasnti
+
+v Note bude list labelu a ten list bude final. aby se nemol prepsat
+setter metoda bude jen delat to ze vymaze z myho objektu ListSet vsechno a ulozi do nej
+vsechny hodnoty y prichoyiho listu.
+
+muj objetk bud extendovat arraz list tim ydedi vsechnz impelemtance metod ydedi taky implemenataci listu?
+
+override jeho metdy add addall atd yavolam super add ale pootm removde duplivcatess.
+
+//todo zmeni se neco kdyz misto set bude list? volam nejaky metody Setu a kdzy to bude List bude to fungoavt?
+odivat se na interace fe set jesli ma neco navi nez list.
+
+https://stackoverflow.com/questions/45948833/spring-mvc-form-post-with-object-inside-collection-objects-of-model
+ma podobny porbelme potrebuje set a musi se to tvarit jako list.
+muyu mu odpoedet
+
+vzpaa to ze set nema nic navic oproti collection tim padem ani oproti lsiut
+
+
+//todo ykusit dat do listu stjeny hondotyz jeslti je to vradi aby to bzla Set
+ v
 }
