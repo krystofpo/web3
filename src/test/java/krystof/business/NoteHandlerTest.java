@@ -48,6 +48,35 @@ public class NoteHandlerTest {
     }
 
 
+    @Test
+    public void hashcodeSetListI() throws Exception {
+
+
+        Label labelA = new Label("labelA");
+        Label labelB = new Label("labelB");
+
+
+        Note note1 = new Note(
+                "note1", new ArrayList<Label>(Arrays.asList(
+                labelA, labelB)));
+
+        System.out.println("list before save " + note1.getLabels().toString() +
+                "\n" + note1.getLabels().hashCode());
+
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        noteHandler.save(note1);
+        System.out.println("----------SAVING-----------");
+
+
+        System.out.println("list  after save" + note1.getLabels().toString() +
+                "\n" +note1.getLabels().hashCode());
+
+
+    }
+
     //integracni test
     @Test
     public void saveNewNoteWithNewAndExistingLabels() throws Exception {

@@ -1267,4 +1267,90 @@ a predelam to na apache coomons unique ist a bude to tzpu list
  tak jsem to uz zjistil, kdyz se uklada entita, note tak se zmeni labelsetI na persistnet bag, i kdyz je to final atribut
  ppodivam se v jakym kroku dojde ke ymene
 
+ prtoye udela uplne novou insanci a do ni nasype data a kdyz je ve tride typ List tak tam da jakoukoliv implementaci.
+ zskusim dat do tridy misto listu te SetListI a sksvalne jeslti m to veyme form bidign. teoretickz by mohl kdyz necham signatuu metody
+ setlabels na listu tak signatura sedi.
+ kdzy se vola get labels tak do dignaturz nepoatri navratovy typ, snad bude ok.
+ kdyz budou volat list.set0 neco tak snad taky ok.
+
+ roybilz se navic testy ale proc?
+
+ neufnguje hashcode a navc se royiblz i testy
+
+ hascdoe udelam  primo v listu. udelam itercfi for nad novzm sorotnaym listem.
+ v jakem poradi se ituruje po sorotvani?
+ njit na netu.
+
+ predelat equls na contains all boustranne.
+ dat debug na haschode.
+
+ mona udelt testna haschode ve spocku?
+
+ sehnat nekho z firmy at mi pomuze
+
+ mam cislo na Jirku Macharta
+
+
+ je 11:56
+
+je 13:25 tak si 30minutp pomoc pauza
+
+po save uz se nevyvola metoda hashcode na SetListI, mam tam sout println a to se nezavola.
+jakto ze se behem savu zmeni list tak ze se nevol metoda hashcode na listI ale na necem jinem?
+kdyz je to final a navic setter emtoda neprepisuje jenom dela clear a adda  lll?
+mozna ze add all meni list nebo clear. ale mela by to byt porad instnace seetI
+deubg
+
+po save uz jsou labels ne setlisI ale persistent bag. jakto? hibenrate smaze instanci  a nahrdi ji
+jinou? jak to muze udelat? mozna ze nezmeni samotny list ten nekde vezi, ale do instance note
+nasype referenci na jiny objekt.
+zkusim teda do entity Note dat objet misto List tak SetlisI aby kdyz hibenrate dela novu note
+aby tam musl dat zas to moje.
+
+konsturktor aby kdzy to hibernate stavi znova i kdyz do note chce dat nejky list
+aby stejne to najonec skoncilo jako setlistI
+mam tam final ne?
+
+debug bych nasel okamyik dkz se ymeni lis t na bag
+
+meni to save dobre debuonai by trvlao dlouo proste to meni
+zksuim zmenit v objektu tzp na muj list. udelam zas type migration. nem nemuim . co getter? nevadi ye vraci setlit protoze metodz ocekavaji list?
+to se nemeni a setter bere lis tto se nemeni
+
+udelal jsem z setlist i bean a dal ji scope na prottoz, pokazdy nova isntance
+
+psuitj se to,  hibernate si steuje ze jsem oznal jako one to many atrubut ktery neni colekce. jak to ale? vydzt setlist implementuje collection?
+
+
+kdybych tam nechal Lsit = setlist I a hibernate vztvoirl odynova novu instanci note stejne
+by s mela vytvorit s setlistI a ne s nejakym bag, vsechnz konstruktory a settery
+stejne neumoynujjou udelat nic jinyho ney new setlistI
+
+Illegal attempt to map a non collection as a @OneToMany, @ManyToMany or @CollectionOfElements:
+tkusim tohle obejti
+nebo se podiva tjak vztvoari noovu note
+
+hibernat bere taky jako meny tao many colleci ktera je royhrnaim custm
+kdyz udelam tedy setlistI impleents cusotm huibernate
+ a pak hibenrate udel acontrukc note, tak aby tam dosail
+ implemtaci cutom interfce bude tam muset dat moji instanci anebo
+ tam naszpe vlastni objekt ktery taky ompelmetuje cusotm?
+
+
+vdebuu jsem to endochti nejak to zmenil muu s dat ayarayku na new note a taky na private final lsitt/....
+
+dla sem si debug na ne wnote vsechn konsturktoryz lae pri save se nezavolaal, asi to dela nejak jinak relfexi
+ye to neprojde standarndnim konturkotrme.
+dobre tak cesta je ze po kaydzm save nevratim repsoitorz save, ale udelam klon a tem muj koln
+bude nova note
+a ta bdue uz spravne.
+a tak find note, vsechn not ehandler meotdy ktery vraci Note pouyijou koln.
+
+yavolase return vracena note.clone a ta vrati noy objetk.
+
+ventir se udela nova note a tz se naszpu presne vsechn obejktz note, labels a id atd.
+pritom klonovnai vseho se deleguje na samotne objektz.
+
+udelam copii pomoci konturktoru, clone je lby prej
+je 15:15
 }

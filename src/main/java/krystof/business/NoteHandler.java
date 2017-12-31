@@ -48,7 +48,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     public Note findOne(long id) {
-        return noteRepository.findOne(id);
+        return validCopyOf(noteRepository.findOne(id));
     }
 
     //saves a new Note or finds existing one.
@@ -119,8 +119,19 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (notes == null) {
             return new ArrayList<>();
         } else {
-            return notes;
+            return validCopyOf(notes);
         }
+    }
+
+    private List<Note> validCopyOf(List<Note> notes) {
+        ArrayList<Note> validList= new ArrayList<>();
+        notes.forEach(note -> addValidCopyToList(note, validList));
+        return validList;
+            }
+
+    private void addValidCopyToList(Note note, ArrayList validList) {
+        validList.add(new Note(note));
+
     }
 
     public List<Label> findAllLabels() {
@@ -155,8 +166,8 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (checkedList.containsNonExistingLabel()) {
             return new ArrayList<>();
         }
-
-        return findNoteBySavedLabels(checkedList);
+List<Note> invalidList =  findNoteBySavedLabels(checkedList);
+        return validCopyOf(invalidList);
     }
 
     private List<Note> findNoteBySavedLabels(ListWithFlag checkedList) {
@@ -265,7 +276,11 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (isEmpty(notes)) {
             return null;
         }
-        return notes.get(0);
+        return validCopyOf(notes.get(0));
+    }
+
+    private Note validCopyOf(Note note) {
+        return new Note(note);
     }
 
     public Note updateNote(Note note) {

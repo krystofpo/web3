@@ -30,6 +30,7 @@ public class Note {
 
 
     protected Note() {
+        System.out.println("in note contructor");
     }
 
     public Note(String note, List<Label> labels) {
@@ -46,6 +47,12 @@ public class Note {
 //todo aby do labelu nepriradilo nunull
     public Note(String note) {
         this(note, null);
+    }
+
+    public Note(Note note) {
+
+        this(note.getNoteId(), note.getNote(), note.getLabels());
+
     }
 
     public String getNote() {
