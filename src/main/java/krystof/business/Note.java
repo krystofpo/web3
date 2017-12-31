@@ -28,6 +28,9 @@ public class Note {
                     referencedColumnName = "label_id"))
     private final List<Label> labels = new SetUniqueListI(new ArrayList<Label>(), new HashSet<Label>());
 
+    @Transient
+    private final List<Label> babels=new ArrayList<>();
+
 
     protected Note() {
     }
@@ -52,6 +55,15 @@ public class Note {
 
         this(note.getNoteId(), note.getNote(), note.getLabels());
 
+    }
+
+    public List<Label> getBabels() {
+        return babels;
+    }
+
+    public void setBabels(List<Label> babels) {
+        this.babels.clear();
+        this.babels.addAll(babels);
     }
 
     public String getNote() {
@@ -82,14 +94,25 @@ public class Note {
 
 
 
+//    @Override
+//    public String toString() {
+//        return "Note{" +
+//                "noteId=" + noteId +
+//                ", note='" + note + '\'' +
+//                ", labels=" + labels +
+//                '}';
+//    }
+
     @Override
     public String toString() {
         return "Note{" +
                 "noteId=" + noteId +
                 ", note='" + note + '\'' +
                 ", labels=" + labels +
+                ", babels=" + babels +
                 '}';
     }
+
 
 //    @Override
 //    public boolean equals(Object o) {

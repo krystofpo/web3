@@ -31,14 +31,20 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/savenote", method = RequestMethod.POST)
-    public String submitNote(@ModelAttribute(name="noteentity") Note note, Model model) {
+    public String submitNote(@ModelAttribute(name="noteentity")Note note, Model model) {
 
         System.out.println("------------------------\n\n\n\n\n\n\n\n");
-        System.out.println(note);
-        System.out.println(model);
-        System.out.println("ulozim");
-        handler.save(note);
-        System.out.println(model);
+       System.out.println(note);
+//        System.out.println(model);
+//        System.out.println("ulozim");
+//        note = handler.save(note);
+//        model.addAttribute("noteentity", note);
+//        System.out.println(model);
+
+//
+//        System.out.println(multiMap);
+//        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
+
 
         System.out.println("------------------------\n\n\n\n\n\n\n\n");
 

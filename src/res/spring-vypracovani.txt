@@ -1385,4 +1385,45 @@ i kdzy mel v setupu note = save note
 a v debugu byla v promenee note spravna entita
 s mym listem, tak potom pri given byl udelan list z note
 a  vnem byla note sptana s persisten bag
+
+testy bezi uz nevim jak jsem je oravil. nekde jsem misot note =save note ta bylo persis bag
+tk jsem
+dal new note
+
+
+nefunguje bindovani z formulare do entit.
+zkusim na stnace ruznou szntaxi.
+ve formualri
+name=labels.label
+nae=labels.label
+name=
+
+pak budu gledat cutom adata binding
+ziskam jn aalue map a tu predam sericve na zpracovani
+od i
+
+divny vzdyt to musi fungovat ve dvou priladech jim to funguje ze se autoamitkz ulozyi do listu
+
+ @RequestMapping(value="/seedstartermng", params={"save"})
+    public String saveSeedstarter(final SeedStarter seedStarter, final BindingResult bindingResult, final ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return "seedstartermng";
+        }
+        this.seedStarterService.add(seedStarter);
+        model.clear();
+        return "redirect:/seedstartermng";
+    }
+
+
+    neni tam zady model atibute
+
+final SeedStarter seedStarter, final BindingResult bindingResult, final ModelMap model
+
+
+
+uy mi funguje list babel, postupne to budu menit na aby to bzli stjene jako laell a v tom kroku ktery to roybije, to bude.
+moyna jemno labels label?
+entita Label a atribut label?
+
+ymneim label na descirption
 }
