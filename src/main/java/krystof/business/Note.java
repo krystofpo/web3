@@ -2,8 +2,9 @@ package krystof.business;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Note {
@@ -25,21 +26,21 @@ public class Note {
             inverseJoinColumns = @JoinColumn(
                     name = "LabelId",
                     referencedColumnName = "label_id"))
-    private Set<Label> labels = new HashSet<>();
+    private final List<Label> labels = new SetUniqueListI(new ArrayList<Label>(), new HashSet<Label>());
 
 
     protected Note() {
     }
 
-    public Note(String note, Set<Label> labels) {
+    public Note(String note, List<Label> labels) {
         this.note = note;
-        this.labels = labels;//ullcheck
+        this.labels.addAll(labels);
     }
 
-    public Note(Long noteId, String note, Set<Label> labels) {
+    public Note(Long noteId, String note, List<Label> labels) {
         this.noteId = noteId;
         this.note = note;
-        this.labels = labels;//ullcheck
+        this.labels.addAll(labels);
     }
 
 //todo aby do labelu nepriradilo nunull
@@ -64,13 +65,16 @@ public class Note {
         this.noteId = noteId;
     }
 
-    public Set<Label> getLabels() {
+    public List<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(Set<Label> labels) {
-        this.labels = labels;
-    } //todo nullcheck
+    public void setLabels(List<Label> labels) {
+        this.labels.clear();
+        this.labels.addAll(labels);
+    }
+
+
 
     @Override
     public String toString() {
@@ -81,6 +85,25 @@ public class Note {
                 '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Note)) return false;
+//
+//        Note note1 = (Note) o;
+//
+//        if (!getNote().equals(note1.getNote())) return false;
+//        return getLabels() != null ? getLabels().equals(note1.getLabels()) : note1.getLabels() == null;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = getNote() != null ? getNote().hashCode() : 0;
+//        result = 31 * result + (getLabels() != null ? getLabels().hashCode() : 0);
+//        return result;
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,7 +111,7 @@ public class Note {
 
         Note note1 = (Note) o;
 
-        if (!getNote().equals(note1.getNote())) return false;
+        if (getNote() != null ? !getNote().equals(note1.getNote()) : note1.getNote() != null) return false;
         return getLabels() != null ? getLabels().equals(note1.getLabels()) : note1.getLabels() == null;
     }
 

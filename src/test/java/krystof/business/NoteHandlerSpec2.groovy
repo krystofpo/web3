@@ -42,17 +42,17 @@ class NoteHandlerSpec2 extends Specification {
 
     @Shared
     Note note1 = new Note(
-            "note1", new HashSet<Label>(Arrays.asList(
+            "note1", new ArrayList<Label>(Arrays.asList(
             labelA, labelB)));
 
     @Shared
     Note note2 = new Note(
-            "note2", new HashSet<Label>(Arrays.asList(
+            "note2", new ArrayList<Label>(Arrays.asList(
             labelA, labelB, labelC)));
 
     @Shared
     Note note3 = new Note(
-            "note3", new HashSet<Label>(Arrays.asList(
+            "note3", new ArrayList<Label>(Arrays.asList(
             labelD, labelC)));
 
     void setup() {

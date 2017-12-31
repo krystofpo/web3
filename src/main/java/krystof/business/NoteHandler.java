@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -66,7 +68,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     private Note saveNewNote(Note note) {
-        Set<Label> labels = note.getLabels();
+        List<Label> labels = note.getLabels();
         if (!isEmpty(labels)) {
             setSavedLabelsToNote(note);
         }
@@ -79,18 +81,18 @@ public class NoteHandler { //todo refactor change name to reposservice
 
 
     private void setSavedLabelsToNote(Note note) {
-        Set<Label> savedLabels = createSetOfSavedLabels(note.getLabels());
+        List<Label> savedLabels = createSetOfSavedLabels(note.getLabels());
         note.setLabels(savedLabels);
-    }
+            }
 
-    private Set<Label> createSetOfSavedLabels(Set<Label> unsavedLabels) {
-        Set<Label> savedLabels = new HashSet<>();
+    private List<Label> createSetOfSavedLabels(List<Label> unsavedLabels) {
+        List<Label> savedLabels = new ArrayList<>();
         unsavedLabels.stream().
                 forEach(l -> saveLabelAndAddToSet(l, savedLabels));
         return savedLabels;
     }
 
-    private void saveLabelAndAddToSet(Label label, Set<Label> labels) {
+    private void saveLabelAndAddToSet(Label label, List<Label> labels) {
         Label savedLabel = findOrSaveLabel(label);
         labels.add(savedLabel);
     }

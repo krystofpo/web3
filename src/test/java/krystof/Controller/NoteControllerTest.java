@@ -6,7 +6,6 @@ import krystof.business.NoteHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,16 +13,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +38,7 @@ public class NoteControllerTest {
 
     @Before
     public void setUp() throws Exception {
-when(handler.findOne(anyLong())).thenReturn(new Note("testMock", new HashSet<Label>(Arrays.asList(new Label("necolabelMock")))));
+when(handler.findOne(anyLong())).thenReturn(new Note("testMock", new ArrayList<Label>(Arrays.asList(new Label("necolabelMock")))));
 
     }
 

@@ -1225,6 +1225,46 @@ muyu mu odpoedet
 vzpaa to ze set nema nic navic oproti collection tim padem ani oproti lsiut
 
 
+blbyje ze nemuzu udleat emtodu get labels ktera by jednou vracela set a druha list.
+nevim kdz bude java nebo spring nebo hibernate volat getlabels a kdyz to prejmenuju na getlabelsSet tak to metodu nenajde/
+jeste ykusim abz get abels vracelo typ, ktery bude vzhovoa i  listu i setu.
+jak?
+
+asi nejde
+jde aby interace ydedio od dvou ano jde
+
+udelam intrface LISTSet ten extenduje list a set a potom muj list bude typu LITSET ale implementace bude plsitsetimpl a bude to dediet
+y listu a tim yiska jeho metdz a prepisu jeste set[i] aby to porhledal duplikatz a pokud ne tak zaoala super a kdzy bude neluloyi
+prpeisu add a adda ll
+
+zkusim vsechnz metod get labels a set labels anjia  z yjisit jeslti opravu usi mit set
+a predelam to na apache coomons unique ist a bude to tzpu list
+
+
+
 //todo ykusit dat do listu stjeny hondotyz jeslti je to vradi aby to bzla Set
  v
+
+ https://docs.spring.io/spring/docs/3.0.x/spring-framework-reference/html/validation.html
+ tady se dela manualne asi binding yde je popois
+
+ n//todo nebot udelat cely s listem a jenom dat nad db contrinats ye column label je unique a odzchyiy
+ vzjimku db a predat ji view aby to yboraybil samoyrejme odhztitm vjimku db, podle typu, a vzhodim nobovu vjzimku
+ s nejakzm popisem o duplicite.
+
+ vsude jsem rpedelal set na list a padaji tri testy. asi blbne quelas a ascode,
+ davam febug
+ na tetu de se porovnanvaji listy
+
+ haschde se meni s poradim v istu
+
+ cili abcyh udella sprvny hascde musim listz seradit a pak zavolat hashcode List.haschde nebo tak
+ abuch mohl isty seradit tak musi by labely seraditelne a abch
+
+ a ptom jest meussim ymenit equals na mym listu I aby to delao contains all A do a B do A
+ anebo pres haschcode, jen to porovan haschode a je to ok
+
+ tak jsem to uz zjistil, kdyz se uklada entita, note tak se zmeni labelsetI na persistnet bag, i kdyz je to final atribut
+ ppodivam se v jakym kroku dojde ke ymene
+
 }

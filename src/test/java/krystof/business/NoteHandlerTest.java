@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import static junit.framework.TestCase.fail;
@@ -29,7 +29,7 @@ public class NoteHandlerTest {
 
 //    @Before
 //    public void setUp() throws Exception {
-//        when(mockRepository.findNoteByOneLabel(anyLong())).thenReturn(new Note("mock2note", new HashSet<>(Arrays.asList(new Label("mock2Label")))));
+//        when(mockRepository.findNoteByOneLabel(anyLong())).thenReturn(new Note("mock2note", new ArrayList<>(Arrays.asList(new Label("mock2Label")))));
 //    }
 
 //    @Test
@@ -52,6 +52,114 @@ public class NoteHandlerTest {
     @Test
     public void saveNewNoteWithNewAndExistingLabels() throws Exception {
 
+
+        Label labelA = new Label("labelA");
+        Label labelB = new Label("labelB");
+
+        Note note1 = new Note(
+                "note1", new ArrayList<Label>(Arrays.asList(
+                labelA, labelB)));
+
+
+
+        noteHandler.deleteAllNotes();
+        noteHandler.deleteAllLabels();
+
+        System.out.println("note before save " + note1.toString() +
+                "\n" + note1.hashCode());
+        System.out.println("list before save " + note1.getLabels().toString() +
+                "\n" + note1.getLabels().hashCode());
+        for (Label label : note1.getLabels()) {
+            System.out.println(label.toString() + label.hashCode());
+        }
+        System.out.println("----------SAVING-----------");
+
+        noteHandler.save(note1);
+        System.out.println("note after  save " + note1.toString() +
+                "\n" +note1.hashCode());
+        System.out.println("list  after save" + note1.getLabels().toString() +
+                "\n" +note1.getLabels().hashCode());
+        for (Label label : note1.getLabels()) {
+            System.out.println(label.toString() + label.hashCode());
+        }
+
+
+
+        Note note1reloaded = noteHandler.findAllNotes().get(0);
+        System.out.println("------LOADING-------");
+        System.out.println("after  load " + note1.toString() +
+                "\n" +note1reloaded.hashCode());
+        System.out.println("list after load" + note1reloaded.getLabels().toString() +
+                "\n" + note1reloaded.getLabels().hashCode());
+        for (Label label : note1reloaded.getLabels()) {
+            System.out.println(label.toString() + label.hashCode());
+        }
+
+fail();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//        System.out.println("=======================\n\n\n\n\n\n");
+//
+//Note noteA = new Note("noteA", new ArrayList<Label>(Arrays.asList(labelA, labelB)));
+//Note noteB = new Note("noteA", new ArrayList<Label>(Arrays.asList(labelB, labelA)));
+//        System.out.println("A" + noteA.hashCode());
+//        System.out.println("B" + noteB.hashCode());
+//
+//        noteA.setLabels(new ArrayList<Label>(Arrays.asList(labelB, labelA)));
+//        System.out.println("A" + noteA.hashCode());
+//        System.out.println("save");
+//       noteHandler.save(noteA);
+//
+//        System.out.println("=======================\n\n\n\n\n\n");
+//
+//        for (Note note : actualNotes) {
+//            System.out.println(note);
+//            System.out.println("n" + note.hashCode());
+//            System.out.println("labelsh" + note.getLabels().hashCode());
+//            System.out.println("-------");
+//        }
+//        System.out.println(note1);
+//        System.out.println(note1.hashCode());
+//        System.out.println("n" + note1.hashCode());
+//        System.out.println("labelsh" + note1.getLabels().hashCode());
+//        System.out.println(note2);
+//        System.out.println(note2.hashCode());
+//        System.out.println("n" + note2.hashCode());
+//        System.out.println("labelsh" + note2.getLabels().hashCode());
+//
+//
+//        assertTrue(actualNotes.size() == 2);
+//        assertTrue(actualNotes.containsAll(Arrays.asList(note1, note2)));
+//
+//        List<Label> allLabels = noteHandler.findAllLabels();
+//
+//        System.out.println(allLabels);
+//
+//
+//        assertTrue(allLabels.size() == 3);
+//        assertTrue(allLabels.containsAll(Arrays.asList(labelA1, labelB, labelC)));
+
+    }
+
+    @Test
+    public void KOPIEsaveNewNoteWithNewAndExistingLabels() throws Exception {
+
         String labelAString = "labelA";
 
         Label labelA = new Label("labelA");
@@ -60,11 +168,11 @@ public class NoteHandlerTest {
         Label labelC = new Label("labelC");
 
         Note note1 = new Note(
-                "note1", new HashSet<Label>(Arrays.asList(
+                "note1", new ArrayList<Label>(Arrays.asList(
                 labelA, labelB)));
 
         Note note2 = new Note(
-                "note2", new HashSet<Label>(Arrays.asList(
+                "note2", new ArrayList<Label>(Arrays.asList(
                 labelA1, labelC)));
 
         noteHandler.deleteAllNotes();
@@ -80,7 +188,53 @@ public class NoteHandlerTest {
 
         List<Note> actualNotes = noteHandler.findAllNotes();
 
-        System.out.println(actualNotes);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        System.out.println("=======================\n\n\n\n\n\n");
+
+        Note noteA = new Note("noteA", new ArrayList<Label>(Arrays.asList(labelA, labelB)));
+        Note noteB = new Note("noteA", new ArrayList<Label>(Arrays.asList(labelB, labelA)));
+        System.out.println("A" + noteA.hashCode());
+        System.out.println("B" + noteB.hashCode());
+
+        noteA.setLabels(new ArrayList<Label>(Arrays.asList(labelB, labelA)));
+        System.out.println("A" + noteA.hashCode());
+        System.out.println("save");
+        noteHandler.save(noteA);
+
+        System.out.println("=======================\n\n\n\n\n\n");
+
+        for (Note note : actualNotes) {
+            System.out.println(note);
+            System.out.println("n" + note.hashCode());
+            System.out.println("labelsh" + note.getLabels().hashCode());
+            System.out.println("-------");
+        }
+        System.out.println(note1);
+        System.out.println(note1.hashCode());
+        System.out.println("n" + note1.hashCode());
+        System.out.println("labelsh" + note1.getLabels().hashCode());
+        System.out.println(note2);
+        System.out.println(note2.hashCode());
+        System.out.println("n" + note2.hashCode());
+        System.out.println("labelsh" + note2.getLabels().hashCode());
 
 
         assertTrue(actualNotes.size() == 2);
@@ -112,11 +266,11 @@ public class NoteHandlerTest {
             labelC = new Label("labelC");
 
             note1 = new Note(
-                    "note1", new HashSet<Label>(Arrays.asList(
+                    "note1", new ArrayList<Label>(Arrays.asList(
                     labelA, labelB)));
 
             Note note1copy1 = new Note(
-                    "note1", new HashSet<Label>(Arrays.asList(
+                    "note1", new ArrayList<Label>(Arrays.asList(
                     labelA1, labelB, labelC)));
 
 
@@ -158,7 +312,7 @@ public class NoteHandlerTest {
         Label labelB = new Label("labelB");
 
         Note note1 = new Note(
-                "note1", new HashSet<Label>(Arrays.asList(
+                "note1", new ArrayList<Label>(Arrays.asList(
                 labelA, labelB)));
 
 
@@ -202,15 +356,15 @@ public class NoteHandlerTest {
 //        Label labelE = new Label("labelE");
 //
 //        Note note1 = new Note(
-//                "note1", new HashSet<Label>(Arrays.asList(
+//                "note1", new ArrayList<Label>(Arrays.asList(
 //                labelA, labelB)));
 //
 //        Note note2 = new Note(
-//                "note2", new HashSet<Label>(Arrays.asList(
+//                "note2", new ArrayList<Label>(Arrays.asList(
 //                labelA, labelB, labelC)));
 //
 //        Note note3 = new Note(
-//                "note3", new HashSet<Label>(Arrays.asList(
+//                "note3", new ArrayList<Label>(Arrays.asList(
 //                labelD, labelC)));
 //
 //
@@ -241,15 +395,15 @@ public class NoteHandlerTest {
 //        Label labelE = new Label("labelE");
 //
 //        Note note1 = new Note(
-//                "note1", new HashSet<Label>(Arrays.asList(
+//                "note1", new ArrayList<Label>(Arrays.asList(
 //                labelA, labelB)));
 //
 //        Note note2 = new Note(
-//                "note2", new HashSet<Label>(Arrays.asList(
+//                "note2", new ArrayList<Label>(Arrays.asList(
 //                labelA, labelB, labelC)));
 //
 //        Note note3 = new Note(
-//                "note3", new HashSet<Label>(Arrays.asList(
+//                "note3", new ArrayList<Label>(Arrays.asList(
 //                labelD, labelC)));
 //
 //        noteHandler.deleteAllNotes();
