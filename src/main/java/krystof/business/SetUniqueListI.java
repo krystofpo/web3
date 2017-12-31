@@ -54,4 +54,13 @@ public class SetUniqueListI extends SetUniqueList {
         return hashCode;
 
     }
+
+    @Override
+    public boolean addAll(Collection coll) {
+
+        if (coll == null) {
+            return false;
+        }
+        return super.addAll(coll);
+    }
 }

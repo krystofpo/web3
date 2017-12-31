@@ -59,15 +59,27 @@ class NoteHandlerSpec2 extends Specification {
 
         noteHandler.deleteAllNotes()
         noteHandler.deleteAllLabels()
-        noteHandler.save(note1)
-        noteHandler.save(note2)
-        noteHandler.save(note3)
+        note1 = noteHandler.save(note1)
+        note2 = noteHandler.save(note2)
+        note3 = noteHandler.save(note3)
     }
 
     @Unroll
     def "FindNoteByManyLabels #inputList"() {
-        expect:
-        noteHandler.findNoteByManyLabels(inputList) == expectedList
+
+        when:
+        noteHandler.deleteAllNotes()
+        noteHandler.deleteAllLabels()
+        note1 = noteHandler.save(note1)
+        note2 = noteHandler.save(note2)
+        note3 = noteHandler.save(note3)
+
+        List actual = noteHandler.findNoteByManyLabels(inputList)
+
+        then:
+        actual.containsAll(expectedList)
+        expectedList.containsAll(actual)
+//        noteHandler.findNoteByManyLabels(inputList) == expectedList
         noteHandler.findAllLabels().size() == 4
         noteHandler.findAllNotes().size() == 3
 
@@ -76,8 +88,8 @@ class NoteHandlerSpec2 extends Specification {
         null                              | []
         []                                | []
         [labelE]                          | [] //non existing label
-        [labelC]                          | [note2, note3] //existing label
-        [labelA, labelB]                  | [note1, note2] //exisitng labels
+        [labelC]                          | [new Note("note2", [labelA, labelB, labelC]), new Note("note3", [labelD, labelC])] //existing label
+        [labelA, labelB]                  | [new Note("note1", [labelA, labelB]), new Note("note2", [labelA, labelB, labelC])] //exisitng labels
         [labelA, null, labelB]            | [] //invalid label with existing labels
         [labelA, new Label(null), labelB] | [] //invalid label with existing labels
         [labelA, new Label(''), labelB]   | [] //invalid label with existing labels
@@ -189,7 +201,7 @@ class NoteHandlerSpec2 extends Specification {
         where:
         note                        | result                                             | allNotes
         //corect entity, removed label A, labelB, added C, changed note description
-        new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelC].toSet()) | [new Note(1L, "note1updated", [labelC].toSet()), note2, note3]
+        new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelC]) | [new Note(1L, "note1updated", [labelC]), note2, note3]
     }
 
     @Unroll
@@ -283,7 +295,7 @@ class NoteHandlerSpec2 extends Specification {
         //saved label not attached to any note, notes are unchangd
         labelE | [labelA, labelB, labelC, labelD] | 4             | [note1, note2, note3]                                                                                                           | 3
         //saved label part of some notes, label is removed from corresponding notes
-        labelA | [labelE, labelB, labelC, labelD] | 4             | [new Note('note1', [labelB].toSet()), new Note('note2', [labelB, labelC].toSet()), new Note('note3', [labelD, labelC].toSet())] | 3
+        labelA | [labelE, labelB, labelC, labelD] | 4             | [new Note('note1', [labelB]), new Note('note2', [labelB, labelC]), new Note('note3', [labelD, labelC])] | 3
     }
 
     @Unroll

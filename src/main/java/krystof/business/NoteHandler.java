@@ -305,7 +305,7 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         if (!noteRepository.exists(note.getNoteId())) {
             throw new NoteHandlerException("Error: note with ID:" + note.getNoteId() + "does not exist.");
         }
-        return noteRepository.save(note);
+        return validCopyOf(noteRepository.save(note));
     }
 
     public Label updateLabel(Label label) {

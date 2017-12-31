@@ -1370,4 +1370,19 @@ takze musim vzut navratovz hodnoty ze save
 
 sjem blbec udel ajem chy bu v equlas u senotI copz paste chyba nechal jsem tam
 instance of LAbel misto setlistI pridebugu jsem to tobjevil
+
+restar idea, ipridal jsem sloyku src test groovy a dal dva testy tam
+posutim pres gradle test a jde to
+
+jeste ze ty testy mam, u nekolika pouyiti testy spadly a to me upozrnilo na chybu.
+
+spock mi del brodel s databyi, chova se to divne s Id presotye to ma volat
+pred kaydozm testem setup, kde se do note1 ulyi ktualni note s id ta
+pri deugu v note1 je idnull
+
+spock se chva divne
+i kdzy mel v setupu note = save note
+a v debugu byla v promenee note spravna entita
+s mym listem, tak potom pri given byl udelan list z note
+a  vnem byla note sptana s persisten bag
 }
