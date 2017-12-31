@@ -1353,4 +1353,21 @@ pritom klonovnai vseho se deleguje na samotne objektz.
 
 udelam copii pomoci konturktoru, clone je lby prej
 je 15:15
+
+tstu nefuguji proote dva testu nejde spsutit sie ye to nemuye najtitridu s testy.
+to se i yu jednou tstalol restuuju ideu. zkosuel gradle refresh, gralde lcean atd
+
+a nic.
+
+
+jeste u save. bernate umi udelat to, ye kdz se vola repo.save
+tak on vemze puvodni promennou obsahujici referenci na note
+a do ty pormenn nastavi novou note, ktera je ale zmrsena.
+anebo ymeni tu existujici.
+ohuyel v metode save nemuzu ovlvonit aby se puvodni pormenna odkayovala na
+validni kopii.
+takze musim vzut navratovz hodnoty ze save
+
+sjem blbec udel ajem chy bu v equlas u senotI copz paste chyba nechal jsem tam
+instance of LAbel misto setlistI pridebugu jsem to tobjevil
 }

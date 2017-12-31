@@ -30,7 +30,6 @@ public class Note {
 
 
     protected Note() {
-        System.out.println("in note contructor");
     }
 
     public Note(String note, List<Label> labels) {

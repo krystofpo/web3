@@ -24,7 +24,7 @@ public class SetUniqueListI extends SetUniqueList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Label)) return false;
+        if (!(o instanceof SetUniqueListI)) return false;
 
         SetUniqueListI otherList = (SetUniqueListI) o;
         if (this.size() != otherList.size()) {

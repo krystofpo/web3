@@ -53,6 +53,14 @@ public class NoteHandler { //todo refactor change name to reposservice
 
     //saves a new Note or finds existing one.
     //method accepts a Note with saved or unsaved Labels
+
+    //todo javadoc
+    /*
+    when a note is save the original object is corrupted by
+    persistence provider. The save method returns a correct
+    instance of saved note.
+    You must always do note = noteHandler.save(note)
+     */
     public Note save(Note note) {
         if (note == null || isBlank(note.getNote())) {
             return null;
@@ -72,7 +80,8 @@ public class NoteHandler { //todo refactor change name to reposservice
         if (!isEmpty(labels)) {
             setSavedLabelsToNote(note);
         }
-        return noteRepository.save(note);
+        Note invalidNote = noteRepository.save(note);
+        return validCopyOf(invalidNote);
     }
 
     private boolean sameNoteIsSavedAlready(Note note) {
