@@ -1426,4 +1426,64 @@ moyna jemno labels label?
 entita Label a atribut label?
 
 ymneim label na descirption
+
+ne vztvoril jsm novou atribut List s jmenem babel udella gette sette a zavolla toa
+a spravne to udelal oNote a do listu babel coz je array list
+to uliyilo vsechnzy labely.
+pak jsem do metodz getbabel a setbabel dal labels a debug,
+
+sel js do mista, ktery vhodilo vzjimk.
+
+zatim to porschyi, udelalao to setlistI get0 bey problemu
+v abstract nestablepropertyaccessor metoda get nested property accessor radka 848  bezi to./
+
+uy to zpracovava label[1].label a zatim ok nechapu ale jest to asi neprirayuje hodnoty do labelu.
+
+a spadlo to.
+
+domnenka napred spring nasype do listu na vsechnz indexy nejaky obejktz s nullama.
+pak do nich pise. ale prootote to moje ostranuje dupliakz, tak na indexech kde neco ma
+byt uloyeneho je null a hayi to null poiner excetioinl
+a ajk list porovnava jestli uz obsahuje label s nullme? equals nebo hashocde?
+prepeisu v Label tak aby label s nullama vzhodnitl jako jiny jak to udelam s haschodem?
+
+
+to ejna to debuug divny dal jsem si debug na idnex of v seunigqulist.
+tam byla metoda getlist().indexOf dal sem step into hodilo me to do
+get list, pak reurn, dal jsem step into hodilo me to ypet na radek getlist index of dal jsem step into a
+vyhodilo me to ven. jak se dostanu dovnit rindex of?
+
+ale yjisitlj sem ye je ten get list vraci List ale za tim array lsit.
+jak se podivam do kodu array listu?
+asi dma rraz list v kdou a klinu na ctrl a klika to me doih do kodu?
+
+ansel jjsem kod aaraz listu ano dela to pres quals, takey upravim labl ewualas a bude
+
+prepalj sem equals v Labelu aby zustaly vsecny v unique lsitu a spirng do nich mohl uloyit.
+je to sice proti OOProydeleni iodpvednosti prootyep odle chovani springu upravuju chvoani Labelu
+a tak to vlasnt eporpojuju, ale neni jiny resei.
+spring se spoleha na uritu vlastnost Listu, ye zkdzy nekam neco ulozina nejaky index tak to tam
+taky najde.  a unique list to porusuje takze se to pak vlece.
+
+spravny bz bzlo udelat custom bindera kterz umi pracovat se Setem
+
+nebo jsem se mylil a spring umi bndovat data z formulare do Setu
+vporpsetu accesorech bzla set tak proc to nevuyit.
+
+
+asi slo jenom o sntaxi. ale jak vlasten udella spirng z e stirngu labels[0] label a index 0?
+//todo ozkouset Set by bzl lepsi bylo by to bey opicaren.
+
+a jest eneni equals u labelu hootovej NPE stalo se ze jede z labelu je null a tim padem equal z nullovzho stringu
+dava NPE
+
+enecham si udelaim ideou novje equalss  bude nullable label propertz
+
+ale roybiju vaybu mezi hashcode a ewuals pro nullovy stringy labelu bude equals false ale bude stjenej haschdoe
+podivam se do hashode. nebo pouyiju hscde builder a ansatvim tam null at dava jiny hash
+anebo vzgeruju nhodny stirng  a ynej hascde?
+
+jo ta to funugje uz se mi to uklada do note spravne a vcetne labels listu, parada
+jenom to nechava v lsitu labely ktery maj praydnej stirng. emptz strun equals eptz stirg?melo z to vratit ruea a tim padem vzradit label z listu
+debug
 }

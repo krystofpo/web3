@@ -58,12 +58,12 @@ public class Note {
     }
 
     public List<Label> getBabels() {
-        return babels;
+        return labels;
     }
 
     public void setBabels(List<Label> babels) {
-        this.babels.clear();
-        this.babels.addAll(babels);
+        this.labels.clear();
+        this.labels.addAll(babels);
     }
 
     public String getNote() {

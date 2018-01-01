@@ -45,6 +45,20 @@ public class Label implements Comparable<Label>{
         this.label = label;
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Label)) return false;
+//
+//        Label label1 = (Label) o;
+//
+//        if (getLabel()==null && label1.getLabel()==null) {
+//            return false;
+//        }
+//        return getLabel().equals(label1.getLabel());
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,7 +66,11 @@ public class Label implements Comparable<Label>{
 
         Label label1 = (Label) o;
 
-        return getLabel().equals(label1.getLabel());
+        if (getLabel()==null && label1.getLabel()==null) {
+            return false;
+        }
+
+        return getLabel() != null ? getLabel().equals(label1.getLabel()) : label1.getLabel() == null;
     }
 
     @Override
