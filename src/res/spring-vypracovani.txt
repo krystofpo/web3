@@ -1544,4 +1544,19 @@ uloyim note, znova to stirng a uz vni enjsou labely dupkiatni.
 
 jenom formuaor posila praydnz stirngy. chtel bych se jich ybavit.
 kdy? idelani pri save a udpate. predelat testy. v rmaci removeduplicates and emptz labels.
+
+udel ajsem testz na update a save a mam htoov, testy ok
+
+je 20:12
+co dal?
+
+dstnaka ifnd note bz noe
+
+udela htm stanku
+
+contorller odkay na view find note bz te
+tam dofmular s postem jediny stirng
+//todo yemnit na obsahujici note a ne exact match vratit list note a ne jednu
+
+
 }

@@ -6,8 +6,19 @@
 </head>
 <body>
 <h1>Result</h1>
-<p th:text="'id: ' + ${noteentity.note}" />
-<p th:text="'label: ' + ${labels.get(0).label}" />
-<a href="/savelabel">Save another label</a>
+<p th:text="'Note: ' + ${noteentity.note}" />
+<table>
+    <tr>
+        <th>Labels</th>
+
+    </tr>
+    <tr th:each="label : ${noteentity.labels}">
+        <td th:text="${label.label}">example label</td>
+
+    </tr>
+</table>
+
+
+
 </body>
 </html>

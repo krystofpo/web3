@@ -185,8 +185,8 @@ class NoteHandlerSpec2 extends Specification {
     }
 
     @Unroll
-    def "updateNote"() {
-//during update the notehandler shoould remove duplicates
+    def "updateNote "() {
+//during update the notehandler shoould remove duplicates and empty strings and nulls
         given:
         Note realnote1 = noteHandler.findNoteByNote(note.getNote())
 
@@ -195,8 +195,11 @@ class NoteHandlerSpec2 extends Specification {
         noteToUpdate.getLabels().add(savedA)
         noteToUpdate.getLabels().add(new Label(null))
         noteToUpdate.getLabels().add(new Label(null))
+        noteToUpdate.getLabels().add(new Label(null))
+        noteToUpdate.getLabels().add(new Label(null))
         noteToUpdate.getLabels().get(1).setLabel('dupl')
         noteToUpdate.getLabels().get(2).setLabel('dupl')
+        noteToUpdate.getLabels().get(3).setLabel('')
 
 
         expect:
@@ -345,10 +348,11 @@ class NoteHandlerSpec2 extends Specification {
         new Note('note3') | [labelA, labelB, labelC, labelD] | 4             | [note1, note2] | 2
     }
 
-    def "remove duplicates and empty strings during save"() {
+    def "remove duplicates and empty strings and nulls during save"() {
         given:
         Note note = new Note("pozn")
 
+        note.getLabels().add(new Label(null))
         note.getLabels().add(new Label(null))
         note.getLabels().add(new Label(null))
         note.getLabels().add(new Label(null))
@@ -367,24 +371,4 @@ class NoteHandlerSpec2 extends Specification {
     }
 
 
-    def "remove duplicates and empty strings during update"() {
-        given:
-        Note note = new Note("pozn")
-
-        note.getLabels().add(new Label(null))
-        note.getLabels().add(new Label(null))
-        note.getLabels().add(new Label(null))
-        note.getLabels().add(new Label(null))
-        note.getLabels().get(0).setLabel('')
-        note.getLabels().get(1).setLabel('a')
-        note.getLabels().get(2).setLabel('a')
-        note.getLabels().get(3).setLabel('b')
-
-        when:
-        note = noteHandler.save(note)
-
-        then:
-        note.getLabels().size()==2
-        note.getLabels().containsAll([new Label('b'), new Label('a')])
-    }
 }

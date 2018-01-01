@@ -19,8 +19,9 @@ public class NoteController {
         this.handler = handler;
     }
 
-    @RequestMapping(value="/note/{Id}", method = RequestMethod.GET)
-    public @ResponseBody Note showNote(@PathVariable("Id") long id) {
+    @RequestMapping(value = "/note/{Id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Note showNote(@PathVariable("Id") long id) {
         return handler.findOne(id);
     }
 
@@ -31,16 +32,16 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/savenote", method = RequestMethod.POST)
-    public String submitNote(@ModelAttribute(name="noteentity")Note note, Model model) {
+    public String submitNote(@ModelAttribute(name = "noteentity") Note note, Model model) {
 
         System.out.println("------------------------\n\n\n\n\n\n\n\n");
-       System.out.println(note);
+        System.out.println(note);
 
 //        System.out.println(model);
         System.out.println("ulozim");
         note = handler.save(note);
         System.out.println(note);
-//        model.addAttribute("noteentity", note);
+        model.addAttribute("noteentity", note);
 //        System.out.println(model);
 
 //
@@ -53,4 +54,22 @@ public class NoteController {
         return "noteresult";
     }
 
+    @RequestMapping(value = "/findnotebynote", method = RequestMethod.GET)
+    public String showFindNoteByNoteForm()
+    {
+    return "findnotebynote";
+    }
+
+    @RequestMapping(value = "/findnotebynote", method = RequestMethod.POST)
+    public String showFindNoteByNoteResult(
+            @RequestParam("note") String note, Model model) {
+        System.out.println("note search" + note);
+        Note noteReal = handler.findNoteByNote(note);
+        System.out.println("found" + noteReal);
+        if (noteReal != null) {
+            model.addAttribute("noteentity", noteReal);
+            return "noteresult";
+        }
+        return "noteresult";
+    }
 }
