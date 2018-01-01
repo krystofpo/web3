@@ -64,10 +64,24 @@ public class SetUniqueListI extends SetUniqueList {
         return super.addAll(coll);
     }
 
-    public void removeDuplicates() {
+    public void correctList() {
+        removeDuplicates();
+        removeIncorrectElements();
+
+    }
+
+    private void removeIncorrectElements() {
+        if (this.size() == 0) {
+            return;
+        }
+        if (this.iterator().next() instanceof Validable) {
+            this.removeIf(e -> !((Validable) e).isValid());
+        }
+    }
+
+    private void removeDuplicates() {
         Set uniqueContent = new HashSet(this.asSet());
         this.clear();
         this.addAll(uniqueContent);
-
     }
 }

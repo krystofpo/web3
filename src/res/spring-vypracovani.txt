@@ -1520,4 +1520,28 @@ je 16:26 jdu to delat
 napr test vztvori note kde bduodva labelz s empt string labelem, uloyi hot  a metoda ssave vrati
 note kde bude jen jedne labelnapred test
 na listu, ak atest na note a pak test handelru
+
+aby mol apsrne fugovat Set musi byt objekty v ni immutable. to je spravne
+kdyby byl Label immutable jak by Spring vzplnil lael.label? ma na to nejakou jinou meodu
+je to chytre ze by to rovnou vztvoilo obejt Label.label=neco a ten dalo do listu?
+
+je to zakerny udell jsem tst na save note a kontorlaoval jsem jeslti to
+odstranilo dupkiakty a yapomnel jsem v notehandler save prida remove duplicates
+test prosel, ale jen dikz tomu, ye kdzy se savuje tak
+to vraci validovanou kopii a ta v sobe provede rovnou odstraneni dupkiatu
+ale v databayi byly dupikiatz.
+
+tak jsem to ymenim.
+
+udel ajsm i test na dupkiaktz pri update.
+
+v updat ejsem vuyil existuji ci metodz save new note, ktera obsahuj vracnei
+validni kopie note a navic dupliatz to je vzhodny
+kdzy se pouyvaji metodz vicekrat.
+
+parada note controler uz umi navayat entitu na naote, doplni do ni labely
+uloyim note, znova to stirng a uz vni enjsou labely dupkiatni.
+
+jenom formuaor posila praydnz stirngy. chtel bych se jich ybavit.
+kdy? idelani pri save a udpate. predelat testy. v rmaci removeduplicates and emptz labels.
 }

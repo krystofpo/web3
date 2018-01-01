@@ -28,9 +28,6 @@ public class Note {
                     referencedColumnName = "label_id"))
     private final List<Label> labels = new SetUniqueListI(new ArrayList<Label>(), new HashSet<Label>());
 
-    @Transient
-    private final List<Label> babels=new ArrayList<>();
-
 
     protected Note() {
     }
@@ -55,15 +52,6 @@ public class Note {
 
         this(note.getNoteId(), note.getNote(), note.getLabels());
 
-    }
-
-    public List<Label> getBabels() {
-        return labels;
-    }
-
-    public void setBabels(List<Label> babels) {
-        this.labels.clear();
-        this.labels.addAll(babels);
     }
 
     public String getNote() {
@@ -93,15 +81,9 @@ public class Note {
     }
 
 
-
-//    @Override
-//    public String toString() {
-//        return "Note{" +
-//                "noteId=" + noteId +
-//                ", note='" + note + '\'' +
-//                ", labels=" + labels +
-//                '}';
-//    }
+    public void correctBeforeSave() {
+        ((SetUniqueListI)labels).correctList();
+    }
 
     @Override
     public String toString() {
@@ -109,28 +91,9 @@ public class Note {
                 "noteId=" + noteId +
                 ", note='" + note + '\'' +
                 ", labels=" + labels +
-                ", babels=" + babels +
                 '}';
     }
 
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Note)) return false;
-//
-//        Note note1 = (Note) o;
-//
-//        if (!getNote().equals(note1.getNote())) return false;
-//        return getLabels() != null ? getLabels().equals(note1.getLabels()) : note1.getLabels() == null;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = getNote() != null ? getNote().hashCode() : 0;
-//        result = 31 * result + (getLabels() != null ? getLabels().hashCode() : 0);
-//        return result;
-//    }
 
 
     @Override

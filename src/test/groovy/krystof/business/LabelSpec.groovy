@@ -28,4 +28,16 @@ class LabelSpec extends Specification {
 
 
     }
+
+    def "validation"() {
+        Label labelOK  = new Label('a')
+        Label labelNOTOK  = new Label('')
+        Label labelNOTOK1  = new Label(null)
+
+        expect:
+        labelOK.isValid() == true
+        labelNOTOK.isValid() == false
+        labelNOTOK1.isValid() == false
+
+    }
 }

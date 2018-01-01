@@ -70,15 +70,17 @@ class SetUniqueListISpec extends Specification {
         listI.add(new Label(null))
         listI.add(new Label(null))
         listI.get(0).setLabel('')
-        listI.get(1).setLabel('')
+        listI.get(1).setLabel('a')
         listI.get(2).setLabel('a')
 
         when:
-        listI.removeDuplicates()
+        listI.correctList()
 
         then:
-        listI.size()==2
-        listI.containsAll([new Label(''), new Label('a')])
+        listI.size()==1
+        listI.containsAll([new Label('a')])
 
     }
+
+
 }

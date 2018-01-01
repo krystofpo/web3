@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Label implements Comparable<Label>{
+public class Label implements Comparable<Label>, Validable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -90,5 +90,13 @@ public class Label implements Comparable<Label>{
     @Override
     public int compareTo(Label other) {
         return this.label.compareTo(other.getLabel());
+    }
+
+    @Override
+    public boolean isValid() {
+        if (label==null) {
+            return false;
+        }
+        return !("".equals(label));
     }
 }

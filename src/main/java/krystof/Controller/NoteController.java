@@ -35,9 +35,11 @@ public class NoteController {
 
         System.out.println("------------------------\n\n\n\n\n\n\n\n");
        System.out.println(note);
+
 //        System.out.println(model);
-//        System.out.println("ulozim");
-//        note = handler.save(note);
+        System.out.println("ulozim");
+        note = handler.save(note);
+        System.out.println(note);
 //        model.addAttribute("noteentity", note);
 //        System.out.println(model);
 

@@ -186,22 +186,27 @@ class NoteHandlerSpec2 extends Specification {
 
     @Unroll
     def "updateNote"() {
-
+//during update the notehandler shoould remove duplicates
         given:
         Note realnote1 = noteHandler.findNoteByNote(note.getNote())
-        realnote1.setNote(realnote1.getNote() + 'updated')
-        Label lc = noteHandler.findLabelByLabel('labelC')
-        realnote1.getLabels().clear()
-        realnote1.getLabels().add(lc)
+
+        Note noteToUpdate = new Note(realnote1.getNoteId(), realnote1.getNote() + 'updated', null)
+        Label savedA = noteHandler.findLabelByLabel('labelA')
+        noteToUpdate.getLabels().add(savedA)
+        noteToUpdate.getLabels().add(new Label(null))
+        noteToUpdate.getLabels().add(new Label(null))
+        noteToUpdate.getLabels().get(1).setLabel('dupl')
+        noteToUpdate.getLabels().get(2).setLabel('dupl')
+
 
         expect:
-        noteHandler.updateNote(realnote1) == result
+        noteHandler.updateNote(noteToUpdate) == result
         noteHandler.findAllNotes() == allNotes
 
         where:
         note                        | result                                             | allNotes
-        //corect entity, removed label A, labelB, added C, changed note description
-        new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelC]) | [new Note(1L, "note1updated", [labelC]), note2, note3]
+        //corect entity, removed label A,  added unsaved label C, changed note description
+        new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelA, new Label('dupl')]) | [new Note(1L, "note1updated", [labelA, new Label('dupl')]), note2, note3]
     }
 
     @Unroll
@@ -340,22 +345,46 @@ class NoteHandlerSpec2 extends Specification {
         new Note('note3') | [labelA, labelB, labelC, labelD] | 4             | [note1, note2] | 2
     }
 
-    def "remove duplicates during save"() {
+    def "remove duplicates and empty strings during save"() {
         given:
-        Note note = new Note()
+        Note note = new Note("pozn")
 
         note.getLabels().add(new Label(null))
         note.getLabels().add(new Label(null))
         note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
         note.getLabels().get(0).setLabel('')
-        note.getLabels().get(1).setLabel('')
+        note.getLabels().get(1).setLabel('a')
         note.getLabels().get(2).setLabel('a')
+        note.getLabels().get(3).setLabel('b')
 
         when:
         note = noteHandler.save(note)
 
         then:
         note.getLabels().size()==2
-        note.getLabels().containsAll([new Label(''), new Label('a')])
+        note.getLabels().containsAll([new Label('b'), new Label('a')])
+    }
+
+
+    def "remove duplicates and empty strings during update"() {
+        given:
+        Note note = new Note("pozn")
+
+        note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
+        note.getLabels().get(0).setLabel('')
+        note.getLabels().get(1).setLabel('a')
+        note.getLabels().get(2).setLabel('a')
+        note.getLabels().get(3).setLabel('b')
+
+        when:
+        note = noteHandler.save(note)
+
+        then:
+        note.getLabels().size()==2
+        note.getLabels().containsAll([new Label('b'), new Label('a')])
     }
 }

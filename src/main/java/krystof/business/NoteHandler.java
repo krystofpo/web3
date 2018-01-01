@@ -76,6 +76,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     }
 
     private Note saveNewNote(Note note) {
+        note.correctBeforeSave();
         List<Label> labels = note.getLabels();
         if (!isEmpty(labels)) {
             setSavedLabelsToNote(note);
@@ -305,8 +306,11 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         if (!noteRepository.exists(note.getNoteId())) {
             throw new NoteHandlerException("Error: note with ID:" + note.getNoteId() + "does not exist.");
         }
-        return validCopyOf(noteRepository.save(note));
+        return saveNewNote(note);
+
+
     }
+
 
     public Label updateLabel(Label label) {
         if (label == null) {
