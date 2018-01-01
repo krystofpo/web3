@@ -339,4 +339,23 @@ class NoteHandlerSpec2 extends Specification {
         //labels are unchanged
         new Note('note3') | [labelA, labelB, labelC, labelD] | 4             | [note1, note2] | 2
     }
+
+    def "remove duplicates during save"() {
+        given:
+        Note note = new Note()
+
+        note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
+        note.getLabels().add(new Label(null))
+        note.getLabels().get(0).setLabel('')
+        note.getLabels().get(1).setLabel('')
+        note.getLabels().get(2).setLabel('a')
+
+        when:
+        note = noteHandler.save(note)
+
+        then:
+        note.getLabels().size()==2
+        note.getLabels().containsAll([new Label(''), new Label('a')])
+    }
 }

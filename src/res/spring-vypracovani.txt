@@ -1486,4 +1486,38 @@ anebo vzgeruju nhodny stirng  a ynej hascde?
 jo ta to funugje uz se mi to uklada do note spravne a vcetne labels listu, parada
 jenom to nechava v lsitu labely ktery maj praydnej stirng. emptz strun equals eptz stirg?melo z to vratit ruea a tim padem vzradit label z listu
 debug
+
+jest eudelam test ve spocku na label equals
+a tes tna prdiavana do setu ze labely s null labelama se pridaji
+a test na pridani label sproaydnym stringem abyt ot funovalo a pak impeetace
+
+
+a pak udelam updat enote
+a find note strnak aoc ntorllery
+
+
+
+forma binding to entittz spring
+http://keylesson.com/index.php/2015/12/14/spring-mvc-data-binding-list-example-2458/
+
+http://viralpatel.net/blogs/spring-mvc-multi-row-submit-java-list/
+
+problem je v otm ze neprjve do listu se pridlaji nukllove labely
+to jsem zmenil ze jde a labelzy se podrzi.
+ale potom se label.setlabel='' nekoliktrat. a to uz nejde pres list add
+takze se nekontorluje equals labelu.
+
+pridm do handelru ze pred kazdym save se provede napred, ze pre akydzm uloyneim se na note
+zavola metoda odstran dupl labely, note si to vzresi sama, pres svuj uniue list, reved to na set a zpatk
+ulozi do sebe.
+
+totey pro updte
+
+//todo predelat handeler aby napr save nebylos vayzna y s note a label, ale obecne pres interface
+a interface by melo vratit hontou, ktera ma byt jedinecna v db. ale jak?
+
+je 16:26 jdu to delat
+napr test vztvori note kde bduodva labelz s empt string labelem, uloyi hot  a metoda ssave vrati
+note kde bude jen jedne labelnapred test
+na listu, ak atest na note a pak test handelru
 }

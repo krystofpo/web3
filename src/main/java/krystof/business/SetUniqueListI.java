@@ -63,4 +63,11 @@ public class SetUniqueListI extends SetUniqueList {
         }
         return super.addAll(coll);
     }
+
+    public void removeDuplicates() {
+        Set uniqueContent = new HashSet(this.asSet());
+        this.clear();
+        this.addAll(uniqueContent);
+
+    }
 }
