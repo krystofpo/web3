@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Saved Label</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<th:block th:each="label : ${labels}">
+    <p><h3><span th:text="${label.label}"></span></h3></p>
+    <a th:href="@{'/delete/label/' + ${label.labelId}}">delete label</a>
+</th:block>
+
+<p><a href="/">Return to Menu</a></p>
+
+
+</body>
+</html>

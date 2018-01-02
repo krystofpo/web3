@@ -115,6 +115,7 @@ public class NoteHandler { //todo refactor change name to reposservice
             return labelRepository.save(label);
         } else {
             return savedLabels.get(0);
+            //todo throw exception exisitng label, change the test
         }
     }
 
@@ -162,6 +163,7 @@ public class NoteHandler { //todo refactor change name to reposservice
     public Label save(Label label) {
         if (label == null || isBlank(label.getLabel())) {
             return null;
+            //todo throw excepiton, chgne tests
         }
         return findOrSaveLabel(label);
     }
@@ -452,6 +454,15 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
 
     public void deleteNote(long id) {
         deleteNote(new Note(id, "neco", null));
+    }
+
+    public Label saveLabel(String label) {
+        return save(new Label(label));
+    }
+
+    public void deleteLabel(long id) {
+        Label label = labelRepository.findOne(id);
+        deleteLabel(label);
     }
 }
 

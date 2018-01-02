@@ -1,21 +1,27 @@
 package krystof.Controller;
 
 import krystof.business.Label;
-import krystof.business.Note;
 import krystof.business.NoteHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class LabelController {
+
+    private final static String SAVE_LABEL = "savelabel";
+    private final static String LABEL_RESULT = "labelresult";
+    private final static String LABELS_MODEL_ATTRIBUTE = "labels";
+    private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
+    private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
+    private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
 
 
     private NoteHandler handler;
@@ -25,50 +31,120 @@ public class LabelController {
         this.handler = handler;
     }
 
-    @RequestMapping(value = "/savelabel", method = RequestMethod.GET)
-    public String showSaveLabelForm(Model model) {
-        model.addAttribute("labelentity", new Label());
-        return "savelabel";
+
+
+    @RequestMapping(value = "/" + SAVE_LABEL, method = RequestMethod.GET)
+    public String showSaveLabelForm() {
+        return SAVE_LABEL;
     }
 
-    @RequestMapping(value = "/savelabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String submitLabel(@ModelAttribute(name="labelentity") Label label, Model model) {
-        System.out.println(model);
+    @RequestMapping(value = "/" + SAVE_LABEL, method = RequestMethod.POST)
+    public String submitNote(@RequestParam(name = "label") String label, Model model) {
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+        System.out.println(label);
+
+//        System.out.println(model);
         System.out.println("ulozim");
-        Label label2 = handler.save(label);
-        System.out.println("pubovdni label po ulozeni" + label);
-        model.addAttribute("savedLabel", label);
-        System.out.println(model);
-        //        System.out.println(label);
-//        Label savedLabel = handler.save(label);
-//        System.out.println("saved" + savedLabel);
+        Label labelObject = handler.saveLabel(label);
+        System.out.println(labelObject);
+        model.addAttribute(LABELS_MODEL_ATTRIBUTE, Arrays.asList(labelObject));
 //        System.out.println(model);
-//        model.addAttribute("labelentity", savedLabel);
-//        System.out.println(model);
-//        //todo save it, ale jak to predat view jako novy objekt? lepsi
-//        //by bzlo psmeroa tna label a id a dat to tomu id jako parametr
-        return "result";
+
+//
+//        System.out.println(multiMap);
+//        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
+
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+
+        return LABEL_RESULT;
     }
+//
+//    @RequestMapping(value = "/" + FIND_NOTE_BY_NOTE, method = RequestMethod.GET)
+//    public String showFindNoteByNoteExactForm(Model model)
+//    {
+//        PageParams page = new PageParams(FIND_NOTE_BY_NOTE, "Find");
+////        model.addAttribute("labelentity", savedLabel);
+////        System.out.println(model);
+////        //todo save it, ale jak to predat view jako novy objekt? lepsi
+////        //by bzlo psmeroa tna label a id a dat to tomu id jako parametr
+//        return "result";
+//    }
+//
+//    @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.GET)
+//    public String showFindNotesByNoteContainsForm(Model model)
+//    {
+//        PageParams page = new PageParams(FIND_NOTES_BY_NOTE_CONTAINS, "Find");
+//        model.addAttribute("page", page);
+//        return FIND_NOTE_BY_NOTE;
+//    }
+//
+//    @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.POST)
+//    public String showFindNotesByNoteContainsResult(
+//            @RequestParam("note") String note, Model model) {
+//        System.out.println("note search" + note);
+//        List<Note> notesReal = handler.findNotesByNoteContains(note);
+//        System.out.println("found" + notesReal);
+//        if (notesReal != null) {
+//            model.addAttribute(LABELS_MODEL_ATTRIBUTE, notesReal);
+//            return LABEL_RESULT;
+//
+//
+//        }
+//
+//    }
+//
+//
 
-    @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.GET)
-    public String showFindNotesByNoteContainsForm(Model model)
-    {
-        PageParams page = new PageParams(FIND_NOTES_BY_NOTE_CONTAINS, "Find");
-        model.addAttribute("page", page);
-        return FIND_NOTE_BY_NOTE;
-    }
+        @RequestMapping(value = "/alllabels", method = RequestMethod.GET)
+        public String showAllLabels(Model model) {
+            List<Label> allLabels = handler.findAllLabels();
 
-    @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.POST)
-    public String showFindNotesByNoteContainsResult(
-            @RequestParam("note") String note, Model model) {
-        System.out.println("note search" + note);
-        List<Note> notesReal = handler.findNotesByNoteContains(note);
-        System.out.println("found" + notesReal);
-        if (notesReal != null) {
-            model.addAttribute(NOTES_MODEL_ATTRIBUTE, notesReal);
-            return NOTE_RESULT;
+                model.addAttribute(LABELS_MODEL_ATTRIBUTE, allLabels);
 
-
+            return LABEL_RESULT;
         }
+
+//
+//
+//    @RequestMapping(value = "/" + FIND_NOTES_BY_LABELS, method = RequestMethod.GET)
+//    public String showFindNotesByLabelsForm(Model model)
+//    {
+//        PageParams page = new PageParams(FIND_NOTES_BY_LABELS, "Find");
+//        model.addAttribute("page", page);
+//        return FIND_NOTES_BY_LABELS;
+//    }
+//
+//
+//
+//
+//    @RequestMapping(value = "/" + FIND_NOTES_BY_LABELS, method = RequestMethod.POST)
+//    public String showFindNotesByLabelsResult(
+//            @RequestParam("labels") List<String> labels, Model model) {
+//        System.out.println("labels " + labels);
+//        System.out.println("size " + labels.size());
+//        List<Note> notesReal = handler.findNotesByManyLabelsString(labels);
+//        System.out.println("found" + notesReal);
+//        if (notesReal != null) {
+//            model.addAttribute(LABELS_MODEL_ATTRIBUTE, notesReal);
+//            return LABEL_RESULT;
+//
+//
+//        }
+//        return LABEL_RESULT;
+//
+//
+//
+//    }
+//
+//
+    @RequestMapping(value = "/delete/label/{Id}", method = RequestMethod.GET)
+    public String deleteLabel(@PathVariable("Id") long id) {
+        handler.deleteLabel(id);
+
+        return "redirect:/";
+    }
+
 
 }

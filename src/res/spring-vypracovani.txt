@@ -1613,4 +1613,8 @@ udelam delete
 je 18:51
 
 note delte je htoovo je 19>:23
+
+label delete je hotovo. save label je hotovo, seel allabels je hotoov je 21:09
+
+jdu na update note
 }
