@@ -1592,4 +1592,9 @@ ostanti testz funguji i kdzy tam maji note1 a tam to neni probme, ale ostanti te
 tesutji listz ne pres contains alle res list==list. zmenim
 ted jsem psutil celou tridu handlerspec2 a vsechno ok, moje metoda containung dva testy ok a dva ne ok, pritom v tech failujicich
 se obsah shoduje naprosto takze je to jenom tim perist bagem
+
+
+//todo nejak provazat jmeno html soyuboru s request mapping a taky se stringem v html strance href
+//todo udelat sript ktery naplni db
+//todo do menu html vlozit textove parametra hrefu
 }

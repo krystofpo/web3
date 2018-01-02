@@ -154,7 +154,7 @@ public class NoteHandlerTest {
         note1 = noteHandler.save(note1);
 
 
-        List<Note> actualNotes = noteHandler.findNoteByOneLabel(labelA);
+        List<Note> actualNotes = noteHandler.findNotesByOneLabel(labelA);
 
         System.out.println(actualNotes);
 

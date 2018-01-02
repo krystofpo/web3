@@ -4,6 +4,7 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
 import krystof.Data.LabelRepository;
 import krystof.Data.NoteRepository;
+import krystof.utils.DataValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,8 @@ public class NoteHandler { //todo refactor change name to reposservice
 
     @PersistenceContext
     private EntityManager entityManager;
-
+@Autowired
+    private DataValidationService dataValidationService;
 
     public NoteHandler() {
     }
@@ -153,8 +155,8 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
     }
 
-    public List<Note> findNoteByOneLabel(Label label) {
-        return findNoteByManyLabels(Arrays.asList(label));
+    public List<Note> findNotesByOneLabel(Label label) {
+        return findNotesByManyLabels(Arrays.asList(label));
     }
 
     public Label save(Label label) {
@@ -166,7 +168,7 @@ public class NoteHandler { //todo refactor change name to reposservice
 
     //todo has to be tested
     // todo correct returns, change some to null, clean code, readiility, logic
-    public List<Note> findNoteByManyLabels(List<Label> labels) {
+    public List<Note> findNotesByManyLabels(List<Label> labels) {
         if (isEmpty(labels)) {
             return new ArrayList<>();
         }
@@ -330,7 +332,7 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
     public void deleteLabel(Label label) {
         throwIfLabelIsInvalid(label);
 
-        List<Note> notesContainingLabel = findNoteByOneLabel(label);
+        List<Note> notesContainingLabel = findNotesByOneLabel(label);
 
         if (isEmpty(notesContainingLabel)) {
             deleteFreeLabel(label);
@@ -394,6 +396,19 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
             return null;
         }
         return validCopyOf(notes);
+    }
+
+    public List<Note> findNotesByManyLabelsString(List<String> labels) {
+
+        List<Label> labelList = createLabelList(labels);
+        return findNotesByManyLabels(labelList);
+    }
+
+    List<Label> createLabelList(List<String> labels) {
+        List<String> validStrings = dataValidationService.correctListOfStrings(labels);
+        List<Label> labelList = new ArrayList<>();
+        validStrings.forEach(e -> labelList.add(new Label(e)));
+        return labelList;
     }
 }
 

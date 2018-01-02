@@ -76,12 +76,12 @@ class NoteHandlerSpec2 extends Specification {
         note2 = noteHandler.save(note2)
         note3 = noteHandler.save(note3)
 
-        List actual = noteHandler.findNoteByManyLabels(inputList)
+        List actual = noteHandler.findNotesByManyLabels(inputList)
 
         then:
         actual.containsAll(expectedList)
         expectedList.containsAll(actual)
-//        noteHandler.findNoteByManyLabels(inputList) == expectedList
+//        noteHandler.findNotesByManyLabels(inputList) == expectedList
         noteHandler.findAllLabels().size() == 4
         noteHandler.findAllNotes().size() == 3
 
@@ -170,7 +170,7 @@ class NoteHandlerSpec2 extends Specification {
     @Unroll
     def "findNoteByOneLabel"() {
         expect:
-        noteHandler.findNoteByOneLabel(label) == result
+        noteHandler.findNotesByOneLabel(label) == result
         noteHandler.findAllLabels().size() == 4
         noteHandler.findAllNotes().size() == 3
 
@@ -406,4 +406,8 @@ class NoteHandlerSpec2 extends Specification {
 
     }
 
+    def "create Label list"() {
+        expect:
+        noteHandler.createLabelList([null, 'a', '', '   ', 'b']) == [new Label('a'), new Label('b')]
+    }
 }
