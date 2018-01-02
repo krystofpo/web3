@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class NoteController {
     private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
+    private final String EDIT_NOTE_ID = "/edit/note/{Id}";
 
     private NoteHandler handler;
 
@@ -40,7 +42,10 @@ public class NoteController {
 
 
     @RequestMapping(value = "/" + SAVE_NOTE, method = RequestMethod.GET)
-    public String showSaveNoteForm() {
+    public String showSaveNoteForm(Model model) {
+        model.addAttribute("note", new Note(null, "", new ArrayList<>()));
+        model.addAttribute("formAction", SAVE_NOTE);
+
         return SAVE_NOTE;
     }
 
@@ -165,6 +170,40 @@ public class NoteController {
         return "redirect:/";
     }
 
+
+
+    @RequestMapping(value = EDIT_NOTE_ID, method = RequestMethod.GET)
+    public String showEditNoteForm(@PathVariable("Id")long id, Model model) {
+
+        Note note = handler.findOne(id);
+        model.addAttribute("note", note);
+        model.addAttribute("formAction", EDIT_NOTE_ID.replace("{Id}", String.valueOf(id)));
+
+        return SAVE_NOTE;
+    }
+//
+//    @RequestMapping(value = "/" + SAVE_NOTE, method = RequestMethod.POST)
+//    public String submitNote(@ModelAttribute(name = "noteentity") Note note, Model model) {
+//
+//        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+//        System.out.println(note);
+//
+////        System.out.println(model);
+//        System.out.println("ulozim");
+//        note = handler.save(note);
+//        System.out.println(note);
+//        model.addAttribute(NOTES_MODEL_ATTRIBUTE, Arrays.asList(note));
+////        System.out.println(model);
+//
+////
+////        System.out.println(multiMap);
+////        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
+//
+//
+//        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+//
+//        return NOTE_RESULT;
+//    }
 
 }
 
