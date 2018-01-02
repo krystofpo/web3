@@ -384,6 +384,17 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
             throw new NoteHandlerException("Error: note with ID:" + note.getNoteId() + "does not exist.");
         }
     }
+
+    public List<Note> findNoteByNoteContains(String note) {
+        if (isBlank(note)) {
+            return null;
+        }
+        List<Note> notes = noteRepository.findByNoteIgnoreCaseContaining(note);
+        if (isEmpty(notes)) {
+            return null;
+        }
+        return validCopyOf(notes);
+    }
 }
 
 

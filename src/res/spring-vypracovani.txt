@@ -1558,5 +1558,36 @@ contorller odkay na view find note bz te
 tam dofmular s postem jediny stirng
 //todo yemnit na obsahujici note a ne exact match vratit list note a ne jednu
 
+//todo udelat stejnous tanku por find note y note pro jednu i pro vic pomoci foreac
+iterova tlist
 
+je 10:40 ykousim pridat devtools
+ale bude to rzhclejsi?
+ydrzeni je to ye musim sposutit apiacki a to trva dlouho.\
+otayk ajessetli restartovani bude chlejsi nebo ne.
+
+trva to asi 23sekund.
+a reatt?restar trva si tri sekundz
+
+upravuju souvbor java a pak dam v idea build -> build moduel  web2
+tim se ymeni soubry v class path a to dev tools mionitorujou
+a restartujous e hura
+
+udelam hledani podle note contianing note
+napred test, pak udelat handelr metodu
+otestovat
+uprai cintrooller
+a html soubor.
+
+totey pro label
+
+mam est a impelenta ci pro note contin note stirng
+ale testy neprochayeji a je to kvuli tomu ze mam list expected contins al l listt real a rela contirns all
+expected a to nefunguje,
+vola se note equals, ale z neajyho zahadnyho duvdou se do listu pro pasuje note ktera ma persistne bag,
+ael pritom ve spocku testu ma v setupu note1=save(note1) cili v note 1 musi byt spravna instnce s unisetlist, ale neni
+
+tu nespranvou note1 potom do myho tetu hodi spock. zkosuel jsem debugem projit na to kde se to deje ale marne
+ostanti testz funguji i kdzy tam maji note1 a tam to neni probme, ale ostanti testz
+tesutji listz ne pres contains alle res list==list. zmenim
 }

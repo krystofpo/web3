@@ -6,17 +6,22 @@
 </head>
 <body>
 <h1>Result</h1>
-<p th:text="'Note: ' + ${noteentity.note}" />
-<table>
-    <tr>
-        <th>Labels</th>
+<th:block th:each="note : ${notes}">
+    <p><span th:text="${note.note}"></span></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Labels</th>
 
-    </tr>
-    <tr th:each="label : ${noteentity.labels}">
-        <td th:text="${label.label}">example label</td>
+        </tr>
+        </thead>
 
-    </tr>
-</table>
+            <tr th:each="label : ${note.labels}">
+        <td th:text="${label.label}"></td>
+            </tr>
+    </table>
+</th:block>
+
 
 
 

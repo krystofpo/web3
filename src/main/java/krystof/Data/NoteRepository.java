@@ -12,6 +12,8 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
 
     List<Note> findByNote(String note);
 
+    List<Note> findByNoteIgnoreCaseContaining(String note);
+
     List<Note> findAll();
 
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @Controller
 
 public class NoteController {
@@ -55,8 +57,10 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/findnotebynote", method = RequestMethod.GET)
-    public String showFindNoteByNoteForm()
+    public String showFindNoteByNoteForm(Model model)
     {
+        PageParams page = new PageParams("findnotebynote", "Find");
+        model.addAttribute("page", page);
     return "findnotebynote";
     }
 
@@ -67,9 +71,32 @@ public class NoteController {
         Note noteReal = handler.findNoteByNote(note);
         System.out.println("found" + noteReal);
         if (noteReal != null) {
-            model.addAttribute("noteentity", noteReal);
+            model.addAttribute("notes", Arrays.asList(noteReal));
             return "noteresult";
         }
         return "noteresult";
+    }
+
+    @RequestMapping(value = "/findnotesbynote", method = RequestMethod.GET)
+    public String showFindNotesByNoteForm(Model model)
+    {
+        PageParams page = new PageParams("findnotesbynote", "Find");
+        model.addAttribute("page", page);
+        return "findnotebynote";
+    }
+
+    @RequestMapping(value = "/findnotesbynote", method = RequestMethod.POST)
+    public String showFindNotesByNoteResult(
+            @RequestParam("note") String note, Model model) {
+        System.out.println("note search" + note);
+        Note notesReal = handler.findNoteByNote(note);
+        System.out.println("found" + notesReal);
+        if (notesReal != null) {
+            model.addAttribute("notes", Arrays.asList(notesReal));
+            return "notesresult";
+
+
+        }
+        return "notesresult";
     }
 }

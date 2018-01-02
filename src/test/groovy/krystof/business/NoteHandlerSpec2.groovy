@@ -54,6 +54,8 @@ class NoteHandlerSpec2 extends Specification {
     Note note3 = new Note(
             "note3", new ArrayList<Label>(Arrays.asList(
             labelD, labelC)));
+    @Shared
+    Note note4 = new Note(null, "abc def ghi", [labelA, labelB])
 
     void setup() {
 
@@ -207,7 +209,7 @@ class NoteHandlerSpec2 extends Specification {
         noteHandler.findAllNotes() == allNotes
 
         where:
-        note                        | result                                             | allNotes
+        note                        | result                                                        | allNotes
         //corect entity, removed label A,  added unsaved label C, changed note description
         new Note(1L, "note1", null) | new Note(10000L, "note1updated", [labelA, new Label('dupl')]) | [new Note(1L, "note1updated", [labelA, new Label('dupl')]), note2, note3]
     }
@@ -299,9 +301,9 @@ class NoteHandlerSpec2 extends Specification {
         actualNotes.size() == eSizeOfNotes
 
         where:
-        label  | expectedLabels                   | eSizeOfLabels | expectedNotes                                                                                                                   | eSizeOfNotes
+        label  | expectedLabels                   | eSizeOfLabels | expectedNotes                                                                                           | eSizeOfNotes
         //saved label not attached to any note, notes are unchangd
-        labelE | [labelA, labelB, labelC, labelD] | 4             | [note1, note2, note3]                                                                                                           | 3
+        labelE | [labelA, labelB, labelC, labelD] | 4             | [note1, note2, note3]                                                                                   | 3
         //saved label part of some notes, label is removed from corresponding notes
         labelA | [labelE, labelB, labelC, labelD] | 4             | [new Note('note1', [labelB]), new Note('note2', [labelB, labelC]), new Note('note3', [labelD, labelC])] | 3
     }
@@ -341,7 +343,7 @@ class NoteHandlerSpec2 extends Specification {
         actualNotes.size() == eSizeOfNotes
 
         where:
-        note                  | expectedLabels                   | eSizeOfLabels | expectedNotes  | eSizeOfNotes
+        note              | expectedLabels                   | eSizeOfLabels | expectedNotes  | eSizeOfNotes
         //labels are unchanged
         new Note('note1') | [labelA, labelB, labelC, labelD] | 4             | [note2, note3] | 2
         //labels are unchanged
@@ -366,9 +368,43 @@ class NoteHandlerSpec2 extends Specification {
         note = noteHandler.save(note)
 
         then:
-        note.getLabels().size()==2
+        note.getLabels().size() == 2
         note.getLabels().containsAll([new Label('b'), new Label('a')])
     }
+@Unroll
+    def "find Note by note containing a string #noteDescription"() {
+        given:
+        note4 = noteHandler.save(note4)
 
+        when:
+        List<Note> notes = noteHandler.findNoteByNoteContains(noteDescription)
+
+        then:
+        notes.containsAll(expectedNotes)
+        expectedNotes.containsAll(notes)
+
+        where:
+        noteDescription | expectedNotes
+        'ote'           | [note1, this.note2, note3]
+        'ote1'          | [note1]
+        'de'            | [note4]
+        'c d'           | [note4]
+    }
+
+    def "find Note by note containing a string -null "() {
+        when:
+        List<Note> notes = noteHandler.findNoteByNoteContains(note)
+
+        then:
+        notes == null
+
+        where:
+        note << [
+                null,
+                '',
+                '   ']
+
+
+    }
 
 }
