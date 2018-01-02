@@ -449,6 +449,10 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         return findNoteByPredicate(predicate);
 
     }
+
+    public void deleteNote(long id) {
+        deleteNote(new Note(id, "neco", null));
+    }
 }
 
 

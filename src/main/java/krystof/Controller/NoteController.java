@@ -68,7 +68,7 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/" + FIND_NOTE_BY_NOTE, method = RequestMethod.GET)
-    public String showFindNoteByNoteForm(Model model)
+    public String showFindNoteByNoteExactForm(Model model)
     {
         PageParams page = new PageParams(FIND_NOTE_BY_NOTE, "Find");
         model.addAttribute("page", page);
@@ -76,7 +76,7 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/" + FIND_NOTE_BY_NOTE, method = RequestMethod.POST)
-    public String showFindNoteByNoteResult(
+    public String showFindNoteByNoteExactResult(
             @RequestParam("note") String note, Model model) {
         System.out.println("note search" + note);
         Note noteReal = handler.findNoteByNote(note);
@@ -89,7 +89,7 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.GET)
-    public String showFindNotesByNoteForm(Model model)
+    public String showFindNotesByNoteContainsForm(Model model)
     {
         PageParams page = new PageParams(FIND_NOTES_BY_NOTE_CONTAINS, "Find");
         model.addAttribute("page", page);
@@ -97,7 +97,7 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.POST)
-    public String showFindNotesByNoteResult(
+    public String showFindNotesByNoteContainsResult(
             @RequestParam("note") String note, Model model) {
         System.out.println("note search" + note);
         List<Note> notesReal = handler.findNotesByNoteContains(note);
@@ -157,5 +157,14 @@ public class NoteController {
 
     }
 
+
+    @RequestMapping(value = "/delete/note/{Id}", method = RequestMethod.GET)
+    public String deleteNote(@PathVariable("Id") long id) {
+        handler.deleteNote(id);
+
+        return "redirect:/";
     }
+
+
+}
 
