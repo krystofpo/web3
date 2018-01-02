@@ -69,7 +69,6 @@ public class Label implements Comparable<Label>, Validable{
         if (getLabel()==null && label1.getLabel()==null) {
             return false;
         }
-
         return getLabel() != null ? getLabel().equals(label1.getLabel()) : label1.getLabel() == null;
     }
 

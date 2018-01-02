@@ -371,7 +371,8 @@ class NoteHandlerSpec2 extends Specification {
         note.getLabels().size() == 2
         note.getLabels().containsAll([new Label('b'), new Label('a')])
     }
-@Unroll
+
+    @Unroll
     def "find Note by note containing a string #noteDescription"() {
         given:
         note4 = noteHandler.save(note4)
@@ -380,7 +381,7 @@ class NoteHandlerSpec2 extends Specification {
         List<Note> notes = noteHandler.findNotesByNoteContains(noteDescription)
 
         then:
-        notes==expectedNotes
+        notes == expectedNotes
 
         where:
         noteDescription | expectedNotes
@@ -410,4 +411,21 @@ class NoteHandlerSpec2 extends Specification {
         expect:
         noteHandler.createLabelList([null, 'a', '', '   ', 'b']) == [new Label('a'), new Label('b')]
     }
+
+    def "find notes by labels cotqining"() {
+
+        expect:
+
+        noteHandler.findNotesByManyLabelsContainsString(list) == eList
+
+        where:
+        list                   | eList
+        [null, '', 'labelNON'] | []
+        [null, '', 'abe']      | [note1, note2, note3]
+        [null, '', 'abe', 'xxx']      | []
+
+    }
+
+    then:
+
 }

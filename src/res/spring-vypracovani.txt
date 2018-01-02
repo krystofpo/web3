@@ -1597,4 +1597,13 @@ se obsah shoduje naprosto takze je to jenom tim perist bagem
 //todo nejak provazat jmeno html soyuboru s request mapping a taky se stringem v html strance href
 //todo udelat sript ktery naplni db
 //todo do menu html vlozit textove parametra hrefu
+
+
+je 16:10 zacnam na find notes by labels contians
+moznost dat vic labelu a label se matchuje podle contains
+
+napred test
+test hotovo je 16:18
+
+impemematac
 }

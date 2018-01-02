@@ -188,12 +188,26 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         List<Label> existingLabels = checkedList.getExistingLabels();
 
 
-        BooleanBuilder predicate = buildPredicate(existingLabels);
+        BooleanBuilder predicate = buildPredicateContains(existingLabels);
 
         return findNoteByPredicate(predicate);
     }
 
-    private BooleanBuilder buildPredicate(List<Label> existingLabels) {
+    private BooleanBuilder buildPredicateContains(List<Label> existingLabels) {
+        krystof.business.QNote note = krystof.business.QNote.note1;
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        for (Label savedLabel : existingLabels) {
+            builder.and(note.labels.contains(savedLabel));
+
+        }
+        return builder;
+
+
+    }
+
+    private BooleanBuilder buildPredicateExact(List<Label> existingLabels) {
         krystof.business.QNote note = krystof.business.QNote.note1;
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -409,6 +423,31 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         List<Label> labelList = new ArrayList<>();
         validStrings.forEach(e -> labelList.add(new Label(e)));
         return labelList;
+    }
+
+    public List<Note> findNotesByManyLabelsContainsString(List<String> labels) {
+
+        List<Label> labelList = createLabelList(labels);
+        return findNotesByManyLabelsContain(labelList);
+    }
+
+    private List<Note> findNotesByManyLabelsContain(List<Label> labels) {
+
+        if (isEmpty(labels)) {
+            return new ArrayList<>();
+        }
+
+
+        List<Note> notes = findNotesByManyLabelsContain2(labels);
+        return validCopyOf(notes);
+    }
+
+    private List<Note> findNotesByManyLabelsContain2(List<Label> labels) {
+
+        BooleanBuilder predicate = buildPredicateExact(labels);
+
+        return findNoteByPredicate(predicate);
+
     }
 }
 

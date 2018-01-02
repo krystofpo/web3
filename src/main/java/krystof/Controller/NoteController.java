@@ -135,7 +135,7 @@ public class NoteController {
         return FIND_NOTES_BY_LABELS;
     }
 
-    
+
 
 
     @RequestMapping(value = "/" + FIND_NOTES_BY_LABELS, method = RequestMethod.POST)
