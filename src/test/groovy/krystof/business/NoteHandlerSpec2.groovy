@@ -377,11 +377,10 @@ class NoteHandlerSpec2 extends Specification {
         note4 = noteHandler.save(note4)
 
         when:
-        List<Note> notes = noteHandler.findNoteByNoteContains(noteDescription)
+        List<Note> notes = noteHandler.findNotesByNoteContains(noteDescription)
 
         then:
-        notes.containsAll(expectedNotes)
-        expectedNotes.containsAll(notes)
+        notes==expectedNotes
 
         where:
         noteDescription | expectedNotes
@@ -393,7 +392,7 @@ class NoteHandlerSpec2 extends Specification {
 
     def "find Note by note containing a string -null "() {
         when:
-        List<Note> notes = noteHandler.findNoteByNoteContains(note)
+        List<Note> notes = noteHandler.findNotesByNoteContains(note)
 
         then:
         notes == null

@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Controller
 
 public class NoteController {
 
+    private final static String SAVE_NOTE = "savenote";
+    private final static String NOTE_RESULT = "noteresult";
 
     private NoteHandler handler;
 
@@ -43,7 +46,7 @@ public class NoteController {
         System.out.println("ulozim");
         note = handler.save(note);
         System.out.println(note);
-        model.addAttribute("noteentity", note);
+        model.addAttribute("notes", Arrays.asList(note));
 //        System.out.println(model);
 
 //
@@ -77,26 +80,39 @@ public class NoteController {
         return "noteresult";
     }
 
-    @RequestMapping(value = "/findnotesbynote", method = RequestMethod.GET)
+    @RequestMapping(value = "/findnotesbynotecontains", method = RequestMethod.GET)
     public String showFindNotesByNoteForm(Model model)
     {
-        PageParams page = new PageParams("findnotesbynote", "Find");
+        PageParams page = new PageParams("findnotesbynotecontains", "Find");
         model.addAttribute("page", page);
         return "findnotebynote";
     }
 
-    @RequestMapping(value = "/findnotesbynote", method = RequestMethod.POST)
+    @RequestMapping(value = "/findnotesbynotecontains", method = RequestMethod.POST)
     public String showFindNotesByNoteResult(
             @RequestParam("note") String note, Model model) {
         System.out.println("note search" + note);
-        Note notesReal = handler.findNoteByNote(note);
+        List<Note> notesReal = handler.findNotesByNoteContains(note);
         System.out.println("found" + notesReal);
         if (notesReal != null) {
-            model.addAttribute("notes", Arrays.asList(notesReal));
-            return "notesresult";
+            model.addAttribute("notes", notesReal);
+            return "noteresult";
 
 
         }
-        return "notesresult";
+        return "noteresult";
+
     }
-}
+
+
+
+        @RequestMapping(value = "/allnotes", method = RequestMethod.GET)
+        public String showAllNotes(Model model) {
+            List<Note> allNotes = handler.findAllNotes();
+
+                model.addAttribute("notes", allNotes);
+
+            return "noteresult";
+        }
+    }
+

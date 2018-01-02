@@ -385,7 +385,7 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         }
     }
 
-    public List<Note> findNoteByNoteContains(String note) {
+    public List<Note> findNotesByNoteContains(String note) {
         if (isBlank(note)) {
             return null;
         }

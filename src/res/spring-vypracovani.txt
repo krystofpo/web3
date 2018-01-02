@@ -1590,4 +1590,6 @@ ael pritom ve spocku testu ma v setupu note1=save(note1) cili v note 1 musi byt 
 tu nespranvou note1 potom do myho tetu hodi spock. zkosuel jsem debugem projit na to kde se to deje ale marne
 ostanti testz funguji i kdzy tam maji note1 a tam to neni probme, ale ostanti testz
 tesutji listz ne pres contains alle res list==list. zmenim
+ted jsem psutil celou tridu handlerspec2 a vsechno ok, moje metoda containung dva testy ok a dva ne ok, pritom v tech failujicich
+se obsah shoduje naprosto takze je to jenom tim perist bagem
 }
