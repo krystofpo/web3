@@ -1617,4 +1617,21 @@ note delte je htoovo je 19>:23
 label delete je hotovo. save label je hotovo, seel allabels je hotoov je 21:09
 
 jdu na update note
+
+=============
+k nalezeni note podle labels contians.
+
+
+list stirngu
+1abc
+
+2def
+
+3xxx
+
+najdu napred labely v db ktery vyhovujou abc - skupina labelu 1
+najdu napred labely v db ktery vyhovujou def - skupina labelu 2
+najdu napred labely v db ktery vyhovujou xxx - skupina labelu 3
+
+hledam note ktera
 }
