@@ -8,6 +8,7 @@
 <h1>Form</h1>
 <form th:action="@{${formAction}}"   method="post">
     <p>Note: <input type="text" id="note" name="note" value="" th:value="${note.note}"/></p>
+    <input type="hidden" name="noteId" th:value="${note.noteId}"/>
     <span th:each="label,iter : ${note.labels}">
         <p>Label: <input type="text" name="" th:name="'labels[' + ${iter.index} +'].label'" th:value="${label.label}" /></p>
     </span>
