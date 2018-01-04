@@ -5,10 +5,10 @@ import krystof.business.NoteHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +22,7 @@ public class LabelController {
     private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
-    private final String EDIT_LABEL_ID = "/edit/label/{Id}";
+    private static final String EDIT_LABEL_ID = "/edit/label/{Id}";
 
 
     private NoteHandler handler;
@@ -45,14 +45,14 @@ public class LabelController {
     }
 
     @RequestMapping(value = "/" + SAVE_LABEL, method = RequestMethod.POST)
-    public String submitNote(@RequestParam(name = "label") String label, Model model) {
+    public String submitLabel(@ModelAttribute(name = "labelentity") Label label, Model model) {
 
         System.out.println("------------------------\n\n\n\n\n\n\n\n");
         System.out.println(label);
 
 //        System.out.println(model);
         System.out.println("ulozim");
-        Label labelObject = handler.saveLabel(label);
+        Label labelObject = handler.saveLabel(label.getLabel());
         System.out.println(labelObject);
         model.addAttribute(LABELS_MODEL_ATTRIBUTE, Arrays.asList(labelObject));
 //        System.out.println(model);
@@ -162,5 +162,30 @@ public class LabelController {
 
         return SAVE_LABEL;
     }
+
+
+    @RequestMapping(value = EDIT_LABEL_ID, method = RequestMethod.POST)
+    public String submitEditLabel(@ModelAttribute(name = "labelentity") Label label, Model model) {
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+        System.out.println(label);
+
+//        System.out.println(model);
+        System.out.println("upd");
+        label = handler.updateLabel(label);
+        System.out.println(label);
+        model.addAttribute(LABELS_MODEL_ATTRIBUTE, Arrays.asList(label));
+//        System.out.println(model);
+
+//
+//        System.out.println(multiMap);
+//        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
+
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+
+        return LABEL_RESULT;
+    }
+
 
 }
