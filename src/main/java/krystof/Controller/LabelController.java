@@ -23,6 +23,7 @@ public class LabelController {
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
     private static final String EDIT_LABEL_ID = "/edit/label/{Id}";
+    private static final String FIND_LABELS_CONTAINS = "findlabelscontains";
 
 
     private NoteHandler handler;

@@ -1665,4 +1665,11 @@ a.listOfB.any()
      ale u save new note bude atrubt note mit noteid null. jak se to zparsuje do input hidden value
     ?
     a kdzy poslu fomrualr save s titmo stirngem? prazdnym? bude z toho Note.noteId null?
+
+    mam hotovo i mvc update note i label, save notea  a label a
+    find note by labels contyianning i mvc
+
+    co dale?
+
+    jeste find label by label cotnianing
 }

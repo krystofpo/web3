@@ -248,8 +248,8 @@ class NoteHandlerSpec2 extends Specification {
 
         then:
 
-       expLabel == realLabelA
-       expLabel == realLabelAupd
+        expLabel == realLabelA
+        expLabel == realLabelAupd
 
         noteHandler.findAllLabels().containsAll([realLabelA, labelB, labelC, labelD])
 
@@ -447,5 +447,21 @@ class NoteHandlerSpec2 extends Specification {
 
     }
 
+    def "find labels by label containing String"() {
 
+        when:
+        def labels = noteHandler.findLabelsByLabelContains(label)
+
+        then:
+        labels == expected
+
+        where:
+
+        label    | expected
+        null     | null
+        ""       | null
+        "xxxx"   | null
+        "labela" | [labelA]
+        "abe"    | [labelA, labelB, labelC, labelD]
+    }
 }
