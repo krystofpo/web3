@@ -19,7 +19,7 @@ public class NoteController {
     private final static String SAVE_NOTE = "savenote";
     private final static String NOTE_RESULT = "noteresult";
     private final static String NOTES_MODEL_ATTRIBUTE = "notes";
-    private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
+    final static String FIND_NOTE_BY_NOTE = "findnotebynote";
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
     private static final String FIND_NOTES_BY_LABELS_CONTAINS = "findnotesbylabelscontains";
