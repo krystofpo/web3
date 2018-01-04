@@ -22,7 +22,8 @@ public class NoteController {
     private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
-    private final String EDIT_NOTE_ID = "/edit/note/{Id}";
+    private static final String FIND_NOTES_BY_LABELS_CONTAINS = "findnotesbylabelscontains";
+    private static final String EDIT_NOTE_ID = "/edit/note/{Id}";
 
     private NoteHandler handler;
 
@@ -37,7 +38,7 @@ public class NoteController {
     @RequestMapping(value = "/note/{Id}", method = RequestMethod.GET)
     public @ResponseBody
     Note showNote(@PathVariable("Id") long id) {
-        return handler.findOne(id);
+        return handler.findNote(id);
     }
 
 
@@ -163,6 +164,38 @@ public class NoteController {
     }
 
 
+    @RequestMapping(value = "/" + FIND_NOTES_BY_LABELS_CONTAINS, method = RequestMethod.GET)
+    public String showFindNotesByLabelsContainsForm(Model model)
+    {
+        PageParams page = new PageParams(FIND_NOTES_BY_LABELS_CONTAINS, "Find");
+        model.addAttribute("page", page);
+        return FIND_NOTES_BY_LABELS;
+    }
+
+
+
+
+    @RequestMapping(value = "/" + FIND_NOTES_BY_LABELS_CONTAINS, method = RequestMethod.POST)
+    public String showFindNotesByLabelsContainsResult(
+            @RequestParam("labels") List<String> labels, Model model) {
+        System.out.println("labels " + labels);
+        System.out.println("size " + labels.size());
+        List<Note> notesReal = handler.findNotesByManyLabelsContainsString(labels);
+        System.out.println("found" + notesReal);
+        if (notesReal != null) {
+            model.addAttribute(NOTES_MODEL_ATTRIBUTE, notesReal);
+            return NOTE_RESULT;
+
+
+        }
+        return NOTE_RESULT;
+
+
+
+    }
+
+
+
     @RequestMapping(value = "/delete/note/{Id}", method = RequestMethod.GET)
     public String deleteNote(@PathVariable("Id") long id) {
         handler.deleteNote(id);
@@ -175,35 +208,37 @@ public class NoteController {
     @RequestMapping(value = EDIT_NOTE_ID, method = RequestMethod.GET)
     public String showEditNoteForm(@PathVariable("Id")long id, Model model) {
 
-        Note note = handler.findOne(id);
+        Note note = handler.findNote(id);
         model.addAttribute("note", note);
         model.addAttribute("formAction", EDIT_NOTE_ID.replace("{Id}", String.valueOf(id)));
 
         return SAVE_NOTE;
     }
+
+
+
+    @RequestMapping(value = EDIT_NOTE_ID, method = RequestMethod.POST)
+    public String submitEditNote(@ModelAttribute(name = "noteentity") Note note, Model model) {
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+        System.out.println(note);
+
+//        System.out.println(model);
+        System.out.println("ulozim");
+        note = handler.updateNote(note);
+        System.out.println(note);
+        model.addAttribute(NOTES_MODEL_ATTRIBUTE, Arrays.asList(note));
+//        System.out.println(model);
+
 //
-//    @RequestMapping(value = "/" + SAVE_NOTE, method = RequestMethod.POST)
-//    public String submitNote(@ModelAttribute(name = "noteentity") Note note, Model model) {
-//
-//        System.out.println("------------------------\n\n\n\n\n\n\n\n");
-//        System.out.println(note);
-//
-////        System.out.println(model);
-//        System.out.println("ulozim");
-//        note = handler.save(note);
-//        System.out.println(note);
-//        model.addAttribute(NOTES_MODEL_ATTRIBUTE, Arrays.asList(note));
-////        System.out.println(model);
-//
-////
-////        System.out.println(multiMap);
-////        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
-//
-//
-//        System.out.println("------------------------\n\n\n\n\n\n\n\n");
-//
-//        return NOTE_RESULT;
-//    }
+//        System.out.println(multiMap);
+//        multiMap.get("labels.label").forEach(val -> System.out.println(val.toString()));
+
+
+        System.out.println("------------------------\n\n\n\n\n\n\n\n");
+
+        return NOTE_RESULT;
+    }
 
 }
 

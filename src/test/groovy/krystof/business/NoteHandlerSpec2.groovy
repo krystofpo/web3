@@ -240,9 +240,17 @@ class NoteHandlerSpec2 extends Specification {
         given:
         Label realLabelA = noteHandler.findLabelByLabel('labelA')
         realLabelA.setLabel(realLabelA.getLabel() + 'updated')
+        def expLabel = realLabelA
 
-        expect:
-        noteHandler.updateLabel(realLabelA) == realLabelA
+        when:
+        def realLabelAupd = noteHandler.updateLabel(realLabelA)
+        realLabelA = noteHandler.findLabelByLabel(realLabelA.getLabel())
+
+        then:
+
+       expLabel == realLabelA
+       expLabel == realLabelAupd
+
         noteHandler.findAllLabels().containsAll([realLabelA, labelB, labelC, labelD])
 
     }
@@ -374,9 +382,11 @@ class NoteHandlerSpec2 extends Specification {
     }
 
     @Unroll
-    def "find Note by note containing a string #noteDescription"() {
+    def "find Notes by note containing a string #noteDescription"() {
         given:
         note4 = noteHandler.save(note4)
+        //even if note1 should be a correct Note with setuniquelist, it is with persistent bag. this corrects it
+        expectedNotes = noteHandler.validCopyOf(expectedNotes)
 
         when:
         List<Note> notes = noteHandler.findNotesByNoteContains(noteDescription)
@@ -386,7 +396,7 @@ class NoteHandlerSpec2 extends Specification {
 
         where:
         noteDescription | expectedNotes
-        'ote'           | [note1, this.note2, note3]
+        'ote'           | [note1, note2, note3]
         'ote1'          | [note1]
         'de'            | [note4]
         'c d'           | [note4]
@@ -426,17 +436,16 @@ class NoteHandlerSpec2 extends Specification {
         actualList == eList
 
         where:
-        list                   | eList
-        [null, '', 'labelNON'] | []
-        [null, '', 'abe']      | [note1, note2, note3]
-        [null, '', 'abe', 'xxx']      | []
-        [null, '', 'abela']      | [note1, note2]
-        [null, '', 'abela', 'belb']      | [note1, note2]
-        [null, '', 'c']      | [note2, note3]
-        [null, '', 'c', 'd']      | [ note3]
+        list                        | eList
+        [null, '', 'labelNON']      | []
+        [null, '', 'abe']           | [note1, note2, note3]
+        [null, '', 'abe', 'xxx']    | []
+        [null, '', 'abela']         | [note1, note2]
+        [null, '', 'abela', 'belb'] | [note1, note2]
+        [null, '', 'c']             | [note2, note3]
+        [null, '', 'c', 'd']        | [note3]
 
     }
-
 
 
 }

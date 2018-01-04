@@ -38,7 +38,7 @@ public class NoteControllerTest {
 
     @Before
     public void setUp() throws Exception {
-when(handler.findOne(anyLong())).thenReturn(new Note("testMock", new ArrayList<Label>(Arrays.asList(new Label("necolabelMock")))));
+when(handler.findNote(anyLong())).thenReturn(new Note("testMock", new ArrayList<Label>(Arrays.asList(new Label("necolabelMock")))));
 
     }
 
@@ -50,7 +50,7 @@ when(handler.findOne(anyLong())).thenReturn(new Note("testMock", new ArrayList<L
                 .andExpect(content().string(containsString("label")))
                 .andExpect(content().string(containsString("note")))
                 .andExpect(content().string(containsString("testMock")));
-verify(handler, times(1)).findOne(eq(123L));
+verify(handler, times(1)).findNote(eq(123L));
 
     }
 

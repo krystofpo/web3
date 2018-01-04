@@ -22,6 +22,7 @@ public class LabelController {
     private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
     private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
     private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
+    private final String EDIT_LABEL_ID = "/edit/label/{Id}";
 
 
     private NoteHandler handler;
@@ -34,7 +35,12 @@ public class LabelController {
 
 
     @RequestMapping(value = "/" + SAVE_LABEL, method = RequestMethod.GET)
-    public String showSaveLabelForm() {
+    public String showSaveLabelForm(Model model) {
+
+        model.addAttribute("label", new Label(""));
+        model.addAttribute("formAction", SAVE_LABEL);
+
+
         return SAVE_LABEL;
     }
 
@@ -146,5 +152,15 @@ public class LabelController {
         return "redirect:/";
     }
 
+
+    @RequestMapping(value = EDIT_LABEL_ID, method = RequestMethod.GET)
+    public String showEditLabelForm(@PathVariable("Id")long id, Model model) {
+
+        Label label = handler.findLabel(id);
+        model.addAttribute("label", label);
+        model.addAttribute("formAction", EDIT_LABEL_ID.replace("{Id}", String.valueOf(id)));
+
+        return SAVE_LABEL;
+    }
 
 }

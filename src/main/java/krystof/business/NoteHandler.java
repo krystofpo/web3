@@ -47,8 +47,12 @@ public class NoteHandler { //todo refactor change name to reposservice
         this.labelRepository = labelRepository;
     }
 
-    public Note findOne(long id) {
+    public Note findNote(long id) {
         return validCopyOf(noteRepository.findOne(id));
+    }
+
+    public Label findLabel(long id) {
+        return labelRepository.findOne(id);
     }
 
     //saves a new Note or finds existing one.

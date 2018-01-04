@@ -1652,4 +1652,17 @@ a.listOfB.any()
       tady to rozebriaj vuice
 
      //todo co je join? left join, righ join, inne rjoin aouter join
+
+     funguje updata label?
+     funguje update note?
+
+     //todo nahradit "/" + contsnta tya constnat a jeslti i farm aciton muze byt s lomitkem
+
+     updat note:
+     formualr musi posilat i note id. to bud einput type hidden. ale tim padem musim do strnaky\dat
+     aby vzal z atrbutu note.noteid. ok
+
+     ale u save new note bude atrubt note mit noteid null. jak se to zparsuje do input hidden value
+    ?
+    a kdzy poslu fomrualr save s titmo stirngem? prazdnym? bude z toho Note.noteId null?
 }
