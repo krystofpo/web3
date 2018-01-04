@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -136,7 +134,7 @@ public class NoteHandler { //todo refactor change name to reposservice
         }
     }
 
-    private List<Note> validCopyOf(List<Note> notes) {
+    List<Note> validCopyOf(List<Note> notes) {
         ArrayList<Note> validList= new ArrayList<>();
         notes.forEach(note -> addValidCopyToList(note, validList));
         return validList;
@@ -190,18 +188,18 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         List<Label> existingLabels = checkedList.getExistingLabels();
 
 
-        BooleanBuilder predicate = buildPredicateContains(existingLabels);
+        BooleanBuilder predicate = buildPredicateExact(existingLabels);
 
         return findNoteByPredicate(predicate);
     }
 
-    private BooleanBuilder buildPredicateContains(List<Label> existingLabels) {
+    private BooleanBuilder buildPredicateContains(Map<Integer, List<Label>> matchingLabels) {
         krystof.business.QNote note = krystof.business.QNote.note1;
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        for (Label savedLabel : existingLabels) {
-            builder.and(note.labels.contains(savedLabel));
+        for (List<Label> labels : matchingLabels.values()) {
+            builder.and(note.labels.any().in(labels));
 
         }
         return builder;
@@ -433,20 +431,53 @@ List<Note> invalidList =  findNoteBySavedLabels(checkedList);
         return findNotesByManyLabelsContain(labelList);
     }
 
+    public List<Label> findLabelsByLabelContains(String label) {
+        if (isBlank(label)) {
+            return null;
+        }
+        List<Label> labels = labelRepository.findByLabelIgnoreCaseContaining(label);
+        if (isEmpty(labels)) {
+            return null;
+        }
+        return labels;
+    }
+
     private List<Note> findNotesByManyLabelsContain(List<Label> labels) {
 
         if (isEmpty(labels)) {
             return new ArrayList<>();
         }
 
+        Map<Integer, List<Label>> matchingLabels = findMatchingLabels(labels);
 
-        List<Note> notes = findNotesByManyLabelsContain2(labels);
+        if (matchingLabels == null) {
+            return new ArrayList<>();
+        }
+        //todo optimalisation, remove duplicates from map
+
+        List<Note> notes = findNotesByManyLabelsContain2(matchingLabels);
         return validCopyOf(notes);
     }
 
-    private List<Note> findNotesByManyLabelsContain2(List<Label> labels) {
+    private Map<Integer, List<Label>> findMatchingLabels(List<Label> labels) {
 
-        BooleanBuilder predicate = buildPredicateExact(labels);
+
+        Map<Integer, List<Label>> matchingLabelsMap = new HashMap<>();
+        for (int i=0;i<labels.size(); i++) {
+
+            List<Label> matchingLabelsList = findLabelsByLabelContains(labels.get(i).getLabel());
+            if (matchingLabelsList == null) {
+                return null;
+            }
+            matchingLabelsMap.put(i, matchingLabelsList);
+        }
+        return matchingLabelsMap;
+
+    }
+
+    private List<Note> findNotesByManyLabelsContain2(Map<Integer, List<Label>> matchingLabels) {
+
+        BooleanBuilder predicate = buildPredicateContains(matchingLabels);
 
         return findNoteByPredicate(predicate);
 

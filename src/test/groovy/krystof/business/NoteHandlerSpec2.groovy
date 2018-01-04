@@ -57,6 +57,7 @@ class NoteHandlerSpec2 extends Specification {
     @Shared
     Note note4 = new Note(null, "abc def ghi", [labelA, labelB])
 
+
     void setup() {
 
         noteHandler.deleteAllNotes()
@@ -412,20 +413,30 @@ class NoteHandlerSpec2 extends Specification {
         noteHandler.createLabelList([null, 'a', '', '   ', 'b']) == [new Label('a'), new Label('b')]
     }
 
-    def "find notes by labels cotqining"() {
+    @Unroll
+    def "find notes by labels containing str #list"() {
 
-        expect:
 
-        noteHandler.findNotesByManyLabelsContainsString(list) == eList
+        when:
+        eList = noteHandler.validCopyOf(eList)
+        def actualList = noteHandler.findNotesByManyLabelsContainsString(list)
+
+        then:
+
+        actualList == eList
 
         where:
         list                   | eList
         [null, '', 'labelNON'] | []
         [null, '', 'abe']      | [note1, note2, note3]
         [null, '', 'abe', 'xxx']      | []
+        [null, '', 'abela']      | [note1, note2]
+        [null, '', 'abela', 'belb']      | [note1, note2]
+        [null, '', 'c']      | [note2, note3]
+        [null, '', 'c', 'd']      | [ note3]
 
     }
 
-    then:
+
 
 }

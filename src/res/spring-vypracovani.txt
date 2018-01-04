@@ -1634,4 +1634,22 @@ najdu napred labely v db ktery vyhovujou def - skupina labelu 2
 najdu napred labely v db ktery vyhovujou xxx - skupina labelu 3
 
 hledam note ktera
+
+
+
+
+https://stackoverflow.com/questions/44830387/how-to-create-predicate-booleanexpression-for-many-to-many-relations-in-querydsl
+
+
+a.listOfB.any()
+      .id.in(list);
+      pry to funguje.
+      myslel jsem ze any proste matchuje any, ale tady je dalsi podminka, anym, ktera splunu jepdminku
+
+      muj pripad by byl note.labels.any().in(matchin glist
+
+      https://stackoverflow.com/questions/23077155/left-join-with-spring-data-jpa-and-querydsl/23092294#23092294
+      tady to rozebriaj vuice
+
+     //todo co je join? left join, righ join, inne rjoin aouter join
 }
