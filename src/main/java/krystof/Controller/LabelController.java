@@ -1,7 +1,6 @@
 package krystof.Controller;
 
 import krystof.business.Label;
-import krystof.business.Note;
 import krystof.business.NoteHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +16,9 @@ public class LabelController {
     private final static String SAVE_LABEL = "savelabel";
     private final static String LABEL_RESULT = "labelresult";
     private final static String LABELS_MODEL_ATTRIBUTE = "labels";
-    private final static String FIND_NOTE_BY_NOTE = "findnotebynote";
-    private final static String FIND_NOTES_BY_NOTE_CONTAINS = "findnotesbynotecontains";
-    private static final String FIND_NOTES_BY_LABELS = "findnotesbylabels";
     private static final String EDIT_LABEL_ID = "/edit/label/{Id}";
     private static final String FIND_LABELS_CONTAINS = "/findlabelscontains";
+    private final static String FIND_LABEL_BY_LABEL = "/findlabel";
 
 
     private NoteHandler handler;
@@ -66,10 +63,10 @@ public class LabelController {
         return LABEL_RESULT;
     }
 //
-//    @RequestMapping(value = "/" + FIND_NOTE_BY_NOTE, method = RequestMethod.GET)
+//    @RequestMapping(value = "/" + FIND_LABEL_BY_LABEL, method = RequestMethod.GET)
 //    public String showFindNoteByNoteExactForm(Model model)
 //    {
-//        PageParams page = new PageParams(FIND_NOTE_BY_NOTE, "Find");
+//        PageParams page = new PageParams(FIND_LABEL_BY_LABEL, "Find");
 ////        model.addAttribute("labelentity", savedLabel);
 ////        System.out.println(model);
 ////        //todo save it, ale jak to predat view jako novy objekt? lepsi
@@ -82,7 +79,7 @@ public class LabelController {
 //    {
 //        PageParams page = new PageParams(FIND_NOTES_BY_NOTE_CONTAINS, "Find");
 //        model.addAttribute("page", page);
-//        return FIND_NOTE_BY_NOTE;
+//        return FIND_LABEL_BY_LABEL;
 //    }
 //
 //    @RequestMapping(value = "/" + FIND_NOTES_BY_NOTE_CONTAINS, method = RequestMethod.POST)
@@ -173,4 +170,26 @@ public class LabelController {
 
 
         }return LABEL_RESULT;}
+
+
+    @RequestMapping(value =  FIND_LABEL_BY_LABEL, method = RequestMethod.GET)
+    public String showFindNoteByNoteExactForm(Model model)
+    {
+        PageParams page = new PageParams(FIND_LABEL_BY_LABEL, "Find");
+        model.addAttribute("page", page);
+        return NoteController.FIND_NOTE_BY_NOTE;
     }
+
+    @RequestMapping(value = FIND_LABEL_BY_LABEL, method = RequestMethod.POST)
+    public String showFindLabelByLabelExactResult(
+            @RequestParam("note") String label, Model model) {
+        Label labelReal = handler.findLabelByLabel(label);
+        System.out.println("found" + labelReal);
+        if (labelReal != null) {
+            model.addAttribute(LABELS_MODEL_ATTRIBUTE, Arrays.asList(labelReal));
+            return LABEL_RESULT;
+        }
+        return LABEL_RESULT;
+    }
+
+}
