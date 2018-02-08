@@ -1671,5 +1671,18 @@ a.listOfB.any()
 
     co dale?
 
-    jeste find label by label cotnianing
+    jeste find label by label cotnianing\
+    
+    
+    
+    
+    
+    opravit nehezkost se setem a listem, staci pred ukladanim zavolat list distinct. tim apdem nebude muset byt ten setuniwque list
+    
+    a bude normalni equals atd atd. 
+    
+    slo by cascade? aby se ukladalo samo a ne ja rucne?
+    knizka proJPA2
+    
+    vyhodit soubor s poznamkami z githuub, mozna nove repo?
 }

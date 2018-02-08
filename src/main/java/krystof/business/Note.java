@@ -43,7 +43,7 @@ public class Note {
         this.labels.addAll(labels);
     }
 
-//todo aby do labelu nepriradilo nunull
+
     public Note(String note) {
         this(note, null);
     }
