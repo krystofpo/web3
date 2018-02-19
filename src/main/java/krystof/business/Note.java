@@ -45,7 +45,9 @@ public class Note {
     public Note(Long noteId, String note, List<Label> labels) {
         this.noteId = noteId;
         this.note = note;
-        this.labels.addAll(labels);
+        if (labels!=null) {
+            this.labels.addAll(labels);
+        }
     }
 
     public Note(Note note) {
