@@ -16,15 +16,15 @@ public class Label implements Comparable<Label>, Validable{
     public Label() {
     }
 
-    public Label(Long labelId, String label) {
-
-        this.labelId = labelId;
-        this.label = label;
-    }
-
     public Label(String label) {
 
         this.labelId = null;
+        this.label = label;
+    }
+
+    public Label(Long labelId, String label) {
+
+        this.labelId = labelId;
         this.label = label;
     }
 
@@ -66,9 +66,6 @@ public class Label implements Comparable<Label>, Validable{
 
         Label label1 = (Label) o;
 
-        if (getLabel()==null && label1.getLabel()==null) {
-            return false;
-        }
         return getLabel() != null ? getLabel().equals(label1.getLabel()) : label1.getLabel() == null;
     }
 

@@ -3,8 +3,8 @@ package krystof.business;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Note {
@@ -26,26 +26,26 @@ public class Note {
             inverseJoinColumns = @JoinColumn(
                     name = "LabelId",
                     referencedColumnName = "label_id"))
-    private final List<Label> labels = new SetUniqueListI(new ArrayList<Label>(), new HashSet<Label>());
+    private final List<Label> labels = new ArrayList<>();
 
 
     protected Note() {
     }
 
-    public Note(String note, List<Label> labels) {
-        this.note = note;
-        this.labels.addAll(labels);
+    public Note(String note) {
+
+        this(note, null);
     }
+
+    public Note(String note, List<Label> labels) {
+        this(null, note, labels);
+    }
+
 
     public Note(Long noteId, String note, List<Label> labels) {
         this.noteId = noteId;
         this.note = note;
         this.labels.addAll(labels);
-    }
-
-
-    public Note(String note) {
-        this(note, null);
     }
 
     public Note(Note note) {
@@ -81,8 +81,10 @@ public class Note {
     }
 
 
-    public void correctBeforeSave() {
-        ((SetUniqueListI)labels).correctList();
+    public void correctBeforeSave(){
+        List temp= labels.stream().distinct().collect(Collectors.toList());
+        labels.clear();
+        labels.addAll(temp);
     }
 
     @Override

@@ -11,11 +11,8 @@ class LabelSpec extends Specification {
 
         where:
         label                  | other                   | result
-        /*nasledujici test to je kvuli chovani
-        SetUniqueList a Spring form data binding
-        viz poznamka nad testem SetUniqueLsitI
-         */
-        new Label(null)   | new Label(null)     | false
+        
+        new Label(null)   | new Label(null)     | true
         new Label(null)   | new Label('')       | false
         new Label('')     | new Label(null)     | false
         new Label('')     | new Label('')       | true
