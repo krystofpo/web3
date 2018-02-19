@@ -1,380 +1,4 @@
-﻿Jirka napsal zadan iukolu na spring
-
-Moej poznamky
-
-Login – mam udelat i frontend? Nejaka prihlasovaci strnka?
-Stranka vytovirt nebo hledani
-Na strance hlednai, vysledky, zobrizt odkazy na edit.
-Note – more than one labels, jak bude entita mit vic nez jedno jmeno?
-Dva zaznamy s ruznymi id, dve riuzna jmena a dva stjene popisy?
-
-Nebo  v db labels co ma cizi klic a ten ukazuje na 2 labely?
-
-Jak mam vytvorit databzi?
-Kde na jamym serveru? 
-Dockery a pripojeni a ssh tunely? 
-
-
-Budu to delat v idea, budu mit nejakou VCS? Kde? 
-
-Kam se udela artefakt? Build? Deploy? 
-Prihlaseni bezpecne? Jak ? 
-Jak nakofgigurovat maven nebo gradle?
-Jak pouzi liquibase? 
-Jak se pracuje s jenkinsem? 
-
-
-Neslo by to zjednodusit? Mene nastroju? 
-
-Udelat si porjekt ve springu boot s jedduchym gradle scriptem. Je to v knizce?sprign boot?
-
-Video co posilal jirka machart od joshua o spriungu
-
-Dostla jsem zaskoleni od jirk ymacharta
-GRADLE
-Do gradle, jak se zacina porjekt, gradle wrapper, spring boot
-Lze zacit jen se soubry gradel wrapper, to je bat soubora  a linux shell soubor,
-A slozka ktera obshue jar a properties soubor. 
-Proerties tma lez nastaig tjaou verzi gradlu chciu
-Spusti se bat v command line a ta sthaen gradle z netu, da do slozky home (users/polanksyúgradle)
-Asi prikaz gradlew init
-A taky vytvori soubor gradle.properties.
-Ten upraivm dam pryc komentare, vyhazu to co nechci.
-A muzu otevrit IDE a otevrit soubor gradle.build a zacit na tom projekt.
-
-Nebo jdu na start.spring.io a vygenruju si spring boot projekt a ten uz tohl ema nsatvaeny.
-Kdyz je porjekt vcetne springboot, takma v gardle nastevno jako library spring boot
-A kdyz se pak da buld pomoci grdlu, takse udela jenden jar soubor kterej obshauej v sobe i libs. 
-Tkaez k jeho spusteni je treb ajen java, ani gradle, ani spring, ani IDE. 
-
-Na spirg io je tutorial jak se dela projekt s gradlem ,to ted delam. Pak se podivam na porjekt se spring boot. 
-Jirka kehar rikla ze postupne se bud uveci ucit, budou se nabalovat, ale zacit se da jednduse. 
-
-Ctu navod na spriong io projektc  gradlem, delam buidl a udela to jarko ale to nejde spustit chybi tam mnaigfest.
-
-Tak jsem pouzil gradlewrapper a ten mi stahnul novou verzi JVM nevim proc kdyz uz to mam, ale dobre.
-¨
-¨zkusim gradlew build
-
-Nevim proc nestaci jenom gradle, abych udelal spustitelny jarko. Dodlůeat
-
-Jel jsem podle navodu tutorial  spirng gradle project. Mam nainstalovanej gradle, clkeove. Taky by to slo bez gradlu, ze bych si stahl wrapper a on by stahnul gradle.ale mam gradle. 
-Jdu do commnad line, dam gradle task, chybi tam build. Kdyz vvroim soubior build.gradle nebo gradle.build a napisu tam nejaky prikazy,  a dam znova gradle task tak mi to nabdien uz i build. 
-Tak muzu udela jar,a le predtim musim do gradle.build souboru napsat applicaiton  a nastaivt tam main class. 
-Kdyz se rucne nastavi gradle projekt tka to pak uz sezere idea. 
-
-Co to je class path?
-Mam si precist i ve spring knizce advanced wiring a taky spirng boot
-
-
-Vypracovani:
-Zacibnam
-
-1.	Udelam si gradle rpojekt.
-Jak na to: cmd, gradle init - -type java-application. Vytovir se vsechno. Vyhodit grdle porperties, smazu.
-Upravim build.gradle, dam tam 
-plugins {
-
-        id 'org.springframework.boot' version '1.5.8.RELEASE'
-        id 'java'
-
-}  
-
-Vyhdoiljsem main class name, to dela spring boot
-2.	Pridal jsem tim  spring boot kvuli spustitlenym jar. 
-Ano fugnuje spustitelny jar. Jeste jednduese zkusim gradle run v rootu. Aha tak gradle run neexistuje. Asi proottze jsem vyhodil mainclas name app. Ale je tu task bootrun, asi od spring bootu a to funguje. 
-3.	Pridam spring. Oteveru v idea IDE  a pridam anotace spirngu. A spustim. Ted nepouzivam v kodu zdny spirg boot app tkaez se sposuti normalen main metoda. Nemusim resit azdny command line runnery atd. Prostr jenom napisu confugraci  a component scana  autowired a component atd  a vytvorim app context a gen tbean a pujde to. Zkusim pustit v IDEA a zkusim pustit v cmd.  Java jar. A gradle boot run. Ale kdyz budu pouzivt spirng knohvnu, tka ji musim pridat mezi dependecies ne? To se nikde nepise ve spring i action. A pritom mi fugoval yporjekty, ve kterych jsem si hral. Pocidvam se do ejjich build.gradle osoburu, trteba idea sama pridava do build.gradle dependecnies?aha tak v projektu, ktery jsem udelal se springem, to jsem si nechal vytvorit ideou a zadny gradle build tam neni, ale jsou tam knihovny sporingu, ale nevimkde jsou definovany. Asi se podivam na spring io tutorial starting a project with gradle. Nebo do kniozky spirng in acitn nepise se to v knize, ani ve spring v guidech, ale je to na sprigu v references, ke spring framework. https://projects.spring.io/spring-framework/
-Prida se to to do gradle pomoci 
-dependencies {
-    compile 'org.springframework:spring-context:5.0.1.RELEASE'
-}
-A uz se muze delat confgi, cpmentscan, component atd
-Pridal jsem to do buoidl .gradle a dal jsem si v idea gradle refesehs, v panelu nastorju grdle, stahlo mi to spring context a pridalo do classpath libs. A uz to muzu puzit. 
-
-4.	Napsat spring config. Confuguraci udelam ve vlastni tride, aby se to nepletlo.  
-udelal jsem novy balicek springConfig. V nem tridu SpringConfig. Nad tridu dam @Config. 
-Nefunguje mi to. Exception apache log, class nto found. Fivne
-Zkusim napsat test, tery vytvori context a v nem se udela uaotried. 
-Mam tam @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=CDPlayerConfig.class)
-public class TelevizeTest {
-ale nejde mi resolve smybol spirngjuni4... a @context... proc? Kdyz mam v dpedencies rpign a sprignb oto?
-Nasel jsem na stack overfloe ze potrebuju sprign boot test. 
-Dam do     testCompile("org.springframework.boot:spring-boot-starter-test")
-Ok uz se mi to naiportovlao
-Napsal jsem test kde je autowired Televize a pusitl jsemto a vyjimka. 
-java.lang.NoClassDefFoundError: org/apache/commons/logging/LogFactory
-
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.<clinit>(SpringJUnit4ClassRunner.java:96)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:104)
-	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:86)
-	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
-	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:26)
-	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
-	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:33)
-	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:36)
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:49)
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:51)
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
-Caused by: java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
-	... 16 more
-
-Napad  - neni to tim, ze spirng boot vyzaduje vytovrieni spirng boot aplplicaiton a uiz nefunguje applcation context?
-
-Zkusim vyhodit sprignb boot, ale zsast o nespustitm, z jarka. Tim padem to pustim pres gradle run, ale k tomu asi musim mit nastavene v build gradle poreprty class name
-
-Zkusim pro cvik vytvorit gradle5 oznnova, abych si to tzopakvoal
-Ano uz mam projekt se springem a autowire a funguje to, jeste to zkusim predelat,
-Aby konfiguracni trid abyla samostatne, ve svym vlasntim balicku a component scan porhledaval vsechny dalsi balicky, resp top balicek ve kterym je jedn prazdna trida kvuli scanu, ano funguje. 
-
-Ted jak do toho pridam spring boot?
-Prectu si ve spirng in aciton, pak na spirng io, pak stackoverlwo atd, 
-Nevim neresim, zacnu s spring web ze spring in action, vypiky jsou ve sprig vypisky
-
-
-Otestovat vsechno, ve spocku, naucit se mockovat ve spocku
-
-Ziskat od adma azdrojaky na ukzkovej porjekt, co mel na rest api a ajdbc
-
-
-
-V porjektu web mam porjekt podle sping in action, mam tam spring mvc bey bootu, contorlery a mock repository.
-
-Ted chci pridat sping data a to udelam ve spring bootu. 
-Musi se naucit napred ciste sprog boot, ten uy obsahuje mvc. 
-Takye napred udelam prjekt v esporign boot s mvc, udelam contorllery, 
-Pak pridam spring data. A pak h2.
-Musim se naucit mvc v bootu. Chapu, ye boot ma dve verze, command line runner a mvc. Podivm se do tutorialu. Boot. 
-Zacnu manualne, udelam si gradle soubor a do nej pridam spring boot a otevru v idea. Pak si necham vzgenrovat spirug boot na start spring io.
-
-Jak vytvorit gradle project ? zkusim task gradlew a ten snad vytvori gradle build soubor a adresarovou strukturu. Pak jen do buld.grdle dam dependencies a otevru v idee. 
-Vztovirtl jsem adrear web2, pustil gradle tasks, pak pustil gradle init, udelalo to build.gradle soubor a do nej napsalo lugin java. Musim odkokentovat build.gradle. Ale neudella adresarvoou strukturu. Jakej task to udela?
-
-Ok smayu vsechno v adreasri web2 a yacnu znova, gradle ma task init –java-app
-Viz navod 
-https://guides.gradle.org/building-java-applications/
-ted se udelal build.gradle s jav aplugin a app lugin a udelala ase dreasrova sturktura. Otevru v idea
-ted ctu v spirng boot navodu, instalace boot. Staci pridat do pluginu sriignb oot to ej gradle boot plugin, a kdzy pak pridvama do dependencies nejakz boot strtery, tka nemusim pridavat jejich verzi. Plugin taky s sebou tha dalsi dependency a umoynuje udelat jedno jarko a psusit ho pomoco boot run. \cili pridam do buidl gradle ppgihun gradle 
-plugins {
-    id 'org.springframework.boot' version '1.5.9.RELEASE'
-    id 'java'
-}
-a do dependencies 
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-}
-
-A dam pryc plugin applicatino, dam pryc define main class z gradle build. 
-
-A pridam jar jar {
-    baseName = 'myproject'
-    version =  '0.0.1-SNAPSHOT'
-}
-
-Navod ale pocita s mavenem, takze jdu do guide sprign boot, tam je jinej buildgrdale soubor. 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-
-jar {
-    baseName = 'gs-spring-boot'
-    version =  '0.1.0'
-}
-
-repositories {
-    mavenCentral()
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
-    testCompile("junit:junit")
-}
-
-Nechapu sco je buidlscirpt cast a proc uz pototm v pluginu neni verze sprign gradle plugunu, ale porste to okpiruju
-
-Tkahel vyapd amuj buid gradle
-/*
- * This build file was generated by the Gradle 'init' task.
- *
- * This generated file contains a sample Java project to get you started.
- * For more details take a look at the Java Quickstart chapter in the Gradle
- * user guide available at https://docs.gradle.org/4.1/userguide/tutorial_java_projects.html
- */
-
-
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-
-
-
-jar {
-    baseName = 'my-proj-kry'
-    version =  '0.1.0'
-}
-
-repositories {
-    mavenCentral()
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-dependencies {
-   
-    compile("org.springframework.boot:spring-boot-starter-web")
-
-
-    testCompile("junit:junit")
-}
-
-Dal ale guide sprign boot m pirklad s command line runnerema to nechci, takze se vrcim do navodu docs sprign boot, tam maji mvc. 
-
-Vztvoril jsem tridu obashujici main methodu a ta nacte poomoci spring boot aplicaiton run tuto tridu.
-
-Pak v jine tride je antoce rest ocntroller a taky enable auto confuig. Nevim jestli to nejade beany
-
-Ted se spsuti apiace tawsekem gradlu boot run. Zatim to nefuguje, ykuism dat enabel auto confuig nad hlavni tridus  s mainem. Anebo nad tu tridu dam spring bot aplivcioatn anotaci. 
-
-Se nable auto config nad halvni tridou nic, mozna componenet scan se nedeje v celym balicku tak mu dam comnetnscan na vrchni blaicek aby nasel contorllet ale pomoci tridy, kteoru bosahuej vrchni balicek. Uy to fnugje. Staci enable auto confgi a nemusi byt ani spibn tboot apllicaitn antoace. A jede to, v browseru posutim /records/123  a vraci to obejkt json Note. parada
-
-Fungovalo by java –jar na tuhel aplikaci? Nebo funguje jenom gradle bootrun? Ano
-Ctu https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/#getting-started
-A zaroven https://spring.io/guides/gs/spring-boot/
-
-. That’s because @RestController combines @Controller and @ResponseBody, two annotations that results in web requests returning data rather than a view. Proto mi v porhliyezi se zobrazi primo json a ne view s modelem
-
-Pridam testy viz navod guide sporign boot, 
-Pak s podivam na guige mvc abych udella lesi view nez jen json, ale mozna thymeleaf? Abch mohl udela thtml strnaku s odkazem a do ktery budu moct pridavat objkety sndno.
-Pak si prectu spring data a pridam h2 a bude hotoov. 
-
-
----novy porjekt web2, mam na to github reposriotry
-Mam tam spirng boot starter web a boot starter test psutim test na controller a hlasi mi to chybu
-Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) a pritom main meoda je onyacena springoot aplicaiton ale je v nejakym balicku a ten neni root. 
-Podle me je lepsi dat main tridu a start app do sveho blaicku, ale byla by s tim prace navic, psani anotaci aby to naslo tridu se stpringboot app, tkaey ji dma do hornho blaicku. Na dma platform to je taky tak.
-Predelal jsem ot, pusitm test a zas to hasli chybuy. Jdu cist znova sping boot guide
-
-Ctu guide na testing web. Musi byt v depoednecy starter test. 
-Napred otestuju jestli se nacita spirng boot context. Cili udelam tst tridy, ktera obsahuje main.
-Ten test bude mit anotaci @RunWith(SpringRunner.class)
-@SpringBootTest
-
-Z nejakyho duvodu nefuguje  kdyz dam jenom @webmvc test  a runwth , ale funguje mi @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-public class NoteControllerTest {
-tkaye to tak necham. 
-
-Mam test na noteocntorller. Ok ale ted mchci testu podsoupnout mock repository, aby to byl unit tst, testovat njenom cotnroler. Jak?
-O udella jsem poomoci mockbean  a mam tam uz meyivrstvu mezi contorler a data. To je trida ktera dela logiku, bere data z db, yurpacuje je podle business logikz a preda je contorlleru. Contorller jen osetruje http requesty a zavola bussi nes logku a yiska data, pred aje view. 
-Ctu spring guide data
-Opridam depndcedencz na h2 a jpa data
-
-Napsal jsem repository oddedenou od crudrepossitorz a napsal testy. Pouyiva to h2 dtbazi, staci mit v depodency a funguje to. Samo bez configurace. 
-
-Jak nastavit spojeni s db h2?
-Jak nastavit do jake tabulky se yapisuji entity?
-
-Jak nsatavit poriamrz a foreign key?
-Jak roydelit do dvou tabulek labely a note? Orm?
-Da se ulozit h2 db do souboru?
-Vztvorir init script ktery naplni db entitama
-
-https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#howto-database-initialization
-
-osetreni chyb s db?
-Vytvoreni tbaulkeka a cosntrainsitu?
-https://docs.spring.io/spring-data/jpa/docs/2.0.2.RELEASE/reference/html/
-ted se mi uklada entita sama do h2, stci dt save, zadna incializace db se nemusi delat dela to samo spring data jpa. Ted chci aby mohlo byt vic labelu na poznamku, cili asi list labelu, ale aby v db byla zvlast tabulka labels, natavit foreign key. A one to many? ORM?
-Budu k tomu cist refrenci spirng jpa data
-Repository to je rozisreno na crud rpeositor to je rozisreno na jpa repostiory
-
-pisou, ze
-Set up Spring to create proxy instances for those interfaces. Either via JavaConfig:
-
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-@EnableJpaRepositories
-class Config {}
-
-to nemam nikde v projektu, ale asi to dela sam spring boot kdyz ma v depncdepcncies sprig data jpa?
-
-
-
-
-
-nechau otpional nejde mi to, kdzy oddesim crud nebo jparepositorz nebo repositorz
-tak mi nejde pridat metoda s navratovzm tzpem optional
-
-
-dsl language v jave to je vyhoda
-
-
-Predicate predicate = user.firstname.equalsIgnoreCase("dave")
-	.and(user.lastname.startsWithIgnoreCase("mathews"));
-
-userRepository.findAll(predicate);
-
-
-
-
-napred si aktvuju abych videl do h2 databaze,
-zkuism dat do applicaiton porerties tohle
-spring.h2.console.enabled=true
-musim dat do src/main/resources/application.propersties
-souboru
-vyborne, kdyyz dam do firefoxu localhost:8080/h2/console
-tak to funguje, otevrelj sem stranku ktera by mela vyvtorit zannam v
-tabulce a otevrel jsem h2 db, ale nevim kde hledat svoje
-data
-
-pro9blem je ze neznam jdbc url kam se mam pripojit
-consoel se pripoji kamkoliv i kdyz jdbc url je sptana
-
-jaka je srpvna?
-
+﻿
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -390,16 +14,6 @@ Pasword: <leave this empty>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-uz to funguje
-
-jak udelat foreign key? schema.
-
-mozna to budu muset udelat manualne, ale zkusim vytvorit
-java entitu ktera bude mit jako atribut
-list labelu, schvalne jestli se stim jpa popere samo?
-
-muzu si s tim hrat sam anebo najit na webu
-list<string> entity jpa sprig data
 
 http://javasampleapproach.com/spring-framework/spring-boot/integrate-h2-database-springboot-spring-jpa-embedded-mode
 peknej navod, h2 uklada do souboru takze data zustavaji
@@ -484,84 +98,6 @@ nebo v tesut naspat noovu metodu na porovnani
 equals builders co to je?
 varianta v tesu metodu
 
-nefunujge metod adelte all nevim proc nul pinter pritom je v mym repositorz
-
-dal jsem do testu autowired nad repository a jede to. dalsi chyba
-
-hiernate vyhodit zenemuze uloyit do repo entitu a neco, anlejsem reseni
-musim pridat cascade do manay to many, viz projekt callicoder
-
-pustiljsem test a pise to ze se [pokousim uyit dtached entitz.
-v navodu je definovana taky repositorz na druhou entitu. pridam.
-je divne, ze repostroz mjai s antoaci rpeository, ale me to nfuguje i bey anotace
-ale musim umplementovat metodzy. ykusim to bey tooh. melo bz to oddedit.
-
-udela tjsem repositorz. ta asama chyba. ted udelam to co maji v ukazce, ze musim v java instanci nasdtavit
-obousmernou referenci.
-
-uz to bezi, ale spadloto na note ktera byla vylovena z databze fialed to lazily iniialize a collectinof role no sessip.
-zkusim tad dat fetch lazy
-viz navod na callicoder
-dvne dopnil jsem oboje na lazy podle navodu anefunguje to, na webu radi u jednoho dat eager.
-protze v novdou callicode nemaji kod ktery nahrava z db, takze to neni funkci, on jne uklada.
-dal jsem aega nad ownera a parada jede to.
-
-zkusim jenom one to many.
-
-melo b y jit vypsat vsehcny labely. a kdyz ma label stejny label, tak by se nemel do db ulozit znovu.
-
-anebno to bude many to many unidirecitonal. label nebude mit referenci na note.
-
-kdyz pousitm test a dam debug, tak mi nejde pripojit od cnosele. dal jsem do testu
-readline, aby program enskoncil a trval. ale pripojeni nejde.
-nenti to tim, ye kdzy pousitm aplikaci tak se dejou jiny veci nez kdyz se posuti test?
-mohlo by to byt tim ze se nepusti application. properties?
-udelam test do app. prot dam nejakou pormennou a v testu ji vyvolam, jestloi bude
-pristupna.
-
-kdyztak to save dam az dovntir aplikace ane do testu a odo cnsoelse priji behem apliakce.
-
-nasle njsem navod ktery po uyiva comnad line runner, to se pusti po statu spirng bootu
-snad to nenarusi chod psring boot? bude fungovat palikace dal i kdyz dobehne
-metoda run v commnad line runer? pobeyi dal mvc mapiovani a databaze h2 v consoli?
-
-vyborne do app class jsem pridal ze impelmentuje ocmand line runner a tam dla prikayz
-a i kdzy prikayz dobehnou, tak consoel funguje dal. jeste mvc oykousim
-
-
-------ted to zmenim na many to many unidirecional. odstrnaim refeenci z labelu a
-taky upravim jpa anotaci a zkusim dat pryc fetch lazy a cacadovani.
-udelam to TDD. napred test a pak upravovat az to pujde.
-
-
-orpahn removla kdyz zbude label bez note, ili zadna note nebude referncova tlabael,
-tak by label taky mel bzt vzmyana.
-kdzy znova bude pridana naote a bude mit smazany label tak se label znova vztvori to nen iprobelm
-
-jak funguje cascade?
-fetch lazy?
-
-nefunguje test a kdzy to samy pusitm v apliakci tak je db obsahuje jednu note a actual note je ok
-ale v testu to nefungovlao, actual note byla praydna
-
-je to v tom ze kdyz se posuti test tak se pusti o command line runner a ten operuje
-s db a asi se to spousit nejak zaroven
-zakoentoval jsm vsehcno ov command liner uineer runeer a tes tporsel
-
-persistovani Setu? rozbije se equals contract?
-
-co kdzy se v jave prida do setu uz existujici prvek?
-
-hash coe e a equal
-https://stackoverflow.com/questions/27581/what-issues-should-be-considered-when-overriding-equals-and-hashcode-in-java?noredirect=1&lq=1
-
-apsal jsem novy test ktery pozuyiva find by labels, to je maetod adeuifnovana v noteprosiotrz
-a to dedi z crudu. ale hlasi to czhbu, kupodivu ne chybu ze to neyzna metodu, ale ze gradle
-neumi nacist nejakej soubor yz nejaky chache na disku.
-
-opravim metodu finlabels tak bzy fugovla ajak ma.
-
-viz refenec eke sprind g data jpa
 
 
 fopdoporcuucjou querydsl, ale to ma debilni instalaci viz
@@ -932,7 +468,7 @@ opravit save label kdyz uz existuje
 
 
 11//pridat update label a note OK
-je14:27
+
 update note
 
 pres ntor hndler
@@ -950,12 +486,9 @@ a tady je prikad jak preest thymeleaf form na entitu
 https://stackoverflow.com/questions/24420572/update-or-saveorupdate-in-crudrespository-is-there-any-options-available
 
 
-je 17:23, ale asi hodinu byla puaya na obed,
-bylo patlani s testem, musel jsem predelavat
 
-je 17:57 zacatek update label
-musel jsem predelavat test a menit label
-18:19 hotov update label vcetne testu
+
+
 
 9//pridat delete label OK
 10//pridat delete note OK
@@ -975,15 +508,9 @@ delete note
 kontrola jeslti existuje podle id a pak je rpeositoru delete a ykontorlovat
 tabulku join
 
-zacatek delete label. 18:20
-psani testu
 
-pauza 15 meinut
-19:21 hpotov delelte label
 
-19:22 zacatek psani delelt enote
 
-19:39 konec, delete note hotoov i s testy.
 
 
 
@@ -992,9 +519,7 @@ pauza 15 meinut
 thymeleaf
 spring guides,
 spring in action
-je 19:445 yacatek
 
-chvilvi pauya zacatek 20:11
 
 
 napred udelam stranku na save a label
@@ -1008,15 +533,9 @@ controller na yobryeni
 
 pak n save a note
 
-22:00
-bbly zadny porkm cel tjsem uvod do thyemlea,do spirng tzhmeleaf udela jsem jsem kopii
-ze spirng strnaek forualr s thymeleaf a ten neunguje. nevim poc.
-to bude na dlouho
 
-hlasi mi to chybu
 
-hledam reseni
-zamenuje to pole pro uzivatele za long
+
 
 
 https://stackoverflow.com/questions/30423478/thymeleaf-binding-collections
@@ -1080,9 +599,7 @@ na POJO, ale  k pridani pojo do modelu. divne
 jeste zksuim pridat do controleru consumes form atd
 
 
-napisu na SO dalsi otayku ale napred projdu vsechn
-zkousel jsem podle odpovedi s contentem
-ale to nefunguje
+
 
 jakto ze jim fungovala?
 
@@ -1102,7 +619,7 @@ tady vzsvetlujou jka se z modelu ale jakyho modelu kdzy neexistuje? anebo
 je tim modelem mysleno data z requestu?
 
 
-nemusism se v tom soturat staci kdyz vim jk to pouyit/
+ staci kdyz vim jk to pouyit/
 do parametur dam model attribute nejak to nazvu a Label label
 to udela ze to ezme data z fomrulare a uloyi je to mdelu a do parametru
 vyhledem k tomu, ze metoda save zmeni label, ten samej, nevztori novou isntanci
@@ -1198,7 +715,7 @@ request mapping post nebo postmapping
 @modelattribute
 a Set<
 
-je 15:48 a yjisil jsem ze spring neumi udelat binding na z formu na set to je blby
+zjisyil jsem ze spring neumi udelat binding na z formu na set to je blby
 
 budu set udelat rokaaround.
 kzdzy zmenim set na list tak porusim many to many, budou tam mo byt duplikaty a to jejblbe.
@@ -1286,14 +803,10 @@ a predelam to na apache coomons unique ist a bude to tzpu list
 
  mona udelt testna haschode ve spocku?
 
- sehnat nekho z firmy at mi pomuze
-
- mam cislo na Jirku Macharta
 
 
- je 11:56
 
-je 13:25 tak si 30minutp pomoc pauza
+ 
 
 po save uz se nevyvola metoda hashcode na SetListI, mam tam sout println a to se nezavola.
 jakto ze se behem savu zmeni list tak ze se nevol metoda hashcode na listI ale na necem jinem?
@@ -1352,7 +865,7 @@ ventir se udela nova note a tz se naszpu presne vsechn obejktz note, labels a id
 pritom klonovnai vseho se deleguje na samotne objektz.
 
 udelam copii pomoci konturktoru, clone je lby prej
-je 15:15
+
 
 tstu nefuguji proote dva testu nejde spsutit sie ye to nemuye najtitridu s testy.
 to se i yu jednou tstalol restuuju ideu. zkosuel gradle refresh, gralde lcean atd
@@ -1368,7 +881,7 @@ ohuyel v metode save nemuzu ovlvonit aby se puvodni pormenna odkayovala na
 validni kopii.
 takze musim vzut navratovz hodnoty ze save
 
-sjem blbec udel ajem chy bu v equlas u senotI copz paste chyba nechal jsem tam
+ udel ajem chy bu v equlas u senotI copz paste chyba nechal jsem tam
 instance of LAbel misto setlistI pridebugu jsem to tobjevil
 
 restar idea, ipridal jsem sloyku src test groovy a dal dva testy tam
@@ -1516,7 +1029,7 @@ totey pro updte
 //todo predelat handeler aby napr save nebylos vayzna y s note a label, ale obecne pres interface
 a interface by melo vratit hontou, ktera ma byt jedinecna v db. ale jak?
 
-je 16:26 jdu to delat
+
 napr test vztvori note kde bduodva labelz s empt string labelem, uloyi hot  a metoda ssave vrati
 note kde bude jen jedne labelnapred test
 na listu, ak atest na note a pak test handelru
@@ -1539,7 +1052,7 @@ v updat ejsem vuyil existuji ci metodz save new note, ktera obsahuj vracnei
 validni kopie note a navic dupliatz to je vzhodny
 kdzy se pouyvaji metodz vicekrat.
 
-parada note controler uz umi navayat entitu na naote, doplni do ni labely
+ note controler uz umi navayat entitu na naote, doplni do ni labely
 uloyim note, znova to stirng a uz vni enjsou labely dupkiatni.
 
 jenom formuaor posila praydnz stirngy. chtel bych se jich ybavit.
@@ -1547,8 +1060,7 @@ kdy? idelani pri save a udpate. predelat testy. v rmaci removeduplicates and emp
 
 udel ajsem testz na update a save a mam htoov, testy ok
 
-je 20:12
-co dal?
+
 
 dstnaka ifnd note bz noe
 
@@ -1561,7 +1073,7 @@ tam dofmular s postem jediny stirng
 //todo udelat stejnous tanku por find note y note pro jednu i pro vic pomoci foreac
 iterova tlist
 
-je 10:40 ykousim pridat devtools
+
 ale bude to rzhclejsi?
 ydrzeni je to ye musim sposutit apiacki a to trva dlouho.\
 otayk ajessetli restartovani bude chlejsi nebo ne.
@@ -1571,7 +1083,7 @@ a reatt?restar trva si tri sekundz
 
 upravuju souvbor java a pak dam v idea build -> build moduel  web2
 tim se ymeni soubry v class path a to dev tools mionitorujou
-a restartujous e hura
+a restartujous 
 
 udelam hledani podle note contianing note
 napred test, pak udelat handelr metodu
@@ -1599,22 +1111,22 @@ se obsah shoduje naprosto takze je to jenom tim perist bagem
 //todo do menu html vlozit textove parametra hrefu
 
 
-je 16:10 zacnam na find notes by labels contians
+find notes by labels contians
 moznost dat vic labelu a label se matchuje podle contains
 
 napred test
-test hotovo je 16:18
+
 
 impemematac
 
 nemuzu njit tu dslq uery
 
 udelam delete
-je 18:51
 
-note delte je htoovo je 19>:23
 
-label delete je hotovo. save label je hotovo, seel allabels je hotoov je 21:09
+note delte je htoovo 
+
+label delete je hotovo. save label je hotovo, seel allabels je hotoov 
 
 jdu na update note
 
@@ -1684,5 +1196,5 @@ a.listOfB.any()
     slo by cascade? aby se ukladalo samo a ne ja rucne?
     knizka proJPA2
     
-    vyhodit soubor s poznamkami z githuub, mozna nove repo?
+   
 }
