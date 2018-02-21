@@ -1197,4 +1197,20 @@ a.listOfB.any()
     knizka proJPA2
     
    
+   ------------------------------------
+   ---------------------------------------
+   
+   //TODO
+   abyse ori gradle buildu psutily testy a vypsaly se vysledky
+   0. opravit testy
+   1.db do souboru.
+   2.inject script, ktery na pocatku vlozi do db data. duplicita? Rozbije to testy. Lze mit pro
+   testy jinou db nez pri spusteni aplikace? nebo jiny sping context?
+   3. kdyz bude db v souboru, a zmeni se schema, datovy model, co se stane? JPA osetri? Liquibase?
+   4. ukladani pomoci cascade? odstranit manualni ukladani labelu
+   
+   
+   
+   ---
+   1. build ok, pousti testy. task test funguje.
 }

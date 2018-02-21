@@ -45,7 +45,7 @@ public class Note {
     public Note(Long noteId, String note, List<Label> labels) {
         this.noteId = noteId;
         this.note = note;
-        if (labels!=null) {
+        if (labels != null) {
             this.labels.addAll(labels);
         }
     }
@@ -83,10 +83,24 @@ public class Note {
     }
 
 
-    public void correctBeforeSave(){
-        List temp= labels.stream().distinct().collect(Collectors.toList());
+    public void correctBeforeSave() {
+        removeDuplicates();
+        removeIncorrectElements();
+    }
+
+    private void removeDuplicates() {
+        List temp = labels.stream().distinct().collect(Collectors.toList());
         labels.clear();
         labels.addAll(temp);
+    }
+
+    private void removeIncorrectElements() {
+        if (labels.size() == 0) {
+            return;
+        }
+        if (labels.iterator().next() instanceof Validable) {
+            labels.removeIf(e -> !((Validable) e).isValid());
+        }
     }
 
     @Override
@@ -97,7 +111,6 @@ public class Note {
                 ", labels=" + labels +
                 '}';
     }
-
 
 
     @Override
