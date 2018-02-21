@@ -4,7 +4,13 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+nova console h2 DB, kdyz je v sobuoru
+http://localhost:8080/h2
+jdbc url viz app prop, jmeno i heslo
 
+
+stare, kdyz neni v applivcaiotn porerties nastaveno custom h2 do souboru a 
+tak se pouzije tohle
 localhost:8080/h2/console
 JDBC URL: jdbc:h2:mem:testdb
 User Name: sa
@@ -1201,9 +1207,10 @@ a.listOfB.any()
    ---------------------------------------
    
    //TODO
-   abyse ori gradle buildu psutily testy a vypsaly se vysledky
-   0. opravit testy
-   1.db do souboru.
+   abyse ori gradle buildu psutily testy a vypsaly se vysledky ok
+   0. opravit testy ok
+   1.db do souboru. ok
+   2A.dev tools
    2.inject script, ktery na pocatku vlozi do db data. duplicita? Rozbije to testy. Lze mit pro
    testy jinou db nez pri spusteni aplikace? nebo jiny sping context?
    3. kdyz bude db v souboru, a zmeni se schema, datovy model, co se stane? JPA osetri? Liquibase?
@@ -1212,5 +1219,14 @@ a.listOfB.any()
    
    
    ---
-   1. build ok, pousti testy. task test funguje.
+   1.
+   https://stackoverflow.com/questions/37903105/how-to-configure-spring-boot-to-use-file-based-h2-database
+   https://stackoverflow.com/questions/42135114/how-does-exactly-spring-jpa-hibernate-ddl-auto-property-works-in-spring
+   
+   souobro ok, console ok. ale po restartu je db prazdna
+   pridavam spring.jpa.hibernate.ddl-auto= none
+   pomohlo to, to je dobre i do produkce. schema se udela na pocatku dba
+   a zmeny se delaji skriptama, priprav ana liquibase.
+   
+   monohonasobne pusteni testu ted kdyz se databaze nemaze, nerozbiji se?
 }
