@@ -1229,7 +1229,7 @@ a.listOfB.any()
    snad to je tady?
    http://www.in28minutes.com/jpa-and-hibernate-tutorial-with-spring-boot
    https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#schema-generation
-   https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl
+   https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl  kapitola 23.14 dole
    
    
    souobro ok, console ok. ale po restartu je db prazdna
@@ -1257,5 +1257,34 @@ a.listOfB.any()
    botrun ok. ulono do db ok. stop aplikace, znovu booturun, v db nic neni.
    
    ted aby se db nemazala. 
+   
+   do app.prop spring.jpa.hibernate.ddl-auto=  none. db uz existuje. schema ma. ? po kazdem sposuteni se nic nestane. kdyz bude zmena
+   schematu, tak pouziju liquibase. 
+   znovu clean build. nejde. sql grammar excpeton. asi tam neni schema. 
+   kdyz predtim v properties nebylo nic, jaka byla default value?
+   fungovalo to. 
+   
+   napoprve vytvorit schema, nedropovat. zmenit app prod ddl na none, necha schema i data. 
+   pridat db do gitu. 
+   
+   jpa.ddl neni huibernate ddl. 
+   zksuim prpidat spring.jpa.hibernate.hbm2ddl.auto do app.prop
+   prelozi se spring.jpa.hib.ddl-auto na hib.hb2ddl.auto?
+   nefuguje  hibernate.hbm2ddl.auto ale funguje spring.jpa.hibernate.hbm2ddl.auto
+   melo by se pritom prelozit z jpa do hib. 
+   gradle clean test 3x ok. testy pres idea ok. clean a test pres ideu ok
+   boot run ok, consoke ok, data v db ok. restart a jeslti data zustanou
+   nezustanou. 
+   pustim sql script vypis. jestli se nekde sposuti drop. 
+   pridavam do app.rpop
+   logging.level.org.hibernate.SQL=DEBUG
+   logging.level.org.hibernate.type=TRACE
+   spring.jpa.show-sql=true 
+   pousitm znova
+   bude to psat do console nebo do souboru?
+   hibernate na pocatku dropouje tabulky.
+   ukazat relane sql.
+   
+  
    
 }
