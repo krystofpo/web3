@@ -1222,6 +1222,15 @@ a.listOfB.any()
    1.
    https://stackoverflow.com/questions/37903105/how-to-configure-spring-boot-to-use-file-based-h2-database
    https://stackoverflow.com/questions/42135114/how-does-exactly-spring-jpa-hibernate-ddl-auto-property-works-in-spring
+   https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+   https://stackoverflow.com/questions/42857731/spring-h2-database-persistence
+   http://javasampleapproach.com/spring-framework/spring-boot/integrate-h2-database-springboot-spring-jpa-embedded-mode
+   
+   snad to je tady?
+   http://www.in28minutes.com/jpa-and-hibernate-tutorial-with-spring-boot
+   https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#schema-generation
+   https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl
+   
    
    souobro ok, console ok. ale po restartu je db prazdna
    pridavam spring.jpa.hibernate.ddl-auto= none
@@ -1229,4 +1238,24 @@ a.listOfB.any()
    a zmeny se delaji skriptama, priprav ana liquibase.
    
    monohonasobne pusteni testu ted kdyz se databaze nemaze, nerozbiji se?
+   
+   \
+   chyba. 
+   
+   vymazal jsem db, udelaly se 2 soubory. v app.prop jsem nechal
+   jenom db v souboru exit on close false, ostatni zakomentoval.
+   
+   zkusit 3x build, 3x clena build, gradle test, bootrun 3x, pres ideu pustit
+   testy manualne 
+   pres ideu pustits main metodu.
+   
+   jdk jje v idei zpakty na jva 8
+   
+   clean, build ok. clean, testy pres gradle, ok, probehly. opakovane clean a test a ok.
+   v testu je i appTest testuje nacteni spring contextu. funguji i testy pres IDEU. 
+   
+   botrun ok. ulono do db ok. stop aplikace, znovu booturun, v db nic neni.
+   
+   ted aby se db nemazala. 
+   
 }
